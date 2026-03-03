@@ -35,10 +35,6 @@
     "title": "Ressources Pédagogiques",
     "description": "Informations et documents de recherche concernant le système judiciaire et les droits de l'homme."
   },
-  "ContactPage": {
-    "title": "Contact et Participation",
-    "description": "Nous accueillons les correspondances des chercheurs, des journalistes et des familles."
-  },
   "ContactForm": {
     "name_label": "Votre Nom",
     "name_placeholder": "Nom",
@@ -50,5 +46,9 @@
     "button_sending": "Envoi en cours...",
     "success": "Message envoyé avec succès.",
     "error": "Erreur lors de l'envoi."
+  },
+  "ContactPage": {
+    "title": "Contact et Participation",
+    "description": "Nous accueillons les correspondances des chercheurs, des journalistes et des familles."
   }
 }

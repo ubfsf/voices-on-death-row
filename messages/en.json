@@ -35,11 +35,7 @@
     "title": "Educational Resources",
     "description": "Information and research materials regarding the justice system, human rights, and the reality of the death penalty."
   },
-  "ContactPage": {
-    "title": "Contact & Participation",
-    "description": "We welcome correspondence from researchers, journalists, and families. Use the form below or reach out via email."
-  },
-  
+
   "ContactForm": {
     "name_label": "Your Name",
     "name_placeholder": "Name",
@@ -51,5 +47,9 @@
     "button_sending": "Sending...",
     "success": "Message sent successfully.",
     "error": "Error sending message."
+  },
+  "ContactPage": {
+    "title": "Contact & Participation",
+    "description": "We welcome correspondence from researchers, journalists, and families. Use the form below or reach out via email."
   }
 }
