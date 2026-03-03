@@ -12,7 +12,6 @@ export default function ContactForm() {
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nameRef.current || !emailRef.current || !messageRef.current) return;
-
     setStatus('sending');
 
     try {
@@ -42,51 +41,20 @@ export default function ContactForm() {
   return (
     <form onSubmit={sendEmail} className="w-full space-y-6">
       <div>
-        <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2 block">
-          {t('name_label')}
-        </label>
-        <input 
-          ref={nameRef} 
-          type="text" 
-          required 
-          className="w-full bg-white border border-stone-200 p-3 text-sm focus:outline-none focus:border-stone-400 transition-colors" 
-          placeholder={t('name_placeholder')} 
-        />
+        <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2 block">{t('name_label')}</label>
+        <input ref={nameRef} type="text" required className="w-full bg-white border border-stone-200 p-3 text-sm focus:outline-none focus:border-stone-400 transition-colors" placeholder={t('name_placeholder')} />
       </div>
-
       <div>
-        <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2 block">
-          {t('email_label')}
-        </label>
-        <input 
-          ref={emailRef} 
-          type="email" 
-          required 
-          className="w-full bg-white border border-stone-200 p-3 text-sm focus:outline-none focus:border-stone-400 transition-colors" 
-          placeholder={t('email_placeholder')} 
-        />
+        <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2 block">{t('email_label')}</label>
+        <input ref={emailRef} type="email" required className="w-full bg-white border border-stone-200 p-3 text-sm focus:outline-none focus:border-stone-400 transition-colors" placeholder={t('email_placeholder')} />
       </div>
-
       <div>
-        <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2 block">
-          {t('message_label')}
-        </label>
-        <textarea 
-          ref={messageRef} 
-          required 
-          className="w-full bg-white border border-stone-200 p-3 text-sm h-32 resize-none focus:outline-none focus:border-stone-400 transition-colors" 
-          placeholder={t('message_placeholder')} 
-        />
+        <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2 block">{t('message_label')}</label>
+        <textarea ref={messageRef} required className="w-full bg-white border border-stone-200 p-3 text-sm h-32 resize-none focus:outline-none focus:border-stone-400 transition-colors" placeholder={t('message_placeholder')} />
       </div>
-
-      <button 
-        type="submit" 
-        disabled={status === 'sending'} 
-        className="w-full bg-stone-900 text-stone-50 py-4 text-[10px] uppercase tracking-[0.2em] hover:bg-stone-800 transition-colors disabled:opacity-50"
-      >
+      <button type="submit" disabled={status === 'sending'} className="w-full bg-stone-900 text-stone-50 py-4 text-[10px] uppercase tracking-[0.2em] hover:bg-stone-800 transition-colors disabled:opacity-50">
         {status === 'sending' ? t('button_sending') : t('button_idle')}
       </button>
-
       {status === 'success' && <p className="text-green-600 text-xs italic mt-2">{t('success')}</p>}
       {status === 'error' && <p className="text-red-600 text-xs italic mt-2">{t('error')}</p>}
     </form>
