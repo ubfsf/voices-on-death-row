@@ -2,8 +2,15 @@ import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  // Moving this here ensures it only looks for the key when a user sends a message
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  const apiKey = process.env.RESEND_API_KEY;
+
+  // This check prevents the build from crashing if the key is missing
+  if (!apiKey) {
+    console.error("RESEND_API_KEY is not defined");
+    return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+  }
+
+  const resend = new Resend(apiKey);
 
   try {
     const { name, email, message } = await request.json();
@@ -18,6 +25,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to send" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
 }
