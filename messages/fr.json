@@ -1,0 +1,54 @@
+{
+  "HomePage": {
+    "title": "Documenter l'humanité dans l'ombre de la loi.",
+    "mission": "Voices On Death Row est une plateforme franco-américaine dédiée à donner de la visibilité et de la dignité aux personnes condamnées à mort.",
+    "archive_label": "L'Archive",
+    "archive_desc": "Un espace de confiance pour les lettres, les profils et les œuvres créatives.",
+    "podcast_label": "Témoignages Audio",
+    "podcast_desc": "Écoutez les voix des incarcérés, s'exprimant avec leurs propres mots.",
+    "contact_label": "Contact Direct",
+    "contact_title": "Connectez-vous au Projet",
+    "contact_desc": "Pour toute demande concernant la recherche, les médias ou la participation, veuillez nous contacter.",
+    "contact_button": "Envoyer"
+  },
+  "StoriesPage": {
+    "title": "Profils des Incarcérés",
+    "description": "Documenter des histoires humaines réelles qui sont souvent effacées ou mal comprises."
+  },
+  "ArchivePage": {
+    "title": "Archives des Lettres et Écrits",
+    "description": "Une archive digne de confiance de correspondances, documentant les expériences vécues des condamnés à mort."
+  },
+  "ArtPage": {
+    "title": "Art et Œuvres Créatives",
+    "description": "Donner de la visibilité à l'humanité et à la créativité des personnes incarcérées."
+  },
+  "PodcastPage": {
+    "title": "Témoignages Audio",
+    "description": "Préserver les voix pour le public, les chercheurs et les familles."
+  },
+  "AboutPage": {
+    "title": "À Propos du Projet et de l'Équipe",
+    "description": "Voices On Death Row est né d'une correspondance et est devenu une initiative combinant narration et éducation."
+  },
+  "ResourcesPage": {
+    "title": "Ressources Pédagogiques",
+    "description": "Informations et documents de recherche concernant le système judiciaire et les droits de l'homme."
+  },
+  "ContactPage": {
+    "title": "Contact et Participation",
+    "description": "Nous accueillons les correspondances des chercheurs, des journalistes et des familles."
+  },
+  "ContactForm": {
+    "name_label": "Votre Nom",
+    "name_placeholder": "Nom",
+    "email_label": "Votre Email",
+    "email_placeholder": "Email",
+    "message_label": "Votre Message",
+    "message_placeholder": "Comment pouvons-nous vous aider ?",
+    "button_idle": "Envoyer",
+    "button_sending": "Envoi en cours...",
+    "success": "Message envoyé avec succès.",
+    "error": "Erreur lors de l'envoi."
+  }
+}

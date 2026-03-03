@@ -1,0 +1,37 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer components {
+  /* This fixes the bunched-up links in your screenshot */
+  .nav-link {
+    @apply text-[10px] uppercase tracking-widest font-medium opacity-60 hover:opacity-100 transition-opacity px-4 py-2 text-stone-600;
+  }
+
+  .hero-title {
+    @apply text-5xl md:text-7xl font-serif italic mb-12 leading-tight text-stone-900;
+  }
+
+  .prose-archive {
+    @apply prose prose-stone lg:prose-xl font-serif italic opacity-80 leading-relaxed;
+  }
+  .form-label {
+    @apply text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-2 block;
+  }
+  
+  .form-input {
+    @apply w-full bg-stone-100 border border-stone-200 p-4 font-serif italic text-sm focus:outline-none focus:border-stone-400 transition-colors mb-6;
+  }
+
+  .form-button {
+    @apply bg-stone-900 text-stone-50 px-10 py-4 text-[10px] uppercase tracking-[0.2em] hover:bg-stone-800 transition-colors disabled:opacity-50;
+  }
+}
+
+body {
+  @apply bg-[#fcfaf7] text-stone-900;
+}

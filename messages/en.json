@@ -1,0 +1,55 @@
+{
+  "HomePage": {
+    "title": "Documenting humanity in the shadow of the law.",
+    "mission": "Voices On Death Row is a Franco-American platform dedicated to giving visibility and dignity to people sentenced to death.",
+    "archive_label": "The Archive",
+    "archive_desc": "A trustworthy space for letters, profiles, and creative works.",
+    "podcast_label": "Audio Testimonies",
+    "podcast_desc": "Listen to the voices of the incarcerated, speaking in their own words.",
+    "contact_label": "Direct Contact",
+    "contact_title": "Connect with the Project",
+    "contact_desc": "For inquiries regarding research, media, or participation, please reach out.",
+    "contact_button": "Send Message"
+  },
+  "StoriesPage": {
+    "title": "Profiles of the Incarcerated",
+    "description": "Documenting real human stories that are often erased or misunderstood. This section is dedicated to preserving the identity and dignity of those within the system."
+  },
+  "ArchivePage": {
+    "title": "Letters & Writings Archive",
+    "description": "A trustworthy archive of correspondence, documenting the lived experiences of death row inmates through their own words."
+  },
+  "ArtPage": {
+    "title": "Art & Creative Works",
+    "description": "Giving visibility to the humanity and creativity of incarcerated individuals through their visual and creative expressions."
+  },
+  "PodcastPage": {
+    "title": "Audio Testimonies",
+    "description": "Preserving voices for the public, researchers, and families. Listen to the first-hand accounts of those sentenced to death."
+  },
+  "AboutPage": {
+    "title": "About the Project & Team",
+    "description": "Voices On Death Row was born from correspondence and has grown into a broader initiative combining storytelling, education, and advocacy."
+  },
+  "ResourcesPage": {
+    "title": "Educational Resources",
+    "description": "Information and research materials regarding the justice system, human rights, and the reality of the death penalty."
+  },
+  "ContactPage": {
+    "title": "Contact & Participation",
+    "description": "We welcome correspondence from researchers, journalists, and families. Use the form below or reach out via email."
+  },
+  
+  "ContactForm": {
+    "name_label": "Your Name",
+    "name_placeholder": "Name",
+    "email_label": "Your Email",
+    "email_placeholder": "Email",
+    "message_label": "Your Message",
+    "message_placeholder": "How can we help?",
+    "button_idle": "Send Message",
+    "button_sending": "Sending...",
+    "success": "Message sent successfully.",
+    "error": "Error sending message."
+  }
+}
