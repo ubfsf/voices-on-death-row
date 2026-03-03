@@ -1,9 +1,10 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
+  // Moving this here ensures it only looks for the key when a user sends a message
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   try {
     const { name, email, message } = await request.json();
 
