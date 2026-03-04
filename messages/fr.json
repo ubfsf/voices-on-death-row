@@ -1,5 +1,17 @@
 {
+   "Menu": {
+    "home": "ACCUEIL",
+    "voices": "VOIX",
+    "letters": "LETTRES",
+    "art": "ART DE L'INTÉRIEUR",
+    "documentary": "DOCUMENTAIRE",
+    "about": "À PROPOS",
+    "contact": "CONTACT"
+  },
   "HomePage": {
+    "hero_title": "VOIX DU COULOIR DE LA MORT",
+    "hero_subtitle": "Lettres de l'intérieur du couloir de la mort américain",
+    "enter_button": "ENTRER DANS LES VOIX",
     "title": "Documenter l'humanité dans l'ombre de la loi.",
     "mission": "Voices On Death Row est une plateforme franco-américaine dédiée à donner de la visibilité et de la dignité aux personnes condamnées à mort.",
     "archive_label": "L'Archive",

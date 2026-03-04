@@ -1,11 +1,60 @@
-export const podcast = {
+import {defineField, defineType} from 'sanity'
+
+export default defineType({
   name: 'podcast',
-  title: 'Podcasts',
+  title: 'Podcast',
   type: 'document',
   fields: [
-    { name: 'title', title: 'Episode Title', type: 'string' },
-    { name: 'audioUrl', title: 'Audio File URL', type: 'url', description: 'Link to the MP3 file' },
-    { name: 'description', title: 'Description', type: 'text' },
-    { name: 'date', title: 'Release Date', type: 'date' },
-  ]
-}
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'audioFile',
+      title: 'Audio File',
+      type: 'file',
+      options: {
+        accept: 'audio/*',
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
+      initialValue: () => new Date().toISOString(),
+    }),
+    defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 4,
+    }),
+    defineField({
+      name: 'content',
+      title: 'Detailed Content',
+      type: 'array',
+      of: [{type: 'block'}],
+    }),
+  ],
+})

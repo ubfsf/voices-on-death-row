@@ -1,14 +1,26 @@
 {
+  "Menu":{
+    "home": "HOME",
+    "voices": "VOICES",
+    "letters": "LETTERS",
+    "art": "ART FROM INSIDE",
+    "documentary": "DOCUMENTARY",
+    "about": "ABOUT",
+    "contact": "CONTACT"
+  },
   "HomePage": {
+    "hero_title": "VOICES ON DEATH ROW",
+    "hero_subtitle": "Letters from inside America's death row",
+    "enter_button": "ENTER THE VOICES",
     "title": "Documenting humanity in the shadow of the law.",
-    "mission": "Voices On Death Row is a Franco-American platform dedicated to giving visibility and dignity to people sentenced to death.",
+    "mission": "Voices On Death Row is a Franco-American platform dedicated to giving visibility and dignity to people sentenced to death. Through letters, interviews, art, and testimonies, we document real human stories that are often erased or misunderstood.",
     "archive_label": "The Archive",
-    "archive_desc": "A trustworthy space for letters, profiles, and creative works.",
+    "archive_desc": "A trustworthy space for letters, profiles, and creative works preserved for the public and researchers.",
     "podcast_label": "Audio Testimonies",
     "podcast_desc": "Listen to the voices of the incarcerated, speaking in their own words.",
     "contact_label": "Direct Contact",
     "contact_title": "Connect with the Project",
-    "contact_desc": "For inquiries regarding research, media, or participation, please reach out.",
+    "contact_desc": "For inquiries regarding research, media, or participation, please reach out to our executive lead.",
     "contact_button": "Send Message"
   },
   "StoriesPage": {
