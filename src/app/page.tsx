@@ -1,151 +1,182 @@
 "use client";
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, ScrollText } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
+import { Howl } from 'howler';
 import ContactForm from "@/components/ContactForm";
+import StorySection from "@/components/StorySection";
+import SplitHero from "@/components/SplitHero";
 
 export default function HomePage() {
   const t = useTranslations('HomePage');
   const [hasEntered, setHasEntered] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [shouldBounce, setShouldBounce] = useState(false);
+  const soundRef = useRef<Howl | null>(null);
 
-  // Typewriter animation settings for the intro
+  useEffect(() => {
+    // 1. Initialize local rain sound
+    soundRef.current = new Howl({
+      src: ['/sounds/rain-loop-2400.wav'],
+      loop: true,
+      volume: 0, 
+    });
+
+    // 2. Scroll logic: The landing page slides UP once the user starts scrolling
+    const handleScroll = () => {
+      if (window.scrollY > 10 && !hasEntered) {
+        if (soundRef.current) {
+          // Fade out the rain as the documentary content appears
+          soundRef.current.fade(0.15, 0, 2000); 
+        }
+        setHasEntered(true);
+        setTimeout(() => {
+          if (soundRef.current) soundRef.current.stop();
+        }, 2000);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (soundRef.current) soundRef.current.unload();
+    };
+  }, [hasEntered]);
+
+  // Start the rain sound with a very low, subtle volume for that "quiet" creative feel
+  const startAtmosphere = () => {
+    if (soundRef.current && !soundRef.current.playing()) {soundRef.current.fade(0, 0.2, 3000); 
+      soundRef.current.play();
+      soundRef.current.fade(0, 0.15, 4000); // Fades in to only 15% volume
+    }
+  };
+
   const sentence = {
     hidden: { opacity: 1 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
+    visible: {
+      opacity: 1,
+      transition: { delay: 0.5, staggerChildren: 0.12 }
+    }
   };
+
   const letter = {
-    hidden: { opacity: 0, y: 5 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { opacity: 0, y: 10, filter: "blur(5px)" },
+    visible: { opacity: 1, y: 0, filter: "blur(0px)" }
   };
+
+  // Hint logic: Start a subtle upward bounce after 3 seconds
+    const hintTimer = setTimeout(() => setShouldBounce(true), 3000);
+
+  // Scroll logic: The page "bunches up" and slides UP
+    const handleScroll = () => {
+      if (window.scrollY > 10 && !hasEntered) {
+        if (soundRef.current) soundRef.current.fade(0.2, 0, 2000);
+        setHasEntered(true);
+        setTimeout(() => {
+          if (soundRef.current) soundRef.current.stop();
+        }, 2000);
+      }
+    };
 
   return (
-    <main className="relative min-h-screen bg-[#fcfaf7] overflow-x-hidden text-stone-900 font-serif">
-      {/* 1. THE SOUND ENGINE (Pencil writing sound) */}
-      <audio ref={audioRef} src="/sounds/pencil.mp3" loop />
-
+    <main 
+      className="relative min-h-[200vh] overflow-x-hidden" 
+      onMouseEnter={startAtmosphere} 
+      onClick={startAtmosphere}
+    >
       <AnimatePresence mode="wait">
         {!hasEntered ? (
-          /* 2. IMMERSIVE OPENING EXPERIENCE (Black screen with writing hand) */
+          /* 1. ARTISTIC SPLASH SCREEN - SLIDES UP ON SCROLL */
           <motion.div 
             key="landing"
-            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black text-white"
+            initial={{ y: 0 }}
+            animate={shouldBounce ? { y: [0, -10, 0] } : {}}
+            transition={shouldBounce ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}
+            exit={{ y: "-100%", transition: { duration: 1.2, ease: [0.45, 0, 0.55, 1] } }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505] text-white"
           >
-            <div className="absolute inset-0 opacity-40">
-               <img src="/images/writing.png" className="w-full h-full object-cover" alt="Writing" />
-               <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 opacity-20">
+               <video autoPlay loop muted playsInline className="w-full h-full object-cover grayscale">
+                 <source src="/videos/writing-hand.mp4" type="video/mp4" />
+               </video>
+               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]" />
             </div>
 
-            <div className="relative z-10 text-center px-6 max-w-4xl">
+            <div className="relative z-10 text-center px-6 max-w-5xl">
               <motion.h1 
                 variants={sentence} initial="hidden" animate="visible"
-                onAnimationComplete={() => audioRef.current?.play()}
-                className="text-4xl md:text-6xl tracking-[0.2em] mb-6 font-light uppercase"
+                className="text-4xl md:text-6xl font-artistic tracking-tighter mb-8 italic"
               >
                 {t('hero_title').split("").map((char, index) => (
                   <motion.span key={index} variants={letter}>{char}</motion.span>
                 ))}
               </motion.h1>
               
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 0.7 }} transition={{ delay: 2.5, duration: 2 }} className="text-sm md:text-lg tracking-[0.4em] uppercase font-sans font-light mb-16 border-t border-white/20 pt-8">
+              <motion.p 
+                initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 3, duration: 2 }}
+                className="text-[10px] md:text-xs tracking-[0.8em] uppercase font-sans font-light"
+              >
                 {t('hero_subtitle')}
               </motion.p>
 
-              <motion.button
-                onClick={() => { setHasEntered(true); audioRef.current?.pause(); }}
-                className="group relative border border-white/30 px-16 py-5 text-[10px] tracking-[0.5em] hover:bg-white hover:text-black transition-all duration-700 uppercase font-sans"
+              <motion.div 
+                initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: 5, duration: 1 }}
+                className="mt-20 flex flex-col items-center gap-4 opacity-30"
               >
-                {t('enter_button')}
-              </motion.button>
-            </div>
+                <span className="text-[8px] uppercase tracking-[0.6em] font-sans italic">Scroll upward to begin</span>
+              </motion.div>
+            </div> <ChevronUp className="w-4 h-4" />
           </motion.div>
         ) : (
-          /* 3. INTERACTIVE DOCUMENTARY (Scroll Reveal Sections) */
-          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2 }}>
-            
-            {/* CHAPTER 01: CINEMATIC REVEAL (The Patience) */}
-            <section className="relative h-screen flex items-center justify-center text-center px-6 bg-black overflow-hidden shadow-inner">
-              <div className="absolute inset-0 opacity-30 grayscale">
+          /* 2. THE DOCUMENTARY EXPERIENCE */
+          <motion.div 
+            key="content" 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ duration: 2.5 }}
+          >
+            {/* Cinematic Opening (The Patience) */}
+            <section className="relative h-screen flex items-center justify-center text-center px-6 bg-black overflow-hidden">
+              <div className="absolute inset-0 opacity-20 grayscale">
                 <img src="/images/style-cinematic.jpg" className="w-full h-full object-cover" alt="Cinematic" />
               </div>
-              <div className="relative z-10 max-w-4xl">
-                <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 0.5 }} className="text-[10px] uppercase tracking-[0.5em] text-white mb-8 block font-sans">Chapter 01</motion.span>
-                <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="text-6xl md:text-9xl text-white italic tracking-tighter mb-12">The Patience</motion.h2>
-                <div className="prose prose-invert mx-auto italic text-lg md:text-2xl leading-relaxed opacity-70">
-                  <p>"The muscles must tear and repair... the understanding of a concept coming to you in a moment completely devoid of artistic intention."</p>
+              <div className="relative z-10 max-w-4xl text-white">
+                <h2 className="text-7xl md:text-9xl font-artistic italic tracking-tighter mb-12">The Patience</h2>
+                <div className="prose prose-invert mx-auto italic text-xl md:text-2xl opacity-60 font-artistic leading-relaxed">
+                  <p>"The muscles must tear and repair... a concept coming to you in a moment devoid of intention."</p>
                 </div>
               </div>
             </section>
 
-            {/* CHAPTER 02: SIMPLE IMAGE + TEXT REVEAL (Replaced MLK Split) */}
-            <section className="py-40 bg-[#fcfaf7] border-y border-stone-100">
-              <div className="max-w-5xl mx-auto px-8 flex flex-col items-center text-center">
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }} 
-                  whileInView={{ opacity: 1, scale: 1 }} 
-                  transition={{ duration: 1.5 }}
-                  className="mb-20 w-full max-w-3xl"
-                >
-                  <img src="/images/hero-illustration.png" className="w-full grayscale border border-stone-200 p-2 bg-white shadow-xl" alt="Friend Illustration" />
-                </motion.div>
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }}>
-                  <h2 className="text-5xl italic mb-8">A Human Identity</h2>
-                  <p className="prose prose-stone text-xl italic opacity-80 leading-relaxed max-w-2xl mx-auto">
-                    "In 2020, a creative idea came to mind. Not because we don't want to, but because we don't know where to start."
-                  </p>
-                </motion.div>
-              </div>
-            </section>
+            {/* Story Sections */}
+            <StorySection image="/images/hero-illustration.png" side="left">
+              <h2 className="text-5xl font-artistic italic mb-8 border-b border-stone-200 pb-4 inline-block text-stone-900">A Human Identity</h2>
+              <p className="text-2xl font-artistic leading-relaxed text-stone-800 italic">"In 2020, a creative idea came to mind. We didn't know where to start."</p>
+            </StorySection>
 
-            {/* CHAPTER 03: EDITORIAL SPREAD (Yellow Style) */}
-            <section className="py-40 bg-white">
-              <div className="max-w-6xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
-                <motion.img 
-                  initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}
-                  src="/images/style-editorial.jpg" className="w-full shadow-2xl border border-stone-200" alt="Editorial" 
-                />
-                <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-bold mb-6 block font-sans">The Mission</span>
-                  <h2 className="text-5xl italic mb-8 leading-tight">Culturally Relevant & Informed.</h2>
-                  <p className="prose prose-stone text-lg leading-relaxed opacity-80 italic">
-                    {t('mission')}
-                  </p>
-                </motion.div>
-              </div>
-            </section>
+            <SplitHero 
+              title="Reclaiming the Narrative"
+              text={t('mission')}
+              imageSide="right"
+            />
 
-            {/* CHAPTER 04: HANDWRITTEN COLLAGE (Archive Preview) */}
-            <section className="relative py-60 bg-stone-950 text-white overflow-hidden">
-              <div className="absolute inset-0 opacity-20">
-                <img src="/images/style-handwritten.jpg" className="w-full h-full object-cover" alt="Archive" />
-              </div>
-              <div className="relative z-10 max-w-4xl mx-auto px-8 text-center">
-                <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1.5 }} className="text-6xl md:text-8xl italic mb-12 tracking-tight">Why wait to fight?</motion.h2>
-                <p className="text-xl italic opacity-60 mb-16 max-w-2xl mx-auto leading-relaxed">
-                  "Every letter carries a voice the world has forgotten. We document real human stories that are often erased."
-                </p>
-                <a href="/letters" className="inline-block border border-white/30 px-16 py-5 text-[10px] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all font-sans">
-                  Enter the Archive
-                </a>
-              </div>
-            </section>
+            <StorySection image="/images/style-editorial.jpg" side="right">
+              <h2 className="text-5xl font-artistic italic mb-8 border-b border-stone-200 pb-4 inline-block text-stone-900">Strategic Reform</h2>
+              <p className="text-2xl font-artistic text-stone-800 italic">We prioritize strategic arts programming and professional development for those within the system.</p>
+            </StorySection>
 
-            {/* FINAL SECTION: CONTACT & MISSION RECAP */}
-            <div className="max-w-4xl mx-auto px-8 py-40">
-              <div className="bg-stone-100 p-12 rounded-sm border border-stone-200 flex flex-col md:flex-row justify-between items-start gap-16 shadow-sm">
-                <div className="max-w-sm">
-                  <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold mb-4 text-stone-400 font-sans">{t('contact_label')}</h3>
-                  <h2 className="text-3xl italic text-stone-900 mb-6">{t('contact_title')}</h2>
-                  <p className="text-sm text-stone-500 leading-relaxed font-serif mb-10">{t('contact_desc')}</p>
-                  <div className="pt-6 border-t border-stone-200 font-sans">
-                    <p className="text-sm font-bold text-stone-900 tracking-tight">Halima Kilgore</p>
-                    <p className="text-[10px] text-stone-400 uppercase tracking-[0.2em] mt-1">Executive Admin, UBFSF</p>
+            {/* Final Contact Portal */}
+            <div className="max-w-6xl mx-auto px-8 py-60 border-t border-stone-200">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+                <div>
+                  <h1 className="hero-title text-8xl text-stone-900">Connect</h1>
+                  <p className="ink-text text-2xl opacity-60 mt-8">For inquiries regarding research, media, or participation, please reach out.</p>
+                  <div className="mt-16 pt-12 border-t border-stone-200">
+                    <p className="text-sm font-bold tracking-tight text-stone-900">Halima Kilgore</p>
+                    <p className="text-[10px] uppercase tracking-widest text-stone-400 mt-1">Founder, Voices On Death Row</p>
                   </div>
                 </div>
-                <div className="w-full md:w-1/2">
+                <div className="bg-white p-12 shadow-2xl border border-stone-100">
                   <ContactForm />
                 </div>
               </div>
@@ -156,4 +187,3 @@ export default function HomePage() {
     </main>
   );
 }
-

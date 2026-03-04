@@ -13,6 +13,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.5",
+    "howler": "^2.2.4",
     "lucide-react": "^0.576.0",
     "next": "16.1.6",
     "next-intl": "^4.8.3",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/howler": "^2.2.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
