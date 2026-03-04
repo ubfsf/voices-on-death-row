@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap'); */
+
 
 @theme {
   --font-artistic: "Cormorant Garamond", serif;
@@ -16,13 +17,21 @@
     background-image: url("https://www.transparenttextures.com/patterns/felt.png");
     background-attachment: fixed;
   }
+  .hero-title-clean {
+    @apply text-2xl md:text-3xl font-sans font-medium uppercase tracking-[0.7em] text-white;
+  }
+  
+  .story-text-main {
+    /* Positioned perfectly to appear immediately after scroll */
+     @apply mt-60 mb-40 text-4xl md:text-5xl lg:text-6xl font-artistic italic text-stone-800 leading-[1.2] max-w-4xl mx-auto px-6 text-center;
+  }
 
   .ink-text {
-    @apply font-serif italic leading-relaxed;
+    @apply font-artistic italic leading-relaxed text-stone-800;
   }
 
   .hero-title {
-    @apply text-6xl md:text-9xl font-artistic italic mb-12 leading-tight text-stone-900 tracking-tighter;
+    @apply text-6xl md:text-4xl font-artistic italic mb-12 leading-tight text-stone-900 tracking-tighter;
   }
 
   .prose-archive {
