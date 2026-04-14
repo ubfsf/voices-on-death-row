@@ -4,24 +4,36 @@
     "voices": "VOIX",
     "letters": "LETTRES",
     "art": "ART DE L'INTÉRIEUR",
-    "documentary": "DOCUMENTAIRE",
+    "podcast": "PODCAST",
     "about": "À PROPOS",
     "contact": "CONTACT"
   },
   "HomePage": {
     "hero_title": "VOIX DU COULOIR DE LA MORT",
-    "hero_subtitle": "Lettres de l'intérieur du couloir de la mort américain",
-    "enter_button": "ENTRER DANS LES VOIX",
-    "title": "Documenter l'humanité dans l'ombre de la loi.",
-    "mission": "Voices On Death Row est une plateforme franco-américaine dédiée à donner de la visibilité et de la dignité aux personnes condamnées à mort.",
+    "hero_subtitle": "Une plateforme franco-américaine documentant les histoires réelles du couloir de la mort",
+    "enter_button": "ENTRER DANS L'ARCHIVE",
+    "title": "Donner de la visibilité et de la dignité aux invisibles.",
+    "mission": "Voices On Death Row est une plateforme franco-américaine d'advocacy dédiée à donner de la visibilité et de la dignité aux personnes condamnées à mort. À travers des lettres, des interviews, de l'art et des témoignages, nous documentons des histoires humaines réelles qui sont souvent effacées ou mal comprises. Notre objectif est d'humaniser, d'éduquer et de susciter des conversations significatives sur la réalité du système de justice américain.",
     "archive_label": "L'Archive",
-    "archive_desc": "Un espace de confiance pour les lettres, les profils et les œuvres créatives.",
+    "archive_desc": "Un espace de confiance pour les lettres, les profils et les œuvres créatives préservées pour le public, les chercheurs et les familles.",
     "podcast_label": "Témoignages Audio",
-    "podcast_desc": "Écoutez les voix des incarcérés, s'exprimant avec leurs propres mots.",
-    "contact_label": "Contact Direct",
+    "podcast_desc": "Écoutez les témoignages directs de ceux condamnés à mort, s'exprimant avec leurs propres mots.",
+    "contact_label": "Participation et Soutien",
     "contact_title": "Connectez-vous au Projet",
-    "contact_desc": "Pour toute demande concernant la recherche, les médias ou la participation, veuillez nous contacter.",
-    "contact_button": "Envoyer"
+    "contact_desc": "Nous accueillons la correspondance des chercheurs, journalistes, familles et sympathisants. Renseignez-vous sur les contributions ou la participation.",
+    "contact_button": "Nous Contacter"
+  },
+  "IntroSequence": {
+    "title": "Voix du Couloir de la Mort",
+    "subtitle": "Histoires, lettres et réflexions de derrière les murs des prisons.",
+    "enter_button": "Entrer dans l'Histoire",
+    "audio_hint": "Cliquez n'importe où pour activer l'audio"
+  },
+  "VoicesPage": {
+    "title": "À Propos du Projet",
+    "founder_name": "Halima Kilgore",
+    "founder_title": "Fondatrice et Créatrice",
+    "description": "Voices On Death Row est née d'une correspondance de 17 ans et s'est développée en une plateforme d'advocacy complète combinant la narration, l'éducation et la préservation archivale. Le projet s'enracine dans un engagement profond à humaniser ceux du système judiciaire et à préserver leurs histoires pour les archives publiques."
   },
   "StoriesPage": {
     "title": "Profils des Incarcérés",
@@ -40,8 +52,8 @@
     "description": "Préserver les voix pour le public, les chercheurs et les familles."
   },
   "AboutPage": {
-    "title": "À Propos du Projet et de l'Équipe",
-    "description": "Voices On Death Row est né d'une correspondance et est devenu une initiative combinant narration et éducation."
+    "title": "À Propos du Projet",
+    "description": "Voices On Death Row est une plateforme franco-américaine d'advocacy fondée par Halima Kilgore et inspirée par 17 années de correspondance avec Borgela, un homme haïtien condamné à mort en Pennsylvanie. Nous sommes dédiés à donner de la visibilité et de la dignité aux personnes condamnées à mort. À travers des lettres, des interviews, de l'art et des témoignages, nous documentons des histoires humaines réelles qui sont souvent effacées ou mal comprises, visant à humaniser, éduquer et susciter des conversations significatives sur le système judiciaire."
   },
   "ResourcesPage": {
     "title": "Ressources Pédagogiques",
@@ -61,6 +73,22 @@
   },
   "ContactPage": {
     "title": "Contact et Participation",
-    "description": "Nous accueillons les correspondances des chercheurs, des journalistes et des familles."
+    "description": "Nous accueillons les correspondances des chercheurs, des journalistes et des familles. Utilisez le formulaire ci-dessous ou contactez-nous par e-mail.",
+    "form_description": "Nous accueillons les correspondances des chercheurs, des journalistes et des familles. Si vous souhaitez contribuer à l'archive ou participer au podcast, n'hésitez pas à nous contacter.",
+    "founder_name": "Halima Kilgore",
+    "founder_email": "halima@ubfsf.org",
+    "mailing_address_title": "Adresse Postale",
+    "mailing_address_line1": "United Black Family Scholarship Foundation",
+    "mailing_address_line2": "P.O. BOX 862",
+    "mailing_address_line3": "Bristow, OK 74010"
+  },
+  "Footer": {
+    "about_title": "À Propos du Projet",
+    "about_desc": "Voices On Death Row est une plateforme franco-américaine d'advocacy fondée par Halima Kilgore et inspirée par 17 années de correspondance avec Borgela, un homme haïtien condamné à mort en Pennsylvanie. Nous sommes dédiés à donner de la visibilité et de la dignité aux personnes condamnées à mort. À travers des lettres, des interviews, de l'art et des témoignages, nous documentons des histoires réelles qui sont souvent effacées ou mal comprises, visant à humaniser, éduquer et susciter des conversations significatives sur le système judiciaire.",
+    "navigate_title": "Navigation",
+    "contact_title": "Contact",
+    "founder_title": "Fondatrice",
+    "copyright": "© 2026 Voices On Death Row",
+    "tagline": "Plateforme Franco-Américaine"
   }
 }

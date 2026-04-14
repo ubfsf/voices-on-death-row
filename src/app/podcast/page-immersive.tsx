@@ -1,8 +1,19 @@
-'use client';
-
+"use client";
 import { useTranslations } from 'next-intl';
+import type { Metadata } from 'next';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Podcast - Audio Testimonies | Voices On Death Row',
+  description: 'Listen to firsthand accounts and audio testimonies from individuals sentenced to death. These powerful voices preserve stories for researchers, families, and the public.',
+  openGraph: {
+    title: 'Podcast - Audio Testimonies | Voices On Death Row',
+    description: 'Listen to firsthand accounts and audio testimonies from individuals sentenced to death. These powerful voices preserve stories for researchers, families, and the public.',
+    type: 'website',
+    url: 'https://www.voicesondeathrow.com/podcast',
+  },
+};
 
 export default function PodcastPage() {
   const t = useTranslations('PodcastPage');
@@ -23,7 +34,7 @@ export default function PodcastPage() {
       {/* Hero Section with Parallax */}
       <motion.div 
         style={{ y }}
-        className="relative h-96 bg-linear-to-b from-stone-900 to-stone-800 overflow-hidden"
+        className="relative h-96 bg-gradient-to-b from-stone-900 to-stone-800 overflow-hidden"
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.h1 
@@ -46,47 +57,47 @@ export default function PodcastPage() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="prose-archive"
+          className="prose prose-stone lg:prose-xl font-serif italic opacity-80 leading-relaxed mb-16"
         >
           <p>{t('description')}</p>
         </motion.article>
 
-        {/* Audio Player Section - Sticky */}
+        {/* Audio Player Section */}
         <motion.div
           style={{ scale: playerScale }}
-          className="sticky top-32 bg-white border-2 border-stone-800 p-8 my-16 shadow-lg z-40"
+          className="sticky top-32 bg-white border-2 border-stone-800 p-8 mb-16 shadow-lg"
         >
           <div className="space-y-4">
             <h3 className="text-2xl font-artistic italic text-stone-900">Listen</h3>
             <p className="text-sm text-stone-600">Featured Episode</p>
             <div className="bg-stone-100 rounded-lg p-4 h-12 flex items-center justify-center text-stone-400">
-              [Audio Player - Coming Soon]
+              [Audio Player Placeholder]
             </div>
             <p className="text-xs text-stone-500 italic">
-              Episodes will load from Sanity CMS
+              Audio will load from Sanity CMS when episodes are added
             </p>
           </div>
         </motion.div>
 
         {/* Testimonial Cards - Staggered Animation */}
-        <div className="space-y-12 mt-24">
+        <div className="space-y-12">
           {[
             {
               name: "Episode 1",
               location: "California",
-              excerpt: "Stories from inside the walls. Voices of those living on death row.",
+              excerpt: "Stories from inside the walls. Coming soon with Halima's voices.",
               time: "Coming Soon"
             },
             {
               name: "Episode 2", 
               location: "Pennsylvania",
-              excerpt: "Testimonies of resilience and humanity. Letters read aloud.",
+              excerpt: "Testimonies of resilience and humanity. More voices to follow.",
               time: "Coming Soon"
             },
             {
               name: "Episode 3",
               location: "Texas",
-              excerpt: "Correspondence that changed perspectives. Direct voices from the incarcerated.",
+              excerpt: "Letters read aloud. Correspondence that changed perspectives.",
               time: "Coming Soon"
             }
           ].map((episode, index) => (
@@ -110,7 +121,7 @@ export default function PodcastPage() {
           ))}
         </div>
 
-        {/* Call to Action */}
+        {/* Coming Soon Notice */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -119,8 +130,8 @@ export default function PodcastPage() {
           className="mt-24 text-center border-t-2 border-stone-200 pt-12"
         >
           <p className="text-stone-600 italic max-w-2xl mx-auto">
-            The podcast section is being populated with real audio testimonies and interviews. 
-            Each episode will feature voices directly from those on death row.
+            The podcast section will be populated with real audio testimonies and interviews as Halima continues her documentation work. 
+            Each episode will feature voices directly from those on death row and their stories.
           </p>
         </motion.div>
       </div>

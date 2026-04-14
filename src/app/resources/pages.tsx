@@ -1,9 +1,13 @@
+"use client";
+import { useTranslations } from 'next-intl';
+
 export default function ResourcesPage() {
+  const t = useTranslations('ResourcesPage');
   return (
     <div className="max-w-4xl mx-auto px-8 py-24">
-      <h1 className="hero-title">Educational Resources</h1>
+      <h1 className="hero-title">{t('title')}</h1>
       <article className="prose-archive">
-        <p>Trustworthy information and research materials regarding the death penalty, incarceration, and human rights.</p>
+        <p>{t('description')}</p>
       </article>
     </div>
   );

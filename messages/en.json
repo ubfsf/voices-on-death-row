@@ -4,24 +4,36 @@
     "voices": "VOICES",
     "letters": "LETTERS",
     "art": "ART FROM INSIDE",
-    "documentary": "DOCUMENTARY",
+    "podcast": "PODCAST",
     "about": "ABOUT",
     "contact": "CONTACT"
   },
   "HomePage": {
     "hero_title": "VOICES ON DEATH ROW",
-    "hero_subtitle": "Letters from inside America's death row",
-    "enter_button": "ENTER THE VOICES",
-    "title": "Documenting humanity in the shadow of the law.",
-    "mission": "Voices On Death Row is a Franco-American platform dedicated to giving visibility and dignity to people sentenced to death. Through letters, interviews, art, and testimonies, we document real human stories that are often erased or misunderstood.",
+    "hero_subtitle": "A Franco-American platform documenting real human stories from death row",
+    "enter_button": "ENTER THE ARCHIVE",
+    "title": "Giving visibility and dignity to the unseen.",
+    "mission": "Voices On Death Row is a Franco-American advocacy platform dedicated to giving visibility and dignity to people sentenced to death. Through letters, interviews, art, and testimonies, we document real human stories that are often erased or misunderstood. Our goal is to humanize, educate, and spark meaningful conversations about the realities of the American justice system.",
     "archive_label": "The Archive",
-    "archive_desc": "A trustworthy space for letters, profiles, and creative works preserved for the public and researchers.",
+    "archive_desc": "A trustworthy space for letters, profiles, and creative works preserved for the public, researchers, and families.",
     "podcast_label": "Audio Testimonies",
-    "podcast_desc": "Listen to the voices of the incarcerated, speaking in their own words.",
-    "contact_label": "Direct Contact",
+    "podcast_desc": "Listen to first-hand accounts from those sentenced to death, speaking in their own words.",
+    "contact_label": "Participation & Support",
     "contact_title": "Connect with the Project",
-    "contact_desc": "For inquiries regarding research, media, or participation, please reach out to our executive lead.",
-    "contact_button": "Send Message"
+    "contact_desc": "We welcome correspondence from researchers, journalists, families, and supporters. Inquire about contributions or participation.",
+    "contact_button": "Get in Touch"
+  },
+  "IntroSequence": {
+    "title": "Voices On Death Row",
+    "subtitle": "Stories, letters, and reflections from behind prison walls.",
+    "enter_button": "Enter Story",
+    "audio_hint": "Click anywhere to enable audio"
+  },
+  "VoicesPage": {
+    "title": "About the Project",
+    "founder_name": "Halima Kilgore",
+    "founder_title": "Founder & Creator",
+    "description": "Voices On Death Row was born from 17 years of correspondence and has grown into a comprehensive advocacy platform combining storytelling, education, and archival preservation. The project is rooted in a deep commitment to humanizing those within the justice system and preserving their stories for the public record."
   },
   "StoriesPage": {
     "title": "Profiles of the Incarcerated",
@@ -40,8 +52,8 @@
     "description": "Preserving voices for the public, researchers, and families. Listen to the first-hand accounts of those sentenced to death."
   },
   "AboutPage": {
-    "title": "About the Project & Team",
-    "description": "Voices On Death Row was born from correspondence and has grown into a broader initiative combining storytelling, education, and advocacy."
+    "title": "About the Project",
+    "description": "Voices On Death Row is a Franco-American advocacy platform dedicated to giving visibility and dignity to people sentenced to death. Founded by Halima Kilgore and inspired by 17 years of correspondence with Borgela, a Haitian man sentenced to death in Pennsylvania, this platform documents real human stories that are often erased or misunderstood. Through letters, interviews, art, and testimonies, we aim to raise awareness, humanize those within the justice system, and spark meaningful conversations about the realities of capital punishment in America."
   },
   "ResourcesPage": {
     "title": "Educational Resources",
@@ -62,6 +74,22 @@
   },
   "ContactPage": {
     "title": "Contact & Participation",
-    "description": "We welcome correspondence from researchers, journalists, and families. Use the form below or reach out via email."
+    "description": "We welcome correspondence from researchers, journalists, and families. Use the form below or reach out via email.",
+    "form_description": "We welcome correspondence from researchers, journalists, and families. If you are interested in contributing to the archive or participating in the podcast, please reach out.",
+    "founder_name": "Halima Kilgore",
+    "founder_email": "halima@ubfsf.org",
+    "mailing_address_title": "Mailing Address",
+    "mailing_address_line1": "United Black Family Scholarship Foundation",
+    "mailing_address_line2": "P.O. BOX 862",
+    "mailing_address_line3": "Bristow, OK 74010"
+  },
+  "Footer": {
+    "about_title": "About This Project",
+    "about_desc": "Voices On Death Row is a Franco-American advocacy platform founded by Halima Kilgore and inspired by 17 years of correspondence with Borgela, a Haitian man sentenced to death in Pennsylvania. We are dedicated to giving visibility and dignity to people sentenced to death. Through letters, interviews, art, and testimonies, we document real human stories that are often erased or misunderstood, aiming to humanize, educate, and spark meaningful conversations about the justice system.",
+    "navigate_title": "Navigate",
+    "contact_title": "Contact",
+    "founder_title": "Founder",
+    "copyright": "© 2026 Voices On Death Row",
+    "tagline": "Franco-American Platform"
   }
 }

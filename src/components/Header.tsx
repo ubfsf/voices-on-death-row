@@ -27,13 +27,13 @@ export default function Header() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-0 left-0 right-0 z-[90] border-b border-stone-200 py-4 px-8 bg-[#fcfaf7]/80 backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-90 border-b border-stone-200 py-4 px-8 bg-paper/80 backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
         <a href="/" className="flex items-center gap-4 group">
-          <div className="w-10 h-10 rounded-full border border-stone-900 flex items-center justify-center overflow-hidden p-1 bg-white">
-             <img src="/images/logo.png" alt="Logo" className="w-full h-full object-contain" />
+          <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden p-1">
+             <img src="/images/logo_transparent.ico" alt="Voices on Death Row Logo" className="w-full h-full object-contain" />
           </div>
           <span className="text-[10px] font-sans tracking-[0.2em] uppercase font-bold text-stone-800 hidden sm:block">
             Voices On Death Row
@@ -41,7 +41,7 @@ export default function Header() {
         </a>
         
         <nav className="hidden lg:flex gap-4">
-          {['home', 'voices', 'letters', 'art', 'documentary', 'about', 'contact'].map((item) => (
+          {['home', 'voices', 'letters', 'art', 'podcast', 'about', 'contact'].map((item) => (
             <a key={item} href={`/${item === 'home' ? '' : item}`} className="nav-link">
               {t(item)}
             </a>
