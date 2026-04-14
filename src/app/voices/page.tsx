@@ -9,7 +9,7 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
         {/* Halima's Photo */}
         <div className="relative">
-          <img src="/images/halima.jpg" className="w-full grayscale border border-stone-200 p-2 bg-white" alt={t('founder_name')} />
+          {/* <img src="/images/halima.jpg" className="w-full grayscale border border-stone-200 p-2 bg-white" alt={t('founder_name')} /> */}
           <div className="mt-6">
             <p className="font-bold text-stone-900">{t('founder_name')}</p>
             <p className="text-xs uppercase tracking-widest text-stone-400">{t('founder_title')}</p>
