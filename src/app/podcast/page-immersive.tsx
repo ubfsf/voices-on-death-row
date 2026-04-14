@@ -34,7 +34,7 @@ export default function PodcastPage() {
       {/* Hero Section with Parallax */}
       <motion.div 
         style={{ y }}
-        className="relative h-96 bg-gradient-to-b from-stone-900 to-stone-800 overflow-hidden"
+        className="relative h-96 bg-linear-to-b from-stone-900 to-stone-800 overflow-hidden"
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.h1 

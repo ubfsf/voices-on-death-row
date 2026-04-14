@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -16,26 +16,28 @@
     "framer-motion": "^12.35.0",
     "howler": "^2.2.4",
     "lucide-react": "^0.576.0",
-    "next": "16.1.6",
-    "next-intl": "^4.8.3",
-    "next-sanity": "^12.1.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "next": "^16.2.3",
+    "next-intl": "^4.9.1",
+    "next-sanity": "^12.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-player": "^3.4.0",
     "resend": "^6.9.3",
-    "sanity": "^5.13.0",
+    "sanity": "^5.14.1",
     "tailwind-merge": "^3.5.0",
     "use-sound": "^5.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/howler": "^2.2.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.5.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
+    "eslint-config-next": "^16.2.3",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5"
   }
 }
