@@ -1,6 +1,5 @@
-/* stylelint-disable */
+/* stylelint-disable at-rule-no-unknown */
 @import "tailwindcss";
-/* stylelint-disable-next-line */
 @plugin "@tailwindcss/typography";
 /* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap'); */
 
@@ -48,3 +47,4 @@
 body {
   @apply antialiased selection:bg-stone-200;
 }
+/* stylelint-enable at-rule-no-unknown */
