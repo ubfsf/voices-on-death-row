@@ -1,45 +1,48 @@
-'use client';
+import { client } from '@/lib/sanity';
+import { PortableText } from '@portabletext/react';
 
-import Link from 'next/link';
-import Image from 'next/image';
+export default async function PrisonerProfile({ params }: { params: { slug: string } }) {
+  const query = `*[_type == "voice" && slug.current == $slug][0]{
+    name,
+    "imageUrl": image.asset->url,
+    bio,
+    contact
+  }`;
+  const prisoner = await client.fetch(query, { slug: params.slug });
 
-const VOICES = [
-  { name: 'Francis', slug: 'francis', img: '/images/francis_harris.jpg' },
-  { name: 'Borgela', slug: 'borgela', img: '/images/borgel.jpg' },
-  { name: 'Paul', slug: 'paul', img: '/images/paulgt.jpg' },
-  { name: 'Ojore', slug: 'ojore', img: '/images/ojore.jpg' },
-];
+  if (!prisoner) return <div className="text-white p-20 text-center">Profile not found.</div>;
 
-export default function VoicesPage() {
   return (
-    <main className="min-h-screen bg-[#121212] pt-32 pb-20 px-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-white text-5xl uppercase tracking-[0.5em] text-center mb-24 font-light">
-          Voices
-        </h1>
+    <main className="min-h-screen bg-black text-white pt-32 px-8">
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 items-start">
+        {/* Photo Section - Clean Polaroid look with no extra text */}
+        <div className="w-full md:w-2/5">
+          <div className="bg-white p-3 pb-8 shadow-2xl">
+            <img 
+              src={prisoner.imageUrl} 
+              alt={prisoner.name} 
+              className="w-full h-auto object-contain" 
+            />
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {VOICES.map((person) => (
-            <Link key={person.slug} href={`/voices/${person.slug}`} className="group">
-              {/* Polaroid Frame */}
-              <div className="bg-white p-4 pb-16 shadow-2xl transform transition-all duration-500 group-hover:-rotate-2 group-hover:scale-105">
-                <div className="relative aspect-square overflow-hidden bg-gray-100">
-                  <Image
-                    src={person.img}
-                    alt={person.name}
-                    fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                  />
-                </div>
-                {/* Name at the bottom of Polaroid */}
-                <div className="mt-8 text-center">
-                  <span className="font-serif text-2xl text-stone-800 italic">
-                    {person.name}
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
+        {/* Biography Section */}
+        <div className="w-full md:w-3/5">
+          <h1 className="text-5xl uppercase tracking-widest mb-8 font-light">
+            {prisoner.name}
+          </h1>
+          <div className="prose prose-invert font-serif text-lg leading-relaxed opacity-90">
+            <PortableText value={prisoner.bio} />
+          </div>
+          
+          <div className="mt-16 border-t border-white/10 pt-8">
+            <h3 className="text-xs uppercase tracking-[0.4em] text-stone-500 mb-4">
+              Contact Information
+            </h3>
+            <p className="font-mono text-sm tracking-wider leading-loose">
+              {prisoner.contact}
+            </p>
+          </div>
         </div>
       </div>
     </main>

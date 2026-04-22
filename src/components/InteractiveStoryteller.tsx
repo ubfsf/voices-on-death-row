@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import IntroSequence from "./IntroSequence";
-import Navbar from "./Navbar"; // The Persistent Nav
 import VisualMenu from "./VisualMenu";
+import Navbar from "./Navbar"; 
 
 export default function InteractiveStoryteller() {
   const [hasEntered, setHasEntered] = useState(false);
@@ -12,14 +12,14 @@ export default function InteractiveStoryteller() {
     <div className="relative w-full min-h-screen bg-black">
       <AnimatePresence mode="wait">
         {!hasEntered ? (
-          // STAGE 1: The Video Intro
+          // Only show the video. No Header yet.
           <IntroSequence key="intro" onEnter={() => setHasEntered(true)} />
         ) : (
-          // STAGE 2: The Real Website
+          // Show the actual site after they click
           <div key="site" className="flex flex-col">
-            <Navbar /> {/* This stays at the top of every page */}
+            <Navbar /> 
             <main>
-              <VisualMenu /> {/* This is the big image grid Halima wants */}
+              <VisualMenu />
             </main>
           </div>
         )}

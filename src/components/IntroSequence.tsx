@@ -1,4 +1,3 @@
-// src/components/IntroSequence.tsx
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { Howl } from "howler";
@@ -14,29 +13,30 @@ export default function IntroSequence({ onEnter }: { onEnter: () => void }) {
       loop: true,
       volume: 0.5,
     });
-    return () => soundRef.current?.unload();
+    return () => { soundRef.current?.unload(); };
   }, []);
 
   const handleInteraction = () => {
     if (!isPlaying) {
-      // FIRST CLICK: Starts the sound
       setIsPlaying(true);
       soundRef.current?.play();
     } else {
-      // SECOND CLICK: Fades sound and triggers the transition to the Visual Menu
+      // Second click triggers the transition
       if (soundRef.current) {
-        soundRef.current.fade(0.5, 0, 2000);
-        setTimeout(() => soundRef.current?.stop(), 2000);
+        soundRef.current.fade(0.5, 0, 1500);
       }
-      onEnter(); // THIS IS THE LINE THAT MAKES THE CLICK WORK
+      onEnter(); 
     }
   };
 
   return (
     <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-black cursor-pointer"
-      onClick={handleInteraction} // This listens for the click
+      // This ensures it covers the whole screen and catches clicks
+      className="fixed inset-0 z-[100] bg-black cursor-pointer" 
+      onClick={handleInteraction}
     >
       <video
         autoPlay
@@ -47,11 +47,12 @@ export default function IntroSequence({ onEnter }: { onEnter: () => void }) {
       >
         <source src="/videos/writing-hand.mp4" type="video/mp4" />
       </video>
-      
-      {/* Optional: Add a small hint at the bottom so the user knows to click */}
+
       {!isPlaying && (
-        <div className="absolute bottom-10 w-full text-center text-white/50 text-xs uppercase tracking-widest">
-          Click to start
+        <div className="absolute inset-0 flex items-end justify-center pb-20">
+          <p className="text-white/50 text-[10px] uppercase tracking-[0.5em] animate-pulse">
+            Click to Enter
+          </p>
         </div>
       )}
     </motion.div>
