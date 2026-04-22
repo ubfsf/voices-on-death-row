@@ -2,28 +2,26 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import IntroSequence from "./IntroSequence";
-import StoryArchive from "./StoryArchive";
+import Navbar from "./Navbar"; // The Persistent Nav
+import VisualMenu from "./VisualMenu";
 
 export default function InteractiveStoryteller() {
-  const [stage, setStage] = useState<"intro" | "archive">("intro");
-
-  const handleEnterStory = () => {
-    setStage("archive");
-    // Scroll to top immediately to ensure archive starts clean
-    window.scrollTo(0, 0);
-  };
+  const [hasEntered, setHasEntered] = useState(false);
 
   return (
-    <div className="relative w-full h-full bg-black">
+    <div className="relative w-full min-h-screen bg-black">
       <AnimatePresence mode="wait">
-        {stage === "intro" && (
-          <IntroSequence onEnter={handleEnterStory} />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {stage === "archive" && (
-          <StoryArchive />
+        {!hasEntered ? (
+          // STAGE 1: The Video Intro
+          <IntroSequence key="intro" onEnter={() => setHasEntered(true)} />
+        ) : (
+          // STAGE 2: The Real Website
+          <div key="site" className="flex flex-col">
+            <Navbar /> {/* This stays at the top of every page */}
+            <main>
+              <VisualMenu /> {/* This is the big image grid Halima wants */}
+            </main>
+          </div>
         )}
       </AnimatePresence>
     </div>
