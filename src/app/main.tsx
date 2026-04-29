@@ -3,23 +3,19 @@ import InteractiveStoryteller from '@/components/InteractiveStoryteller';
 
 export default async function MainPage() {
   // 1. Fetch the sections Halima uploaded to Sanity
-  const data = await client.fetch(
-    `*[_type == "homePage"][0]{
-      sections[]{
-        title,
-        "imageUrl": image.asset->url,
-        "link": link
-      }
-    }`,
-    {},
-    { next: { revalidate: 0 } }
-  );
+  const mockSections = [
+    { title: "Voices", imageUrl: "/images/hero-illustration.png", link: "/voices" },
+    { title: "Letters", imageUrl: "/images/writing_another.jpg", link: "/letters" },
+    { title: "Art From Inside", imageUrl: "/images/art_from_inside.jpg", link: "/art" },
+    { title: "Podcast", imageUrl: "/images/hero-illustration.jpg", link: "/podcast" },
+    { title: "About", imageUrl: "/images/person_back.jpg", link: "/about" },
+    { title: "Contact", imageUrl: "/images/eyes.jpg", link: "/contact" },
+  ];
 
-  // 2. Pass the Sanity data into your Storyteller
-  // This component will handle showing the Intro first, then the Menu
   return (
     <main className="bg-black min-h-screen">
-      <InteractiveStoryteller sanitySections={data?.sections || []} />
+      {/* Replace data?.sections with mockSections to test */}
+      <InteractiveStoryteller sanitySections={mockSections} />
     </main>
   );
 }

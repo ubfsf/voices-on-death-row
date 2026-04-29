@@ -3,9 +3,13 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import IntroSequence from "./IntroSequence";
 import VisualMenu from "./VisualMenu";
-import Navbar from "./Navbar";
 
-export default function InteractiveStoryteller({ sanitySections }: { sanitySections: any[] }) {
+// This tells TypeScript that this component now accepts 'sanitySections'
+interface InteractiveStorytellerProps {
+  sanitySections: any[];
+}
+
+export default function InteractiveStoryteller({ sanitySections }: InteractiveStorytellerProps) {
   const [hasEntered, setHasEntered] = useState(false);
 
   return (
@@ -14,10 +18,10 @@ export default function InteractiveStoryteller({ sanitySections }: { sanitySecti
         {!hasEntered ? (
           <IntroSequence key="intro" onEnter={() => setHasEntered(true)} />
         ) : (
-          <div key="site" className="flex flex-col">
-            <Navbar />
+          <main key="site">
+            {/* We pass the Sanity data down to the Visual Menu */}
             <VisualMenu sections={sanitySections} />
-          </div>
+          </main>
         )}
       </AnimatePresence>
     </div>

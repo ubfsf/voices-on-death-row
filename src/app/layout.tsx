@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className="min-h-screen flex flex-col antialiased bg-paper">
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          {/* <Header /> */}
           {/* This 'flex-grow' pushes the footer to the very bottom */}
           <main className="grow">
             {children}
