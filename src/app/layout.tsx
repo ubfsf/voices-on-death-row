@@ -21,11 +21,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col antialiased bg-paper">
+      {/* Added suppressHydrationWarning to body to fix the Grammarly/browser extension errors you were seeing */}
+      <body 
+        className="min-h-screen flex flex-col antialiased bg-paper" 
+        suppressHydrationWarning
+      >
         <NextIntlClientProvider messages={messages}>
           {/* <Header /> */}
-          {/* This 'flex-grow' pushes the footer to the very bottom */}
           <main className="grow">
+            {/* children is correctly placed here - it renders your page content */}
             {children}
           </main>
           <Footer />
