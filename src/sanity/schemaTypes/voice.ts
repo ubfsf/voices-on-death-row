@@ -15,23 +15,18 @@ export const voice = defineType({
     }),
     defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
     
-    // LOCATION & IDENTIFICATION
+    // IDENTIFICATION (Same for both languages)
     defineField({ name: 'inmateNumber', title: 'Inmate Number', type: 'string' }),
     defineField({ name: 'facility', title: 'Facility / Prison Name', type: 'string' }),
     defineField({ name: 'cityState', title: 'City, State', type: 'string' }),
     
-    // NARRATIVE SECTIONS (All optional by default)
-    defineField({ name: 'about', title: 'About', type: 'text', rows: 4 }),
-    defineField({ name: 'legalSituation', title: 'Legal Situation', type: 'text', rows: 4 }),
-    defineField({ name: 'skillsInterests', title: 'Skills & Interests', type: 'text', rows: 4 }),
-    defineField({ name: 'professionalBackground', title: 'Professional Background', type: 'text', rows: 4 }),
-    defineField({ name: 'personalLife', title: 'Personal Life', type: 'text', rows: 4 }),
-    defineField({ name: 'entertainmentSports', title: 'Entertainment & Sports', type: 'text', rows: 4 }),
-    defineField({ name: 'voiceExpression', title: 'Voice & Expression', type: 'text', rows: 4 }),
-    defineField({ name: 'supportAdvocacy', title: 'Support & Advocacy', type: 'text', rows: 4 }),
+    // LOCALIZED NARRATIVE SECTIONS (Uses the localeText helper)
+    defineField({ name: 'about', title: 'About', type: 'localeText' }),
+    defineField({ name: 'legalSituation', title: 'Legal Situation', type: 'localeText' }),
+    defineField({ name: 'voiceExpression', title: 'Voice & Expression', type: 'localeText' }),
+    defineField({ name: 'supportAdvocacy', title: 'Support & Advocacy', type: 'localeText' }),
+    defineField({ name: 'contactInfo', title: 'Contact Information', type: 'localeText' }),
     
-    // LINKS & CONTACT
     defineField({ name: 'caseLink', title: 'Link to Case Details (URL)', type: 'url' }),
-    defineField({ name: 'contactInfo', title: 'Contact Information', type: 'text', rows: 4 }),
   ],
 })
