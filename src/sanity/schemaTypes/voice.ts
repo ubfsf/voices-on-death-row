@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity'
 
 export const voice = defineType({
-  name: 'voice',
-  title: 'Voices',
+  name: 'voice',      // The internal ID
+  title: 'Voices',    // What Halima sees in the sidebar
   type: 'document',
   fields: [
     defineField({ name: 'name', title: 'Name', type: 'string' }),
@@ -14,8 +14,6 @@ export const voice = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
-    
-    // THE NEW BOXES YOU REQUESTED:
     defineField({ name: 'about', title: 'About', type: 'text', rows: 3 }),
     defineField({ name: 'skillsInterests', title: 'Skills & Interests', type: 'text', rows: 3 }),
     defineField({ name: 'professionalBackground', title: 'Professional Background', type: 'text', rows: 3 }),
