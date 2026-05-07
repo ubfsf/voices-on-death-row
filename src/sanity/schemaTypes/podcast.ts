@@ -13,35 +13,30 @@ export const podcast = defineType({
       options: { source: 'title.en', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'mediaType',
-      title: 'Primary Media Format',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Video (YouTube/Vimeo)', value: 'video' },
-          { title: 'Audio File (MP3/WAV)', value: 'audio' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'video',
-    }),
+    defineField({ name: 'episodeNumber', title: 'Episode Number', type: 'number' }),
     defineField({ name: 'description', title: 'Description', type: 'localeText' }),
-    defineField({
-      name: 'videoUrl',
-      title: 'Video URL',
-      type: 'url',
-      hidden: ({ document }) => document?.mediaType !== 'video',
-    }),
+    
+    // MEDIA FIELDS
     defineField({
       name: 'audioFile',
       title: 'Audio File',
       type: 'file',
       options: { accept: 'audio/*' },
-      hidden: ({ document }) => document?.mediaType !== 'audio',
     }),
-    defineField({ name: 'coverImage', title: 'Cover Image', type: 'image', options: { hotspot: true } }),
-    defineField({ name: 'episodeNumber', title: 'Episode Number', type: 'number' }),
+    defineField({
+      name: 'videoUrl',
+      title: 'Video URL (YouTube / Vimeo)',
+      type: 'url',
+      description: 'Paste the link to the video recording here.'
+    }),
+    defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    
+    defineField({ name: 'duration', title: 'Duration (e.g., "45:32")', type: 'string' }),
     defineField({ name: 'releaseDate', title: 'Release Date', type: 'datetime' }),
   ],
 })
