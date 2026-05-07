@@ -1,15 +1,17 @@
 import { client } from '@/lib/sanity';
-import { PortableText } from '@portabletext/react';
-import Image from 'next/image';
+import Link from 'next/link';
 
-export default async function VoiceDetail({ params }: { params: Promise<{ slug: string }> }) {
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function VoiceDetail({ params }: Props) {
   const { slug } = await params;
 
-  const query = `*[_type == "archive" && slug.current == $slug][0]{
-    title,
-    author,
-    content,
-    "imageUrl": image.asset->url
+  const query = `*[_type == "voice" && _id == $slug][0]{
+  "author": name,
+  "content": bio,
+  "imageUrl": photo.asset->url
   }`;
 
   const voice = await client.fetch(query, { slug });
@@ -23,28 +25,25 @@ export default async function VoiceDetail({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <main className="min-h-screen bg-black text-white pt-32 px-8 font-serif">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 items-start">
-        <div className="w-full md:w-2/5">
-          <div className="bg-white p-3 pb-12 shadow-2xl rotate-[-1deg]">
-            {voice.imageUrl && (
-              <img 
-                src={voice.imageUrl} 
-                alt={voice.author} 
-                className="w-full h-auto grayscale"
-              />
-            )}
-            <p className="text-black text-center mt-6 text-2xl italic">{voice.author}</p>
-          </div>
+    <main className="min-h-screen bg-black text-white pt-32 pb-20 px-8 font-serif">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white p-4 pb-12 shadow-2xl mb-16 mx-auto max-w-lg rotate-[-1deg]">
+          <img src={voice.imageUrl} alt={voice.name} className="w-full h-auto grayscale" />
+          <p className="text-black text-center mt-6 text-2xl italic">{voice.name}</p>
         </div>
 
-        <div className="w-full md:w-3/5">
-          <h1 className="text-5xl uppercase tracking-widest mb-4 font-light">{voice.author}</h1>
-          <h2 className="text-xl mb-12 opacity-60 tracking-widest uppercase">{voice.title}</h2>
-          
-          <div className="prose prose-invert text-xl leading-relaxed opacity-90 whitespace-pre-wrap">
-            {voice.content}
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-5xl uppercase tracking-tighter font-light mb-12 text-center">{voice.name}</h1>
+          <div className="text-xl leading-relaxed text-gray-300 whitespace-pre-wrap font-light mb-20">
+            {voice.bio}
           </div>
+
+          {voice.contactInfo && (
+            <div className="border-t border-white/10 pt-10">
+              <h3 className="text-xs uppercase tracking-widest text-white/40 mb-4">Contact Info</h3>
+              <p className="text-sm font-mono opacity-60">{voice.contactInfo}</p>
+            </div>
+          )}
         </div>
       </div>
     </main>

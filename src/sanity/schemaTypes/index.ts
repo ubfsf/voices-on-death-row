@@ -1,6 +1,8 @@
-import { archive } from './archive'
+import { voices } from './voices'
 import podcast from './podcast'
+// import { letters } from './letters' // Add these once you make the files
+// import { art } from './art'
 
 export const schema = {
-  types: [podcast, archive],
+  types: [voices, podcast], // Add all your blueprints here!
 }

@@ -6,14 +6,12 @@ interface VisualMenuProps {
 }
 
 export default function VisualMenu({ sections }: VisualMenuProps) {
-  // 6 Menu Items as requested, using original photo colors
   const MENU_CONFIG = [
     { title: "Voices", image: "/images/eyes.jpg", link: "/voices" },
     { title: "Letters", image: "/images/writing_another.jpg", link: "/letters" },
     { title: "Art From Inside", image: "/images/art_from_inside.jpg", link: "/art" },
-    { title: "Podcast", image: "/images/person_back.jpg", link: "/podcast" }, // Using the bars/window image
-    { image: "/images/about.jpg", link: "/about" }, // The photo of you with the book
-    // { title: "Contact", image: "/images/hero-illustration.png", link: "/contact" }, 
+    { title: "Podcast", image: "/images/person_back.jpg", link: "/podcast" }, 
+    { title: "About", image: "/images/about.jpg", link: "/about" }, // Fixed: Added title here
   ];
 
   return (
@@ -24,7 +22,6 @@ export default function VisualMenu({ sections }: VisualMenuProps) {
         </h1>
       </header>
 
-      {/* 2 rows of 3 items */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {MENU_CONFIG.map((item) => (
           <Link 
@@ -46,7 +43,6 @@ export default function VisualMenu({ sections }: VisualMenuProps) {
         ))}
       </div>
 
-      {/* Bottom Banner - Home painting */}
       <div className="max-w-7xl mx-auto mt-8">
         <div className="relative w-full h-[300px] md:h-[450px] overflow-hidden">
           <img 

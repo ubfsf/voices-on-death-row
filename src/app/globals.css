@@ -53,3 +53,9 @@
     @apply antialiased selection:bg-stone-200 bg-[var(--color-paper)];
   }
 }
+
+@layer utilities {
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
+  }
+}
