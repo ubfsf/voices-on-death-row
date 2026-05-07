@@ -1,10 +1,15 @@
-"use client";
+'use client'
 
-import { NextStudio } from 'next-sanity/studio';
-// This uses the new 'root' alias to find the config file instantly
-import config from '../../../../sanity.config';
+import { NextStudio } from 'next-sanity/studio'
+import dynamic from 'next/dynamic'
+import config from '../../../../sanity.config' 
 
-export default function StudioPage() {
-  return <NextStudio config={config} />;
+// THE FIX: Use dynamic import with ssr: false
+const StudioPage = dynamic(
+  () => import('next-sanity/studio').then((mod) => mod.NextStudio),
+  { ssr: false }
+)
+
+export default function Studio() {
+  return <StudioPage config={config} />
 }
-                   

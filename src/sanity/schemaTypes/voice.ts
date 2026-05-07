@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity'
 
 export const voice = defineType({
-  name: 'voice',      // The internal ID
-  title: 'Voices',    // What Halima sees in the sidebar
+  name: 'voice',
+  title: 'Voices',
   type: 'document',
   fields: [
     defineField({ name: 'name', title: 'Name', type: 'string' }),
@@ -14,15 +14,24 @@ export const voice = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
-    defineField({ name: 'about', title: 'About', type: 'text', rows: 3 }),
-    defineField({ name: 'skillsInterests', title: 'Skills & Interests', type: 'text', rows: 3 }),
-    defineField({ name: 'professionalBackground', title: 'Professional Background', type: 'text', rows: 3 }),
-    defineField({ name: 'personalLife', title: 'Personal Life', type: 'text', rows: 3 }),
-    defineField({ name: 'entertainmentSports', title: 'Entertainment & Sports', type: 'text', rows: 3 }),
-    defineField({ name: 'legalSituation', title: 'Legal Situation', type: 'text', rows: 5 }),
-    defineField({ name: 'voiceExpression', title: 'Voice & Expression', type: 'text', rows: 5 }),
-    defineField({ name: 'supportAdvocacy', title: 'Support & Advocacy', type: 'text', rows: 5 }),
-    defineField({ name: 'caseLink', title: 'Link to learn more about case (URL)', type: 'url' }),
-    defineField({ name: 'contactInfo', title: 'Contact Information', type: 'text', rows: 3 }),
+    
+    // LOCATION & IDENTIFICATION
+    defineField({ name: 'inmateNumber', title: 'Inmate Number', type: 'string' }),
+    defineField({ name: 'facility', title: 'Facility / Prison Name', type: 'string' }),
+    defineField({ name: 'cityState', title: 'City, State', type: 'string' }),
+    
+    // NARRATIVE SECTIONS (All optional by default)
+    defineField({ name: 'about', title: 'About', type: 'text', rows: 4 }),
+    defineField({ name: 'legalSituation', title: 'Legal Situation', type: 'text', rows: 4 }),
+    defineField({ name: 'skillsInterests', title: 'Skills & Interests', type: 'text', rows: 4 }),
+    defineField({ name: 'professionalBackground', title: 'Professional Background', type: 'text', rows: 4 }),
+    defineField({ name: 'personalLife', title: 'Personal Life', type: 'text', rows: 4 }),
+    defineField({ name: 'entertainmentSports', title: 'Entertainment & Sports', type: 'text', rows: 4 }),
+    defineField({ name: 'voiceExpression', title: 'Voice & Expression', type: 'text', rows: 4 }),
+    defineField({ name: 'supportAdvocacy', title: 'Support & Advocacy', type: 'text', rows: 4 }),
+    
+    // LINKS & CONTACT
+    defineField({ name: 'caseLink', title: 'Link to Case Details (URL)', type: 'url' }),
+    defineField({ name: 'contactInfo', title: 'Contact Information', type: 'text', rows: 4 }),
   ],
 })
