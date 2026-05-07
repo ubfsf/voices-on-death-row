@@ -1,13 +1,12 @@
-// src/proxy.ts
 import createMiddleware from 'next-intl/middleware';
  
-export function proxy(request: Request) {
-  return createMiddleware({
-    locales: ['en', 'fr'],
-    defaultLocale: 'en'
-  })(request);
-}
+export default createMiddleware({
+  locales: ['en', 'fr'],
+  defaultLocale: 'en',
+  localePrefix: 'as-needed',
+});
  
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  // Exclude /studio and API routes from the locale middleware
+  matcher: ['/((?!api|studio|_next|.*\\..*).*)']
 };

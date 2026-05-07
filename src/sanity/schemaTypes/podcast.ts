@@ -1,60 +1,42 @@
-import {defineField, defineType} from 'sanity'
+import { defineType, defineField } from 'sanity'
 
-export default defineType({
+export const podcast = defineType({
   name: 'podcast',
-  title: 'Podcast',
+  title: 'Podcasts',
   type: 'document',
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
+    defineField({ name: 'title', title: 'Title', type: 'localeString' }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
+      options: { source: 'title.en', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
+    defineField({ name: 'episodeNumber', title: 'Episode Number', type: 'number' }),
+    defineField({ name: 'description', title: 'Description', type: 'localeText' }),
+    
+    // MEDIA FIELDS
     defineField({
       name: 'audioFile',
       title: 'Audio File',
       type: 'file',
-      options: {
-        accept: 'audio/*',
-      },
-      validation: (Rule) => Rule.required(),
+      options: { accept: 'audio/*' },
     }),
     defineField({
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
-      initialValue: () => new Date().toISOString(),
+      name: 'videoUrl',
+      title: 'Video URL (YouTube / Vimeo)',
+      type: 'url',
+      description: 'Paste the link to the video recording here.'
     }),
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 4,
-    }),
-    defineField({
-      name: 'content',
-      title: 'Detailed Content',
-      type: 'array',
-      of: [{type: 'block'}],
-    }),
+    
+    defineField({ name: 'duration', title: 'Duration (e.g., "45:32")', type: 'string' }),
+    defineField({ name: 'releaseDate', title: 'Release Date', type: 'datetime' }),
   ],
 })

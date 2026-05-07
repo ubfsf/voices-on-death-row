@@ -14,19 +14,18 @@ export default async function VoicesWall() {
 
   return (
     <main className="min-h-screen overflow-x-hidden relative bg-[#1a1a1a]">
-      {/* THE NEW BRICK WALL BACKGROUND */}
+      {/* THE BRICK WALL BACKGROUND */}
       <div 
         className="fixed inset-0 z-0 pointer-events-none opacity-80"
         style={{
           backgroundImage: `url('https://images.pexels.com/photos/29678809/pexels-photo-29678809.jpeg?_gl=1*cuhj7p*_ga*MTc1OTgyMzQyOS4xNzc4MTEzNjA3*_ga_8JE65Q40S6*czE3NzgxMTM2MDckbzEkZzEkdDE3NzgxMTQxODMkajUyJGwwJGgw')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          // Keeping it natural as requested, just a slight contrast boost
           filter: 'contrast(1.1)', 
         }}
       />
 
-      {/* BACK TO MENU: mix-blend-difference ensures it stays visible on the brick */}
+      {/* BACK TO MENU */}
       <Link 
         href="/" 
         className="fixed top-10 left-10 z-50 text-white/60 hover:text-white transition-all duration-500 uppercase text-xs tracking-[0.4em] font-light mix-blend-difference group"

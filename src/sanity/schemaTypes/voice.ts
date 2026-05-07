@@ -15,13 +15,18 @@ export const voice = defineType({
     }),
     defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
     
-    // IDENTIFICATION (Same for both languages)
+    // LOCATION & ID
     defineField({ name: 'inmateNumber', title: 'Inmate Number', type: 'string' }),
     defineField({ name: 'facility', title: 'Facility / Prison Name', type: 'string' }),
     defineField({ name: 'cityState', title: 'City, State', type: 'string' }),
     
-    // LOCALIZED NARRATIVE SECTIONS (Uses the localeText helper)
+    // BILINGUAL NARRATIVE SECTIONS (The "Open Spots" for the client)
     defineField({ name: 'about', title: 'About', type: 'localeText' }),
+    defineField({ name: 'beliefQuote', title: 'Personal Quote / Belief', type: 'localeText' }),
+    defineField({ name: 'skillsInterests', title: 'Skills & Interests', type: 'localeText' }),
+    defineField({ name: 'professionalBackground', title: 'Professional Background', type: 'localeText' }),
+    defineField({ name: 'personalLife', title: 'Personal Life', type: 'localeText' }),
+    defineField({ name: 'entertainmentSports', title: 'Entertainment & Sports', type: 'localeText' }),
     defineField({ name: 'legalSituation', title: 'Legal Situation', type: 'localeText' }),
     defineField({ name: 'voiceExpression', title: 'Voice & Expression', type: 'localeText' }),
     defineField({ name: 'supportAdvocacy', title: 'Support & Advocacy', type: 'localeText' }),

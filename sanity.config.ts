@@ -1,6 +1,6 @@
-import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
-import { schema } from './src/sanity/schemaTypes'; // 1. Import your new registry
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { schemaTypes } from './src/sanity/schemaTypes'
 
 export default defineConfig({
   name: 'default',
@@ -9,6 +9,7 @@ export default defineConfig({
   dataset: 'production',
   basePath: '/studio',
   plugins: [structureTool()],
-  // 2. THE FIX: Use the imported schema object instead of the hardcoded list
-  schema: schema, 
-});
+  schema: {
+    types: schemaTypes,
+  },
+})
