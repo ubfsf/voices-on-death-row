@@ -1,59 +1,56 @@
 "use client";
-import { motion, Variants } from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface TypewriterProps {
   text: string;
-  className?: string;
+  speed?: number;
   delay?: number;
+  className?: string;
 }
 
-export default function Typewriter({ text, className = "", delay = 0 }: TypewriterProps) {
+export default function Typewriter({ text, speed = 0.008, delay = 0, className = "" }: TypewriterProps) {
   const words = text.split(" ");
-  
-  const container: Variants = {
+
+  const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { 
-        staggerChildren: 0.02, 
-        delayChildren: delay 
+        staggerChildren: speed, 
+        delayChildren: delay,
+        // This ensures the animation finishes quickly for skimmers
+        duration: 0.2 
       },
     },
   };
 
-  const child: Variants = {
+  const child = {
     visible: {
       opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { type: "spring", damping: 12, stiffness: 200 },
+      transition: {
+        duration: 0.1,
+        ease: "easeOut"
+      },
     },
     hidden: {
       opacity: 0,
-      y: 10,
-      filter: "blur(4px)",
     },
   };
 
   return (
-    <motion.p
+    <motion.div
+      style={{ display: "flex", flexWrap: "wrap", gap: "0.25em" }}
       variants={container}
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
       className={className}
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
-      {words.map((word, wordIndex) => (
-        <span key={wordIndex} style={{ whiteSpace: "nowrap", display: "inline-block" }}>
-          {word.split("").map((char, charIndex) => (
-            <motion.span key={charIndex} variants={child}>
-              {char}
-            </motion.span>
-          ))}
-          {/* Add space after each word */}
-          <span style={{ display: "inline-block" }}>&nbsp;</span>
-        </span>
+      {words.map((word, index) => (
+        <motion.span variants={child} key={index}>
+          {word}
+        </motion.span>
       ))}
-    </motion.p>
+    </motion.div>
   );
 }

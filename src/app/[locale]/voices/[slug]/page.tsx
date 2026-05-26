@@ -1,6 +1,7 @@
 import { client } from '@/lib/sanity';
 import Link from 'next/link';
 import * as motion from "framer-motion/client";
+import Typewriter from '@/components/Typewriter';
 
 type Props = {
   params: Promise<{ slug: string; locale: string }>;
@@ -29,7 +30,7 @@ export default async function VoiceDetail({ params }: Props) {
 
   const voice = await client.fetch(query, { slug, locale });
 
-  if (!voice) return <div className="bg-[#121212] min-h-screen" />;
+  if (!voice) return <div className="bg-[#050505] min-h-screen" />;
 
   const labels: Record<string, string> = {
     legal: locale === 'fr' ? 'SITUATION JURIDIQUE' : 'LEGAL SITUATION',
@@ -55,9 +56,11 @@ export default async function VoiceDetail({ params }: Props) {
   ];
 
   return (
-    <main className="min-h-screen bg-[#121212] text-white pt-12 pb-40 px-6 md:px-16 font-serif relative">
+    <main className="min-h-screen bg-[#050505] text-white pt-12 pb-40 px-6 md:px-16 font-serif relative overflow-x-hidden">
       
-      {/* MINIMALIST NAVIGATION */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(20,20,20,1)_0%,_rgba(0,0,0,1)_100%)] pointer-events-none" />
+
       <Link 
         href={`/${locale}/voices`} 
         className="fixed top-12 left-8 z-50 text-white/30 hover:text-white transition-colors uppercase text-[10px] tracking-[0.5em] mix-blend-difference"
@@ -65,91 +68,87 @@ export default async function VoiceDetail({ params }: Props) {
         ← {labels.back}
       </Link>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start relative z-10">
         
-        {/* LEFT COLUMN: Visual Identity */}
         <div className="lg:col-span-5 lg:sticky lg:top-12 flex flex-col items-center lg:items-end pt-24">
-          
-          {/* VERTICAL BACKGROUND NAME - Lighter for visibility */}
-          {voice.name && (
-            <div className="hidden lg:block absolute -left-16 top-24 h-full">
-              <h2 
-                className="text-stone-500 text-8xl font-bold uppercase tracking-tighter vertical-text opacity-20 select-none pointer-events-none italic" 
-                style={{ writingMode: 'vertical-rl' }}
-              >
-                {voice.name?.split(' ').pop()}
-              </h2>
-            </div>
-          )}
-
-          {/* THE IMAGE: Floating directly, no white background */}
-          <div className="relative w-full max-w-md group">
-            {/* INMATE NUMBER OVERLAY */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="relative w-full max-w-md group"
+          >
             {voice.inmateNumber && (
-              <div className="absolute top-4 left-4 z-20">
-                 <p className="text-white text-[10px] uppercase tracking-[0.4em] font-sans bg-black/60 backdrop-blur-md px-3 py-1 rounded-sm border border-white/10">
-                   #{voice.inmateNumber}
+              <div className="absolute -top-6 left-0 z-20">
+                 <p className="text-stone-500 text-[9px] font-mono uppercase tracking-[0.4em]">
+                   Archive_Ref // #{voice.inmateNumber}
                  </p>
               </div>
             )}
 
-            <div className="overflow-hidden aspect-[4/5] shadow-2xl">
+            <div className="overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.9)] rotate-[-1deg] border border-white/5">
               <motion.img 
                 src={voice.imageUrl} 
                 alt={voice.name} 
-                className="w-full h-full object-cover block cursor-zoom-in"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.8 }}
+                className="w-full h-auto block grayscale-[0.2] hover:grayscale-0 transition-all duration-[1.5s]"
+                whileHover={{ scale: 1.03 }}
               />
             </div>
-          </div>
-          
-          {/* FACILITY METADATA */}
-          <div className="mt-12 space-y-2 opacity-50 text-center lg:text-right font-sans text-xs uppercase tracking-[0.3em]">
-            <p>{voice.facility}</p>
-            <p>{voice.cityState}</p>
-          </div>
+
+            <div className="mt-12 space-y-2 opacity-30 text-right font-sans text-[10px] uppercase tracking-[0.4em] leading-relaxed">
+              <p>{voice.facility}</p>
+              <p>{voice.cityState}</p>
+            </div>
+          </motion.div>
         </div>
 
-        {/* RIGHT COLUMN: Narrative Content */}
-        <div className="lg:col-span-7 space-y-24 pt-4">
+        <div className="lg:col-span-7 space-y-32 pt-4">
           
-          {/* PRIMARY SECTION: Name header */}
           <section className="space-y-12">
-            <header>
-               <h1 className="text-6xl md:text-9xl font-bold tracking-tighter leading-[0.8] mb-6 italic">
+            <header className="overflow-hidden">
+               <motion.h1 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="text-7xl md:text-[10vw] font-black italic tracking-tighter leading-[0.75] mb-8 uppercase"
+               >
                 {voice.name}
-              </h1>
-              <div className="h-px w-32 bg-white/20" />
+              </motion.h1>
+              <div className="h-px w-24 bg-stone-800" />
             </header>
 
-            <div className="text-xl md:text-2xl leading-relaxed text-white/80 font-light whitespace-pre-wrap">
-              {voice.about}
+            <div className="text-2xl md:text-3xl leading-[1.4] text-stone-300 font-light italic tracking-tight">
+              {voice.about && <Typewriter text={voice.about} speed={0.01} delay={0.2} />}
             </div>
           </section>
 
-          {/* BELIEF QUOTE */}
           {voice.beliefQuote && (
-            <section className="py-16 border-y border-white/5">
-              <p className="text-2xl md:text-4xl text-white/90 font-serif italic font-light leading-tight text-center max-w-xl mx-auto tracking-tight">
-                "{voice.beliefQuote}"
-              </p>
+            <section className="py-24 border-y border-white/5">
+              <div className="max-w-xl mx-auto text-center">
+                <Typewriter 
+                  text={`"${voice.beliefQuote}"`} 
+                  speed={0.02} 
+                  className="text-3xl md:text-5xl text-white font-black italic leading-tight tracking-tighter uppercase" 
+                />
+              </div>
             </section>
           )}
 
-          {/* DYNAMIC NARRATIVE SECTIONS */}
-          {narrativeSections.map((section) => section.content && (
-            <section key={section.label} className="space-y-8 border-t border-white/5 pt-12">
-              <h3 className="text-[10px] uppercase tracking-[0.6em] text-white/40 font-bold font-sans">
-                {section.label}
-              </h3>
-              <div className="text-lg md:text-xl leading-relaxed text-white/60 font-light whitespace-pre-wrap">
-                {section.content}
-              </div>
-            </section>
-          ))}
-        </div>
+          <div className="space-y-32">
+            {narrativeSections.map((section) => section.content && (
+              <section key={section.label} className="space-y-10 group">
+                <div className="flex items-center gap-6">
+                  <div className="h-px w-12 bg-stone-900 group-hover:w-20 group-hover:bg-white transition-all duration-700" />
+                  <h3 className="text-[10px] uppercase tracking-[0.6em] text-stone-600 font-bold font-sans">
+                    {section.label}
+                  </h3>
+                </div>
+                <div className="text-xl md:text-2xl leading-relaxed text-stone-400 font-light border-l border-stone-900 pl-10">
+                  <Typewriter text={section.content} speed={0.005} />
+                </div>
+              </section>
+            ))}
+          </div>
 
+        </div>
       </div>
     </main>
   );

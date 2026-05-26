@@ -1,8 +1,15 @@
 import { client } from '@/lib/sanity';
-import ScrollyVoiceItem from '@/components/ScrollyVoiceItem';
+import VoicesGallery from '@/components/VoicesGallery';
 import Link from 'next/link';
 
-export default async function VoicesWall() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function VoicesPage({ params }: Props) {
+  const { locale } = await params;
+
+  // Fetching the data exactly as Sanity provides it
   const query = `*[_type == "voice"] | order(_createdAt asc){
     _id,
     "author": name, 
@@ -13,43 +20,51 @@ export default async function VoicesWall() {
   const voices = await client.fetch(query);
 
   return (
-    <main className="min-h-screen overflow-x-hidden relative bg-[#1a1a1a]">
-      {/* THE BRICK WALL BACKGROUND */}
-      <div 
-        className="fixed inset-0 z-0 pointer-events-none opacity-80"
-        style={{
-          backgroundImage: `url('https://images.pexels.com/photos/29678809/pexels-photo-29678809.jpeg?_gl=1*cuhj7p*_ga*MTc1OTgyMzQyOS4xNzc4MTEzNjA3*_ga_8JE65Q40S6*czE3NzgxMTM2MDckbzEkZzEkdDE3NzgxMTQxODMkajUyJGwwJGgw')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'contrast(1.1)', 
-        }}
-      />
+    <main className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-white selection:text-black">
+      
+      {/* Cinematic Background Overlays */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(15,15,15,1)_0%,_rgba(0,0,0,1)_100%)]" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      </div>
 
-      {/* BACK TO MENU */}
+      {/* Fixed Menu Link */}
       <Link 
-        href="/" 
-        className="fixed top-10 left-10 z-50 text-white/60 hover:text-white transition-all duration-500 uppercase text-xs tracking-[0.4em] font-light mix-blend-difference group"
+        href={`/${locale}`} 
+        className="fixed top-12 left-12 z-50 text-white/20 hover:text-white transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference"
       >
-        <span className="inline-block transition-transform group-hover:-translate-x-2 duration-500 mr-2">←</span>
-        Menu
+        ← {locale === 'fr' ? 'MENU' : 'MENU'}
       </Link>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 pb-96">
+      {/* Header Section */}
+      <div className="relative z-10 max-w-7xl mx-auto pt-32 px-6 md:px-16">
+        <div className="border-b border-white/5 pb-12">
+          <p className="text-stone-700 font-mono text-[10px] uppercase tracking-[1em] mb-4">Archive_Vol.01</p>
+          <h1 className="text-6xl md:text-[8vw] font-black italic uppercase tracking-tighter leading-none text-white">
+            The <span className="text-stone-800 font-black">Voices</span>
+          </h1>
+        </div>
+      </div>
+
+      {/* The Collage Gallery */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 pb-40">
         {voices?.length > 0 ? (
-          voices.map((voice: any, index: number) => (
-            <ScrollyVoiceItem 
-              key={voice._id} 
-              voice={voice} 
-              index={index} 
-            />
-          ))
+          <VoicesGallery voices={voices} locale={locale} />
         ) : (
           <div className="h-[60vh] flex items-center justify-center">
-            <p className="text-white/40 uppercase tracking-widest text-sm animate-pulse font-serif">
-              Opening Archive...
+            <p className="text-stone-600 uppercase tracking-[1em] text-[10px] animate-pulse font-sans">
+              Retrieving Archive...
             </p>
           </div>
         )}
+      </div>
+
+      {/* Bottom Visual Spacer */}
+      <div className="relative z-10 py-40 flex flex-col items-center justify-center text-center">
+        <div className="w-px h-24 bg-gradient-to-b from-stone-800 to-transparent mb-8" />
+        <p className="text-stone-800 font-mono text-[9px] uppercase tracking-[1.5em]">
+          End of Archive
+        </p>
       </div>
     </main>
   );
