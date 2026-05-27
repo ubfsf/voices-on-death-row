@@ -9,9 +9,9 @@ interface TypewriterProps {
 }
 
 export default function Typewriter({ text, speed = 0.008, delay = 0, className = "" }: TypewriterProps) {
-  const words = text.split(" ");
+  // Keeps all whitespace (spaces AND newlines) as individual elements in the array
+  const elements = text.split(/(\s+)/);
 
-  // Explicitly typing as Variants fixes the compiler inference issue
   const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -19,7 +19,8 @@ export default function Typewriter({ text, speed = 0.008, delay = 0, className =
       transition: { 
         staggerChildren: speed, 
         delayChildren: delay,
-        duration: 0.2 
+        // short duration for the container fade-in itself
+        duration: 0.1 
       },
     },
   };
@@ -29,30 +30,43 @@ export default function Typewriter({ text, speed = 0.008, delay = 0, className =
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.1,
+        duration: 0.15,
         ease: "easeOut"
       },
     },
     hidden: {
       opacity: 0,
-      y: 5
+      y: 3
     },
   };
 
   return (
-    <motion.div
-      style={{ display: "flex", flexWrap: "wrap", gap: "0.25em" }}
+    <motion.p
+      // Using "pre-wrap" ensures \n renders as a line break.
+      style={{ whiteSpace: "pre-wrap" }}
       variants={container}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       className={className}
     >
-      {words.map((word, index) => (
-        <motion.span variants={child} key={index}>
-          {word}
-        </motion.span>
-      ))}
-    </motion.div>
+      {elements.map((el, index) => {
+        // Check if the current element is purely whitespace
+        const isWhitespace = /^\s+$/.test(el);
+
+        return (
+          <motion.span 
+            variants={child} 
+            key={index}
+            style={{ 
+              // CRITICAL: Only use inline-block for text so spaces wrap natively
+              display: isWhitespace ? "inline" : "inline-block" 
+            }}
+          >
+            {el}
+          </motion.span>
+        );
+      })}
+    </motion.p>
   );
 }
