@@ -17,9 +17,28 @@ export const letters = defineType({
       options: { source: 'title' },
     }),
     defineField({
+      name: 'image',
+      title: 'Letter Image / Scan',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'excerpt',
+      title: 'Short Excerpt',
+      type: 'object',
+      fields: [
+        { name: 'en', type: 'string', title: 'English' },
+        { name: 'fr', type: 'string', title: 'French' },
+      ]
+    }),
+    defineField({
       name: 'content',
       title: 'Letter Content',
-      type: 'text',
+      type: 'object',
+      fields: [
+        { name: 'en', type: 'text', title: 'English' },
+        { name: 'fr', type: 'text', title: 'French' },
+      ]
     }),
   ],
 })
