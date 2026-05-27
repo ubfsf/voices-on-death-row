@@ -264,7 +264,7 @@ If adding analytics, configure:
 - [ ] Monitor traffic
 
 ### Week 2-4
-- [ ] Invite Halima to start adding content
+- [ ] Invite Mrs. Kilgore to start adding content
 - [ ] Monitor Sanity CMS stability
 - [ ] Gather early feedback
 - [ ] Fix any issues
@@ -323,12 +323,12 @@ Once deployed:
 - [ ] Domain live and SSL working
 - [ ] All pages accessible
 - [ ] Forms functioning
-- [ ] CMS accessible to Halima
+- [ ] CMS accessible to Mrs. Kilgore
 - [ ] Analytics tracking (if enabled)
 - [ ] Email working
 - [ ] Google Search Console registered
 - [ ] Documentation complete
-- [ ] Handoff to Halima complete
+- [ ] Handoff to Mrs. Kilgore complete
 
 ---
 
@@ -341,7 +341,7 @@ Once deployed:
 - DNS propagation: 24-48 hours
 - Google indexing: 1-2 weeks
 
-**Go Live Status:** ⏳ Ready when Halima gives approval
+**Go Live Status:** ⏳ Ready when Mrs. Kilgore gives approval
 
 ---
 

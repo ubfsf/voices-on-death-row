@@ -39,7 +39,7 @@ The website is a **Franco-American platform** for documenting and sharing the st
 | **Letters** | ✅ Complete | Archive template ready for content |
 | **Art From Inside** | ✅ Complete | Displays artwork in full color |
 | **Podcast** | ✅ Enhanced | Immersive scroll experience, sticky player |
-| **About** | ✅ Complete | Halima's story and project mission |
+| **About** | ✅ Complete | Mrs.Kilgore's story and project mission |
 | **Contact** | ✅ Complete | Contact form with Resend integration |
 | **Resources** | ✅ Complete | Educational materials |
 | **Studio** | ✅ Complete | Sanity CMS for non-technical content editing |
@@ -51,7 +51,7 @@ The website is a **Franco-American platform** for documenting and sharing the st
   - **Letters** (correspondence with dates and authors)
   - **Artwork** (art from inside with descriptions)
   - **Podcasts** (episodes with audio URLs and descriptions)
-- ✅ Ready for Halima to invite team members as editors
+- ✅ Ready for Mrs.Kilgore to invite team members as editors
 
 ### 5. **Animations & Interactivity**
 - ✅ Framer Motion scroll-triggered animations
@@ -100,7 +100,7 @@ The website is a **Franco-American platform** for documenting and sharing the st
 
 ## 📊 Content Ready to Add
 
-Once Halima starts using Sanity Studio, she can populate:
+Once Mrs.Kilgore starts using Sanity Studio, she can populate:
 
 ### Voices Section
 - Individual profiles with:
@@ -135,7 +135,7 @@ Once Halima starts using Sanity Studio, she can populate:
 
 ## 🚀 Next Steps
 
-### Immediate (For Halima)
+### Immediate (For Mrs.Kilgore)
 1. **Review the website** at the deployed URL
 2. **Approve design direction** (any adjustments needed?)
 3. **Provide initial content**:
@@ -152,7 +152,7 @@ Once Halima starts using Sanity Studio, she can populate:
 
 ### For Content Management
 1. **Sanity Access**: 
-   - Halima logs into Sanity project (vufzo1a0)
+   - Mrs.Kilgores logs into Sanity project (vufzo1a0)
    - Go to `/studio` on the website
    - Add content via simple web forms
 
@@ -206,7 +206,7 @@ src/
 
 ## 💬 Communication & Support
 
-### For Halima
+### For Mrs.Kilgores
 - **Sanity Studio Help**: Built-in help and tutorials at `/studio`
 - **Content Format**: No coding needed - fill out web forms
 - **Support**: Direct technical support available
@@ -250,7 +250,7 @@ src/
 ## 🎯 Success Metrics
 
 The website will be successful when:
-1. ✅ Halima can add content without coding
+1. ✅ Mrs.Kilgores can add content without coding
 2. ✅ Visitors feel respected and emotionally engaged
 3. ✅ Content is discoverable via search engines
 4. ✅ Mobile experience is smooth and accessible
@@ -269,4 +269,4 @@ For technical questions or content setup:
 
 **Document Created**: April 13, 2026
 **Website Status**: Ready for Content Population
-**Next Phase**: Populate with Halima's voices and stories
+**Next Phase**: Populate with Mrs.Kilgores's voices and stories
