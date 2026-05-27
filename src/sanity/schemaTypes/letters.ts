@@ -17,6 +17,36 @@ export const letters = defineType({
       options: { source: 'title' },
     }),
     defineField({
+      name: 'author',
+      title: 'Author Name',
+      type: 'string',
+      description: 'Who wrote this letter?'
+    }),
+    defineField({
+      name: 'writtenDate',
+      title: 'Date Written',
+      type: 'date',
+    }),
+    defineField({
+      name: 'facility',
+      title: 'Facility / Location',
+      type: 'string',
+      description: 'e.g., SCI Phoenix, Pennsylvania'
+    }),
+    defineField({
+      name: 'category',
+      title: 'Letter Category',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Personal Correspondence', value: 'personal' },
+          { title: 'Prison Writing', value: 'prison' },
+          { title: 'Excerpt', value: 'excerpt' },
+          { title: 'Legal Reflection', value: 'legal' },
+        ]
+      }
+    }),
+    defineField({
       name: 'image',
       title: 'Letter Image / Scan',
       type: 'image',
@@ -24,7 +54,7 @@ export const letters = defineType({
     }),
     defineField({
       name: 'excerpt',
-      title: 'Short Excerpt',
+      title: 'Short Excerpt (For Grid)',
       type: 'object',
       fields: [
         { name: 'en', type: 'string', title: 'English' },
