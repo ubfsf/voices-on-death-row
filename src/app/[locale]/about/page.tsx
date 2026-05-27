@@ -1,6 +1,7 @@
 import { client } from '@/lib/sanity';
 import Link from 'next/link';
 import * as motion from "framer-motion/client";
+import Typewriter from '@/components/Typewriter';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,17 +30,17 @@ export default async function AboutPage({ params }: Props) {
   ];
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white pt-12 pb-60 px-6 md:px-16 font-serif relative overflow-x-hidden">
+    <main className="min-h-screen bg-[#050505] text-white pt-12 pb-60 px-6 md:px-16 font-serif relative overflow-x-hidden selection:bg-white selection:text-black">
       
       {/* 1. FIXED NAVIGATION */}
       <Link 
         href={`/${locale}`} 
-        className="fixed top-12 left-8 z-50 text-white/30 hover:text-white transition-colors uppercase text-[10px] tracking-[0.5em] font-sans"
+        className="fixed top-12 left-8 z-50 text-white/30 hover:text-white transition-colors uppercase text-[10px] tracking-[0.5em] font-sans mix-blend-difference"
       >
         ← {locale === 'fr' ? 'RETOUR' : 'BACK'}
       </Link>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start relative z-10">
         
         {/* 2. LEFT COLUMN: THE IDENTITY (Sticky Graphic Novel Element) */}
         <div className="lg:col-span-5 lg:sticky lg:top-24 flex flex-col items-center lg:items-end pt-24">
@@ -64,12 +65,9 @@ export default async function AboutPage({ params }: Props) {
             initial={{ opacity: 0, rotate: -5, scale: 0.9 }}
             animate={{ opacity: 1, rotate: -2, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="bg-[#fdfdfd] p-6 pb-16 shadow-[0_50px_100px_rgba(0,0,0,0.9)] w-full max-w-md relative group"
+            className="bg-transparent p-2 shadow-[0_50px_100px_rgba(0,0,0,0.9)] w-full max-w-md relative group"
           >
-            {/* Archival Tape Graphic */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-10 bg-black/10 backdrop-blur-md rotate-1 z-20 border-x border-black/5" />
-            
-            <div className="overflow-hidden bg-stone-900 aspect-[4/5] relative">
+            <div className="overflow-hidden border border-white/5 aspect-[4/5] relative">
               <motion.img 
                 src={data.imageUrl} 
                 alt={data.name} 
@@ -79,11 +77,11 @@ export default async function AboutPage({ params }: Props) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
             </div>
             
-            <div className="mt-10 text-center">
-               <h2 className="text-black text-5xl font-black italic tracking-tighter uppercase leading-none">
+            <div className="mt-10 text-center lg:text-right">
+               <h2 className="text-white text-5xl font-black italic tracking-tighter uppercase leading-none">
                  {data.name}
                </h2>
-               <p className="text-stone-400 text-[10px] uppercase tracking-[0.5em] font-sans mt-4 font-bold">
+               <p className="text-stone-500 text-[10px] uppercase tracking-[0.5em] font-sans mt-4 font-bold">
                  {data.role}
                </p>
             </div>
@@ -102,15 +100,15 @@ export default async function AboutPage({ params }: Props) {
             className="space-y-12"
           >
             <header className="relative">
-               <span className="text-stone-600 font-sans text-[10px] uppercase tracking-[0.8em] block mb-4">The Story Behind</span>
+               <span className="text-stone-600 font-sans text-[10px] uppercase tracking-[0.8em] block mb-4 font-bold">The Story Behind</span>
                <h1 className="text-7xl md:text-[9vw] font-black italic tracking-tighter uppercase leading-[0.75] mb-12">
                 {locale === 'fr' ? 'À Propos' : 'About'}
               </h1>
-              <div className="h-px w-full bg-white/10" />
+              <div className="h-px w-full bg-white/5" />
             </header>
 
-            <div className="text-2xl md:text-3xl leading-[1.4] text-stone-300 font-light italic tracking-tight whitespace-pre-wrap first-letter:text-7xl first-letter:font-black first-letter:mr-3 first-letter:float-left">
-              {data.about}
+            <div className="text-2xl md:text-3xl leading-[1.4] text-stone-300 font-light italic tracking-tight whitespace-pre-wrap">
+              {data.about && <Typewriter text={data.about} speed={0.008} />}
             </div>
           </motion.section>
 
@@ -142,13 +140,13 @@ export default async function AboutPage({ params }: Props) {
                 className="space-y-10 group"
               >
                 <div className="flex items-center gap-6">
-                  <div className="h-px w-12 bg-stone-800 group-hover:w-24 group-hover:bg-white transition-all duration-700" />
-                  <h3 className="text-[10px] uppercase tracking-[0.6em] text-stone-500 font-bold font-sans">
+                  <div className="h-px w-12 bg-stone-900 group-hover:w-24 group-hover:bg-white transition-all duration-700" />
+                  <h3 className="text-[10px] uppercase tracking-[0.6em] text-stone-600 font-bold font-sans">
                     {section.label}
                   </h3>
                 </div>
-                <div className="text-xl md:text-2xl leading-relaxed text-stone-400 font-light whitespace-pre-wrap border-l border-stone-900 pl-10 group-hover:border-stone-500 transition-colors duration-700">
-                  {section.content}
+                <div className="text-xl md:text-2xl leading-relaxed text-stone-400 font-light border-l border-stone-900 pl-10 group-hover:border-stone-500 transition-colors duration-700">
+                  <Typewriter text={section.content} speed={0.005} />
                 </div>
               </motion.section>
             ))}
@@ -165,7 +163,7 @@ export default async function AboutPage({ params }: Props) {
               href={`/${locale}/voices`}
               className="font-sans text-[10px] uppercase tracking-[0.8em] text-stone-600 hover:text-white transition-colors"
             >
-              Proceed to the Voices
+              {locale === 'fr' ? 'Entrer dans les voix' : 'Enter the Voices'}
             </Link>
           </motion.div>
         </div>

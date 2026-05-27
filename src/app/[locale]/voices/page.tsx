@@ -9,7 +9,7 @@ type Props = {
 export default async function VoicesPage({ params }: Props) {
   const { locale } = await params;
 
-  // Fetching the data exactly as Sanity provides it
+  // Optimized query fetching the necessary fields for rendering
   const query = `*[_type == "voice"] | order(_createdAt asc){
     _id,
     "author": name, 
