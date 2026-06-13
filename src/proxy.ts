@@ -1,12 +1,22 @@
 import createMiddleware from 'next-intl/middleware';
  
-export default createMiddleware({
+const handleRequest = createMiddleware({
   locales: ['en', 'fr'],
   defaultLocale: 'en',
-  localePrefix: 'as-needed',
+  localeDetection: true,
+  localePrefix: 'always'
 });
+
+// The function MUST be named 'proxy' to match the new convention
+export default function proxy(request: any) {
+  return handleRequest(request);
+}
  
 export const config = {
-  // Exclude /studio and API routes from the locale middleware
+  // Match all pathnames except for the ones starting with:
+  // - api (API routes)
+  // - studio (Sanity CMS)
+  // - _next (Next.js internals)
+  // - static files (e.g. /favicon.ico, /images)
   matcher: ['/((?!api|studio|_next|.*\\..*).*)']
 };
