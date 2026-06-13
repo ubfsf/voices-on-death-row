@@ -41,7 +41,6 @@ voices_intl/
 │   │   └── [other components]
 │   ├── lib/
 │   │   ├── sanity.ts           # Sanity CMS client config
-│   │   └── wordpress.ts        # WordPress integration (if needed)
 │   ├── i18n/
 │   │   └── request.ts          # i18n middleware for next-intl
 │   └── global.d.ts             # TypeScript global types

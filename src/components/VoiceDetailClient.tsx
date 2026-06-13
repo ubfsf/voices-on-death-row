@@ -58,7 +58,8 @@ export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
   };
 
   return (
-    <div ref={containerRef} className="relative bg-[#fcfaf7] min-h-[300vh]">
+    /* FIXED: Using a responsive grid layout instead of min-h-[300vh] to handle flow naturally */
+    <div ref={containerRef} className="relative bg-[#fcfaf7] lg:grid lg:grid-cols-2 min-h-screen">
       
       {/* Navigation */}
       <Link 
@@ -69,7 +70,8 @@ export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
       </Link>
       
       {/* 1. STICKY VISUAL SIDE (The Human Focus) */}
-      <div className="sticky top-0 h-screen w-full lg:w-1/2 overflow-hidden hidden lg:block">
+      {/* FIXED: Removed explicit width styles since the layout grid handles column widths */}
+      <div className="sticky top-0 h-screen overflow-hidden hidden lg:block">
         <motion.div 
           style={{ scale: imageScale, opacity: imageOpacity }}
           className="w-full h-full relative"
@@ -86,7 +88,8 @@ export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
       </div>
 
       {/* 2. SCROLLING NARRATIVE SIDE */}
-      <div className="relative z-10 lg:absolute lg:top-0 lg:right-0 w-full lg:w-1/2 px-8 md:px-20 py-32">
+      {/* FIXED: Removed lg:absolute and lg:right-0 layout-breakers */}
+      <div className="relative z-10 w-full px-8 md:px-20 py-32">
         
         {/* Intro Header */}
         <header className="mb-40">
@@ -137,7 +140,7 @@ export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
 
       {/* Mobile Image (Visible only on small screens) */}
       <div className="lg:hidden w-full aspect-square overflow-hidden mb-12">
-        <img src={urlFor(voice.photo).url()} className="w-full h-full object-cover grayscale-[0.2]" alt={voice.name} />
+        <img src={voice.photo ? urlFor(voice.photo).url() : fallbackImage} className="w-full h-full object-cover grayscale-[0.2]" alt={voice.name} />
       </div>
     </div>
   );
