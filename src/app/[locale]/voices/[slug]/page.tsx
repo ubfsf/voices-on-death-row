@@ -24,7 +24,7 @@ export default async function VoicePage({ params }: Props) {
     "voiceExpression": voiceExpression[$locale],
     "supportAdvocacy": supportAdvocacy[$locale],
     "contactInfo": contactInfo[$locale],
-    "imageUrl": photo.asset->url
+    photo
   }`;
 
   const voice = await client.fetch(query, { slug, locale });

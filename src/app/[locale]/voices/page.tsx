@@ -12,9 +12,10 @@ export default async function VoicesPage({ params }: Props) {
   const query = `*[_type == "voice"] | order(_createdAt asc){
     _id,
     "author": name, 
-    "imageUrl": photo.asset->url,
+    photo, // Fetch the full object to get crop/hotspot data
     "slug": slug.current
   }`;
+
 
   const voices = await client.fetch(query);
 

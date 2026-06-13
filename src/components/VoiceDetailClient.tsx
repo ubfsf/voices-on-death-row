@@ -1,135 +1,144 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Link from "next/link";
-import Typewriter from "@/components/Typewriter";
+import { urlFor } from "@/lib/sanity";
+import Link from 'next/link';
 
-export default function VoiceDetailClient({ voice, locale, slug }: any) {
+interface VoiceProps {
+  voice: {
+    name: string;
+    inmateNumber?: string;
+    facility?: string;
+    photo?: any;
+    about?: string;
+    beliefQuote?: string;
+    legalSituation?: string;
+    professionalBackground?: string;
+    personalLife?: string;
+    voiceExpression?: string;
+    supportAdvocacy?: string;
+    caseLink?: string;
+  };
+  locale: string;
+  slug: string;
+}
+
+export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
+  const fallbackImage = "/images/eyes.jpg"; 
   const containerRef = useRef(null);
   
+  // Create a scroll-linked animation for the image
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Cinematic transforms for the hero section
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.98]);
+  // Image zooms slightly as you read his story
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0.5]);
 
-  const narrativeSections = [
-    { id: "01", label: "THE STORY", content: voice.about },
-    { id: "02", label: "LEGAL SITUATION", content: voice.legalSituation },
-    { id: "03", label: "PERSONAL LIFE", content: voice.personalLife },
-    { id: "04", label: "VOICE & EXPRESSION", content: voice.voiceExpression },
-  ].filter(s => s.content);
+  const renderChapter = (title: string, content: string | undefined, index: number) => {
+    if (!content) return null;
+    return (
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ margin: "-20%" }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="min-h-[60vh] flex flex-col justify-center mb-32"
+      >
+        <h3 className="text-[#3B6FE3] font-black uppercase tracking-[0.4em] text-[10px] mb-6 opacity-40">
+          Chapter 0{index + 1} // {title}
+        </h3>
+        <p className="text-slate-900 text-2xl md:text-4xl font-[200] leading-tight italic tracking-tight whitespace-pre-line">
+          {content}
+        </p>
+      </motion.section>
+    );
+  };
 
   return (
-    <main ref={containerRef} className="bg-[#f2efe8] min-h-[500vh] text-black font-sans selection:bg-black selection:text-white relative overflow-x-hidden">
+    <div ref={containerRef} className="relative bg-[#fcfaf7] min-h-[300vh]">
       
-      {/* Cinematic Grain Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-      
-      {/* 1. FIXED NAVIGATION - High visibility for the "Back" button */}
+      {/* Navigation */}
       <Link 
-        href={`/${locale}/voices`} 
-        className="fixed top-8 left-8 md:top-12 md:left-12 z-[100] flex items-center gap-3 group"
+        href={`/${locale}`} 
+        className="fixed top-12 left-12 z-50 text-white/20 hover:text-white transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference"
       >
-        <div className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center bg-white/50 backdrop-blur-md group-hover:bg-black group-hover:text-white transition-all duration-500 shadow-sm">
-          <span className="text-lg">←</span>
-        </div>
-        <span className="font-black uppercase text-[10px] tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-opacity">
-          Archive
-        </span>
+        ← MENU
       </Link>
-
-      {/* 2. RESPONSIVE HERO: Name and Image */}
-      <section className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-6 md:px-20">
+      
+      {/* 1. STICKY VISUAL SIDE (The Human Focus) */}
+      <div className="sticky top-0 h-screen w-full lg:w-1/2 overflow-hidden hidden lg:block">
         <motion.div 
-          style={{ opacity: heroOpacity, scale: heroScale }}
-          className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+          style={{ scale: imageScale, opacity: imageOpacity }}
+          className="w-full h-full relative"
         >
-          
-          {/* LEFT: Name - Adjusted sizes for better window fit */}
-          <div className="lg:col-span-6 z-20 order-2 lg:order-1">
-            <motion.div layoutId={`name-${slug}`}>
-              <h1 className="text-6xl sm:text-7xl md:text-[7vw] font-black uppercase leading-[0.85] tracking-tighter mb-6">
-                {voice.name.split(' ')[0]} <br/>
-                <span className="text-stone-400/60">{voice.name.split(' ').slice(1).join(' ')}</span>
-              </h1>
-            </motion.div>
-            <p className="font-mono text-[9px] uppercase tracking-[0.6em] text-stone-400">
-              Documentary Entry // {voice.inmateNumber || '000'}
-            </p>
-          </div>
-
-          {/* RIGHT: Polaroid */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end order-1 lg:order-2">
-            <motion.div 
-              layoutId={`image-${slug}`}
-              className="relative w-full max-w-[320px] sm:max-w-md md:max-w-lg"
-            >
-              <img 
-                src={voice.imageUrl} 
-                alt={voice.name} 
-                className="w-full h-auto block drop-shadow-2xl rotate-1" 
-              />
-            </motion.div>
-          </div>
+          <img 
+            src={voice.photo ? urlFor(voice.photo).url() : fallbackImage} 
+            alt={voice.name}
+            className="w-full h-full object-cover grayscale-[0.3] brightness-90"
+          />
+          {/* Paper Texture Overlay */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#fcfaf7]" />
         </motion.div>
-      </section>
-
-      {/* 3. NARRATIVE: Scaled down text for readability */}
-      <div className="relative z-30 max-w-5xl mx-auto px-6 md:px-20 pb-[100vh] pt-[20vh]">
-        {narrativeSections.map((section, index) => (
-          <motion.section 
-            key={section.label}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: "-10%" }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className={`flex flex-col mb-[40vh] md:mb-[60vh] ${index % 2 === 0 ? 'items-start' : 'items-end'}`}
-          >
-            <div className="w-full md:w-10/12 space-y-12">
-              <div className="flex items-center gap-6">
-                <div className="h-px w-12 bg-black/10" />
-                <span className="text-stone-400 font-mono text-[10px] uppercase tracking-[0.6em] font-bold">
-                  {section.label}
-                </span>
-              </div>
-              
-              {/* Text Size: text-2xl for mobile, text-4xl for desktop (Reduced from 6xl) */}
-              <div className="text-2xl md:text-4xl font-light italic leading-[1.4] tracking-tight text-stone-900 whitespace-pre-wrap border-l border-black/5 pl-8 md:pl-16">
-                <Typewriter text={section.content} speed={0.005} />
-              </div>
-            </div>
-          </motion.section>
-        ))}
-
-        {/* BELIEF QUOTE */}
-        {voice.beliefQuote && (
-          <motion.section 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="py-40 text-center border-t border-black/5"
-          >
-            <blockquote className="text-3xl md:text-6xl font-black italic uppercase tracking-tighter text-black/10 leading-tight">
-              "{voice.beliefQuote}"
-            </blockquote>
-          </motion.section>
-        )}
       </div>
 
-      {/* 4. FOOTER */}
-      <footer className="relative h-screen flex flex-col items-center justify-center text-center px-6">
-        <div className="w-px h-40 bg-gradient-to-b from-stone-300 to-transparent mb-12" />
-        <Link 
-          href={`/${locale}/voices`}
-          className="group relative inline-flex items-center gap-6 px-12 py-5 border border-black/10 hover:bg-black hover:text-white transition-all duration-700"
-        >
-          <span className="font-sans text-[10px] uppercase tracking-[0.8em] font-bold">Return to Archive</span>
-          <div className="w-2 h-2 bg-black rounded-full group-hover:bg-white animate-pulse" />
-        </Link>
-      </footer>
-    </main>
+      {/* 2. SCROLLING NARRATIVE SIDE */}
+      <div className="relative z-10 lg:absolute lg:top-0 lg:right-0 w-full lg:w-1/2 px-8 md:px-20 py-32">
+        
+        {/* Intro Header */}
+        <header className="mb-40">
+          <motion.h1 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-6xl md:text-8xl font-[800] italic uppercase tracking-tighter leading-[0.8] text-slate-900 mb-8"
+          >
+            {voice.name}
+          </motion.h1>
+          
+          <div className="flex flex-wrap gap-4">
+             <span className="bg-[#3B6FE3] text-white px-4 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-widest">
+               {voice.facility}
+             </span>
+             <span className="border border-slate-300 text-slate-500 px-4 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-widest">
+               {voice.inmateNumber}
+             </span>
+          </div>
+        </header>
+
+        {/* The Story Chapters */}
+        <div className="space-y-32">
+          {renderChapter("The Background", voice.about, 0)}
+          {renderChapter("Professional Life", voice.professionalBackground, 1)}
+          {renderChapter("Personal Reflections", voice.personalLife, 2)}
+          {renderChapter("Legal Situation", voice.legalSituation, 3)}
+        </div>
+
+        {/* Call to Action */}
+        <footer className="pt-20 border-t border-slate-200">
+           <h4 className="text-slate-900 font-bold italic text-xl mb-8">Want to support {voice.name.split(' ')[0]}?</h4>
+           <div className="flex flex-col gap-4">
+              <Link 
+                href={`/${locale}/letters?voice=${slug}`}
+                className="bg-[#3B6FE3] text-white py-5 px-10 rounded-full font-black uppercase italic tracking-widest text-xs hover:scale-105 transition-all text-center block"
+              >
+                Read His Letters
+              </Link>
+              {voice.caseLink && (
+                <a href={voice.caseLink} target="_blank" rel="noopener noreferrer" className="text-[#3B6FE3] font-bold uppercase tracking-widest text-[10px] text-center hover:underline">
+                  View Full Case Details
+                </a>
+              )}
+           </div>
+        </footer>
+      </div>
+
+      {/* Mobile Image (Visible only on small screens) */}
+      <div className="lg:hidden w-full aspect-square overflow-hidden mb-12">
+        <img src={urlFor(voice.photo).url()} className="w-full h-full object-cover grayscale-[0.2]" alt={voice.name} />
+      </div>
+    </div>
   );
 }

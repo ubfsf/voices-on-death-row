@@ -5,11 +5,12 @@ import * as motion from "framer-motion/client";
 export default async function LettersArchive({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
 
-  // Querying letters - fetching content preview and author
+  // Querying letters - fetching content preview, author, and writtenDate
   const query = `*[_type == "letters"] | order(_createdAt desc){
     _id,
     title,
     author,
+    writtenDate,
     "slug": slug.current,
     "imageUrl": image.asset->url,
     "content": content[$locale]
@@ -27,7 +28,7 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
 
       <div className="relative z-10 max-w-7xl mx-auto pt-32 px-6 md:px-16">
         <div className="border-b border-white/5 pb-12">
-          <p className="text-stone-700 font-mono text-[10px] uppercase tracking-[1em] mb-4">Archive // Vol. 02</p>
+          <p className="text-stone-700 font-mono text-[10px] uppercase tracking-[1em] mb-4">Archive // Letters & Poetry</p>
           <h1 className="text-6xl md:text-[8vw] font-black italic uppercase tracking-tighter leading-none text-white">
             The <span className="text-stone-800 font-black">Letters</span>
           </h1>
@@ -43,8 +44,9 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
           >
-            {/* LINK LOGIC: Uses slug if exists, otherwise uses Sanity ID */}
             <Link href={`/${locale}/letters/${letter.slug || letter._id}`} className="group block">
+              
+              {/* THE COVER CONTAINER */}
               <div className="relative aspect-[4/5] overflow-hidden shadow-2xl border border-white/5 bg-[#0a0a0a] mb-8 transition-all duration-700 group-hover:scale-[1.02]">
                 
                 {/* Tape Effect */}
@@ -54,34 +56,42 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
                   <img 
                     src={letter.imageUrl} 
                     alt={letter.title}
-                    className="w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 transition-all duration-1000"
+                    className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000 brightness-75 group-hover:brightness-100"
                   />
                 ) : (
-                  /* TEXT FOCUS: If no image, display the actual message content */
-                  <div className="w-full h-full p-10 flex flex-col justify-start relative">
-                    <span className="text-stone-700 font-mono text-[8px] uppercase tracking-[0.4em] mb-8">Transcription_Preview</span>
-                    <p className="text-stone-400 font-serif italic text-lg leading-relaxed line-clamp-[10]">
-                      {letter.content}
-                    </p>
-                    <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent z-10" />
+                  /* BLANK COVER STATE: Dark background for the overlay to sit on */
+                  <div className="w-full h-full bg-stone-900/20 flex items-center justify-center p-12">
+                     <div className="w-full h-full border border-white/5 opacity-10" />
                   </div>
                 )}
 
-                {/* Author Badge */}
-                <div className="absolute top-8 right-8 z-20 bg-black/60 backdrop-blur-sm px-3 py-1 border border-white/10">
-                  <span className="text-[8px] font-mono text-stone-500 tracking-[0.4em] uppercase">
-                    By: {letter.author || 'Anonymous'}
-                  </span>
+                {/* TEXT OVERLAY: Author and Date (Minutes Before Six Style) */}
+                <div className="absolute inset-0 flex flex-col justify-end p-8 z-30 text-center">
+                   {/* Gradient for readability - stronger when an image is present */}
+                   <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent ${letter.imageUrl ? 'opacity-80' : 'opacity-40'}`} />
+                   
+                   <div className="relative z-10">
+                      <p className="text-white text-lg md:text-xl font-medium italic mb-1">
+                        Poetry by {letter.author || 'Anonymous'}
+                      </p>
+                      {letter.writtenDate && (
+                        <p className="text-stone-400 uppercase tracking-[0.3em] text-[9px] font-mono">
+                          {new Date(letter.writtenDate).toLocaleDateString(locale, { 
+                            month: 'long', 
+                            day: 'numeric', 
+                            year: 'numeric' 
+                          }).toUpperCase()}
+                        </p>
+                      )}
+                   </div>
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-none text-white group-hover:text-stone-400 transition-colors">
+              {/* EXTERNAL TITLE */}
+              <div className="space-y-2 px-2">
+                <h2 className="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-none text-white group-hover:text-[#3B6FE3] transition-colors">
                   {letter.title}
                 </h2>
-                <p className="text-stone-600 font-mono text-[9px] uppercase tracking-widest">
-                  Ref. {letter.slug || letter._id.substring(0, 8)}
-                </p>
               </div>
             </Link>
           </motion.div>
