@@ -18,5 +18,10 @@ export const config = {
   // - studio (Sanity CMS)
   // - _next (Next.js internals)
   // - static files (e.g. /favicon.ico, /images)
-  matcher: ['/((?!api|studio|_next|.*\\..*).*)']
+  matcher: [
+    '/((?!api|studio|_next|_vercel|.*\\..*).*)',
+    // Also explicitly match the root
+    '/'
+  ]
 };
+
