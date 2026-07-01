@@ -18,7 +18,7 @@ export default function VisualMenu({ sections }: VisualMenuProps) {
     { title: "Letters", slug: "letters", img: "/images/writing_another.jpg", align: "left" },
     { title: "Art From Inside", slug: "art", img: "/images/art_from_inside.jpg", align: "right" },
     { title: "Podcast", slug: "podcast", img: "/images/person_back.jpg", align: "left" },
-    { title: "Families' Voices", slug: "families-voices", align: "right" }, 
+    { title: "Families' Voices", slug: "families_voices", align: "right" }, 
     { title: "Resources", slug: "resources", align: "left" }, 
     { title: "Contact", slug: "contact", align: "right" }, 
   ];
@@ -39,6 +39,11 @@ export default function VisualMenu({ sections }: VisualMenuProps) {
           <h1 className="text-4xl sm:text-7xl md:text-[10vw] font-black italic uppercase leading-[0.9] md:leading-[0.8] tracking-tighter text-white">
             Voices <br/> <span className="text-stone-700">On Death Row</span>
           </h1>
+          <p className="mt-12 text-stone-400 font-serif italic text-lg md:text-2xl max-w-3xl leading-relaxed">
+            {locale === 'fr' 
+              ? "À travers des lettres, de l'art et des témoignages, nous documentons les histoires humaines au sein du système judiciaire pour susciter une conversation significative."
+              : "Through letters, art, and testimonies, we document the human stories within the justice system to spark meaningful conversation."}
+          </p>
         </motion.div>
       </header>
 

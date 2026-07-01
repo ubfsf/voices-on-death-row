@@ -18,7 +18,6 @@ export const familyVoice = defineType({
           { title: 'Survivors and Community Voices', value: 'community' },
         ],
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -27,7 +26,27 @@ export const familyVoice = defineType({
       options: { source: 'name' },
     }),
     defineField({ name: 'image', title: 'Portrait', type: 'image', options: { hotspot: true } }),
-    defineField({ name: 'introduction', title: 'Introduction', type: 'localeText' }),
+    
+    // PRIMARY SECTIONS
+    defineField({ name: 'introduction', title: 'Introduction / Context', type: 'localeText' }),
     defineField({ name: 'testimony', title: 'Full Testimony', type: 'localeText' }),
+
+    // THE "FLEXIBLE" SECTION: This lets her create her own titles/boxes
+    defineField({
+      name: 'additionalChapters',
+      title: 'Additional Story Chapters',
+      description: 'Halima: Click "Add Item" to create new custom sections (e.g., Childhood Trauma, Impact on Family, Healing Journey)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'chapter',
+          fields: [
+            { name: 'chapterTitle', title: 'Chapter Title (e.g. Impact on Children)', type: 'localeString' },
+            { name: 'chapterContent', title: 'Content', type: 'localeText' }
+          ]
+        }
+      ]
+    }),
   ],
 })

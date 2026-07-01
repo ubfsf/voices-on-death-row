@@ -6,6 +6,7 @@ import { podcast } from './podcast'
 import { contactInfo } from './contactInfo'
 import { localeString, localeText } from './localeString'
 import { familyVoice } from './familyVoice' // 1. Import the new schema
+import { resource } from './resource'
 
 // Export as an array directly
 export const schemaTypes = [
@@ -17,5 +18,7 @@ export const schemaTypes = [
   contactInfo, 
   localeString, 
   localeText,
-  familyVoice // 2. Add it to the array
+  familyVoice, // 2. Add it to the array
+  resource
+  
 ]
