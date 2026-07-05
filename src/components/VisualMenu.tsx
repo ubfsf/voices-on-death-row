@@ -83,9 +83,10 @@ export default function VisualMenu({ sections }: VisualMenuProps) {
       {/* 1. INTRODUCTORY HEADER */}
       <header className="max-w-7xl mx-auto pt-24 pb-16 md:pt-32 md:pb-20 px-6 md:px-16 border-b border-white/5">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <p className="text-stone-600 uppercase tracking-[0.6em] md:tracking-[0.8em] text-[8px] md:text-[10px] font-sans font-bold mb-6 md:mb-8">
             {locale === 'fr' ? 'Une Introduction' : 'An Introduction'}
@@ -114,33 +115,49 @@ export default function VisualMenu({ sections }: VisualMenuProps) {
 function MenuItem({ item, locale }: { item: any, locale: string }) {
   return (
     <motion.section 
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      className="relative w-full aspect-[21/9] min-h-[350px] max-h-[600px] overflow-hidden border-b border-white/10 group"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative w-full aspect-[21/9] min-h-[350px] max-h-[600px] overflow-hidden border-b border-white/10 bg-black group"
     >
-      {/* Cinematic Full-Width Background Image */}
-      <div className="absolute inset-0 w-full h-full bg-stone-950">
+      {/* Container holding the image shifted to opposite side of text */}
+      <div className={`absolute inset-y-0 w-full md:w-2/3 h-full ${item.align === 'right' ? 'left-0' : 'right-0'}`}>
+        
+        {/* The full original uncropped image */}
         <img 
           src={item.img} 
           alt={item.title}
-          className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105" 
+          className="w-full h-full object-contain transition-transform duration-[3s] group-hover:scale-102" 
           draggable={false}
         />
-        {/* Cinematic Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/70 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+        
+        {/* Soft, seamless fading edge overlays based on layout side */}
+        {item.align === 'right' ? (
+          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/40 to-black via-85%" />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-l from-black/20 via-black/40 to-black via-85%" />
+        )}
+        
+        {/* Subtle overall dark vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/60 pointer-events-none" />
       </div>
 
-      {/* Content Placements */}
+      {/* Content Placements with separate smooth text animation */}
       <div className="absolute inset-0 w-full h-full max-w-7xl mx-auto px-8 md:px-24 flex items-center z-10">
-        <div className={`w-full max-w-md md:max-w-lg flex flex-col gap-4 ${item.align === 'right' ? 'ml-auto text-left' : 'mr-auto text-left'}`}>
+        <motion.div 
+          initial={{ opacity: 0, x: item.align === 'right' ? 30 : -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          className={`w-full max-w-md md:max-w-lg flex flex-col gap-4 ${item.align === 'right' ? 'ml-auto text-left' : 'mr-auto text-left'}`}
+        >
           
-          <h2 className="text-5xl sm:text-7xl md:text-8xl font-black italic uppercase leading-[0.8] tracking-tighter text-white">
+          <h2 className="text-5xl sm:text-7xl md:text-8xl font-black italic uppercase leading-[0.8] tracking-tighter text-white drop-shadow-md">
             {item.title}
           </h2>
           
-          <p className="text-stone-300 font-sans font-light text-sm md:text-lg max-w-sm sm:max-w-md leading-relaxed tracking-wide drop-shadow-md">
+          <p className="text-stone-300 font-sans font-light text-sm md:text-lg max-w-sm sm:max-w-md leading-relaxed tracking-wide drop-shadow-lg">
             {item.subtitle}
           </p>
 
@@ -153,7 +170,7 @@ function MenuItem({ item, locale }: { item: any, locale: string }) {
             </Link>
           </div>
 
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );
