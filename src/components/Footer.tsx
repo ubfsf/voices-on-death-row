@@ -22,7 +22,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Column 2: Quick Links */}
+        {/* Column 2: Quick Links - Updated to match Visual Menu */}
         <div className="md:col-span-3 space-y-8">
           <h3 className="text-stone-500 uppercase tracking-[0.4em] text-[10px] font-sans font-bold">
             {t('navigate_title')}
@@ -30,24 +30,24 @@ export default function Footer() {
           <ul className="space-y-4 font-sans">
             <li><Link href={`/${locale}/voices`} className="text-xs text-stone-200 hover:text-white transition-colors uppercase tracking-[0.2em] font-medium">Voices</Link></li>
             <li><Link href={`/${locale}/letters`} className="text-xs text-stone-200 hover:text-white transition-colors uppercase tracking-[0.2em] font-medium">Letters</Link></li>
-            <li><Link href={`/${locale}/art`} className="text-xs text-stone-200 hover:text-white transition-colors uppercase tracking-[0.2em] font-medium">Art From Inside</Link></li>
             <li><Link href={`/${locale}/podcast`} className="text-xs text-stone-200 hover:text-white transition-colors uppercase tracking-[0.2em] font-medium">Podcast</Link></li>
+            <li><Link href={`/${locale}/families-voices`} className="text-xs text-stone-200 hover:text-white transition-colors uppercase tracking-[0.2em] font-medium">Families' Voices</Link></li>
           </ul>
         </div>
 
-        {/* Column 3: Founder Section (Linked to About) */}
+        {/* Column 3: Founder Section */}
         <div className="md:col-span-4 space-y-8">
           <h3 className="text-stone-500 uppercase tracking-[0.4em] text-[10px] font-sans font-bold">
             {t('contact_title')}
           </h3>
-          <Link href={`/${locale}/about`} className="group block space-y-2">
-            <p className="text-lg text-white font-black uppercase tracking-tight italic group-hover:text-stone-400 transition-colors">
+          <div className="group block space-y-2">
+            <p className="text-lg text-white font-black uppercase tracking-tight italic">
               Halima Kilgore
             </p>
-            <p className="text-stone-600 text-[10px] uppercase tracking-widest font-bold font-sans group-hover:text-white transition-colors">
-              {t('founder_title')} // View Bio
+            <p className="text-stone-600 text-[10px] uppercase tracking-widest font-bold font-sans">
+              {t('founder_title')}
             </p>
-          </Link>
+          </div>
           
           <div className="pt-6">
             <a 
@@ -64,9 +64,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto border-t border-white/5 mt-24 pt-12 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-4">
           <div className="w-8 h-8 rounded-full border border-stone-800 flex items-center justify-center text-[10px] font-sans text-stone-500 italic">V</div>
-          <p className="text-stone-500 text-[9px] uppercase tracking-[0.5em] font-sans">{t('copyright')}</p>
+          <p className="text-stone-500 text-[9px] uppercase tracking-[0.5em] font-sans">© 2026 VOICES ON DEATH ROW</p>
         </div>
-        <p className="text-stone-700 text-[9px] uppercase tracking-[0.6em] font-sans italic font-medium">{t('tagline')}</p>
+        <p className="text-stone-700 text-[9px] uppercase tracking-[0.6em] font-sans italic font-medium">Humanity Beyond the Verdict</p>
       </div>
     </footer>
   );
