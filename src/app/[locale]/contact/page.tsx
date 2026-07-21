@@ -1,9 +1,7 @@
-//src/app/[locale]/contact/page.tsx
-
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import * as motion from "framer-motion/client";
 import ContactForm from "@/components/ContactForm";
+import { getTranslations } from 'next-intl/server';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -11,7 +9,7 @@ type Props = {
 
 export default async function ContactPage({ params }: Props) {
   const { locale } = await params;
-  const t = useTranslations('ContactPage');
+  const t = await getTranslations('ContactPage'); // Use server-side version
 
   return (
     <main className="min-h-screen bg-[#050505] text-white pt-12 pb-40 px-6 md:px-16 font-serif relative overflow-x-hidden selection:bg-white selection:text-black">
@@ -103,7 +101,6 @@ export default async function ContactPage({ params }: Props) {
             transition={{ delay: 0.5, duration: 1 }}
             className="bg-transparent"
           >
-            {/* Note: Ensure your ContactForm component uses dark theme inputs */}
             <ContactForm />
           </motion.div>
         </div>

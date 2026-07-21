@@ -64,7 +64,7 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
           
           {/* Category 1: Families of Murder Victims */}
           <Link 
-            href={`/${locale}/families_voices?category=victims`}
+            href={`/${locale}/families_voices/victims`}
             className="group block cursor-pointer"
           >
             <div className="relative aspect-[4/3] overflow-hidden mb-8">
@@ -88,7 +88,7 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
 
           {/* Category 2: Families of the Condemned */}
           <Link 
-            href={`/${locale}/families_voices?category=condemned`}
+            href={`/${locale}/families_voices/condemned`}
             className="group block cursor-pointer"
           >
             <div className="relative aspect-[4/3] overflow-hidden mb-8">

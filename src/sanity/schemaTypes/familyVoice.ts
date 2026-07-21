@@ -1,3 +1,4 @@
+// src/sanity/schemaTypes/familyVoice.ts
 import { defineType, defineField } from 'sanity'
 
 export const familyVoice = defineType({
@@ -7,18 +8,20 @@ export const familyVoice = defineType({
   fields: [
     defineField({ 
       name: 'name', 
-      title: 'Name', 
+      title: 'Full Name', 
+      description: 'Enter the person\'s full name',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Story Category',
+      description: 'Which group does this story belong to?',
       type: 'string',
       options: {
         list: [
-          { title: 'Families of Murder Victims', value: 'victims' },
-          { title: 'Families of the Condemned', value: 'condemned' },
+          { title: '🕯️ Families of Murder Victims', value: 'victims' },
+          { title: '⚖️ Families of the Condemned', value: 'condemned' },
         ],
         layout: 'radio',
       },
@@ -26,14 +29,19 @@ export const familyVoice = defineType({
     }),
     defineField({
       name: 'slug',
-      title: 'Slug',
+      title: 'URL Slug',
+      description: 'This will be the web address (e.g., /families_voices/borgela-smith)',
       type: 'slug',
-      options: { source: 'name' },
+      options: { 
+        source: 'name',
+        maxLength: 96,
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({ 
       name: 'image', 
       title: 'Portrait / Photograph', 
+      description: 'Upload a portrait or meaningful image for this family member',
       type: 'image', 
       options: { hotspot: true } 
     }),
@@ -41,50 +49,54 @@ export const familyVoice = defineType({
     // PRIMARY SECTIONS
     defineField({ 
       name: 'introduction', 
-      title: 'Introduction / Context', 
-      description: 'Short opening statement or quote for this family story.',
-      type: 'localeText' 
+      title: '📝 Introduction / Context', 
+      description: 'A short opening statement or quote that introduces this family\'s story. This appears at the top of the page.',
+      type: 'localeText',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({ 
       name: 'testimony', 
-      title: 'Full Testimony', 
-      description: 'The primary story text.',
-      type: 'localeText' 
+      title: '📖 Full Testimony', 
+      description: 'The complete story or testimony. This is the main content.',
+      type: 'localeText',
+      validation: (Rule) => Rule.required(),
     }),
 
     // DYNAMIC CHAPTERS & BOX BUILDER
     defineField({
       name: 'additionalChapters',
-      title: 'Custom Story Sections & Boxes',
-      description: 'Add custom chapters, pull quotes, or key callout boxes. You can create as many as you need and set custom titles for each.',
+      title: '📦 Custom Story Sections & Boxes',
+      description: 'Add extra sections, pull quotes, or callout boxes. You can create as many as you need!',
       type: 'array',
       of: [
         // 1. Standard Custom Chapter / Box
         {
           type: 'object',
           name: 'chapter',
-          title: 'Custom Text Chapter',
+          title: '📄 Custom Text Section',
           fields: [
             { 
               name: 'chapterTitle', 
-              title: 'Box / Chapter Title', 
+              title: 'Section Title', 
               type: 'localeString',
-              description: 'e.g., Impact on Children, Childhood Trauma, Healing Journey' 
+              description: 'Example: "Impact on Children", "Childhood Memories", "Healing Journey"',
             },
             { 
               name: 'chapterContent', 
-              title: 'Content', 
-              type: 'localeText' 
+              title: 'Section Content', 
+              type: 'localeText',
+              description: 'The main text for this section',
             },
             {
               name: 'style',
-              title: 'Box Visual Style',
+              title: 'Visual Style',
+              description: 'How should this section look on the page?',
               type: 'string',
               options: {
                 list: [
-                  { title: 'Standard Paragraph', value: 'standard' },
-                  { title: 'Bordered Highlight Box', value: 'highlight' },
-                  { title: 'Italic Reflection Box', value: 'reflection' },
+                  { title: '📄 Standard Paragraph', value: 'standard' },
+                  { title: '📦 Highlight Box', value: 'highlight' },
+                  { title: '💭 Reflection Box', value: 'reflection' },
                 ],
                 layout: 'radio',
               },
@@ -98,9 +110,14 @@ export const familyVoice = defineType({
               style: 'style',
             },
             prepare({ titleEn, titleFr, style }) {
+              const styleMap = {
+                standard: '📄 Standard',
+                highlight: '📦 Highlight',
+                reflection: '💭 Reflection'
+              };
               return {
-                title: titleEn || titleFr || 'Untitled Custom Box',
-                subtitle: `Style: ${style || 'standard'}`,
+                title: titleEn || titleFr || 'Untitled Section',
+                subtitle: styleMap[style as keyof typeof styleMap] || 'Standard',
               }
             }
           }
@@ -110,18 +127,20 @@ export const familyVoice = defineType({
         {
           type: 'object',
           name: 'quoteBox',
-          title: 'Callout / Quote Box',
+          title: '💬 Callout / Quote Box',
+          description: 'A highlighted quote or powerful statement',
           fields: [
             {
               name: 'quoteText',
               title: 'Quote Text',
               type: 'localeText',
+              description: 'The quote or statement',
             },
             {
               name: 'attribution',
-              title: 'Attribution / Author',
+              title: 'Who Said This?',
               type: 'string',
-              description: 'e.g., — Borgela, Letter from Death Row',
+              description: 'Example: — Borgela Smith, Letter from Death Row',
             },
           ],
           preview: {
@@ -131,8 +150,43 @@ export const familyVoice = defineType({
             },
             prepare({ quote, author }) {
               return {
-                title: quote ? `“${quote.slice(0, 40)}...”` : 'Quote Box',
+                title: quote ? `💬 "${quote.slice(0, 40)}${quote.length > 40 ? '...' : ''}"` : '💬 Quote Box',
                 subtitle: author || 'Callout Box',
+              }
+            }
+          }
+        },
+
+        // 3. Image with Caption (NEW - Extra visual element)
+        {
+          type: 'object',
+          name: 'imageBox',
+          title: '🖼️ Image with Caption',
+          description: 'Add a supporting image with a caption',
+          fields: [
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
+            },
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'localeString',
+              description: 'Description of the image',
+            },
+          ],
+          preview: {
+            select: {
+              image: 'image',
+              caption: 'caption.en',
+            },
+            prepare({ image, caption }) {
+              return {
+                title: caption || '🖼️ Image Box',
+                subtitle: 'Image with caption',
+                media: image,
               }
             }
           }
@@ -148,8 +202,8 @@ export const familyVoice = defineType({
     },
     prepare({ title, subtitle, media }) {
       const categoryMap: Record<string, string> = {
-        victims: 'Families of Murder Victims',
-        condemned: 'Families of the Condemned',
+        victims: '🕯️ Families of Murder Victims',
+        condemned: '⚖️ Families of the Condemned',
       };
       return {
         title,

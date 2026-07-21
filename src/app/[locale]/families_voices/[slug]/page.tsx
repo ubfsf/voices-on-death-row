@@ -1,3 +1,4 @@
+// src/app/[locale]/families_voices/[slug]/page.tsx
 import { client } from '@/lib/sanity';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -11,7 +12,6 @@ type Props = {
 export default async function FamilyVoicePage({ params }: Props) {
   const { slug, locale } = await params;
 
-  // 1. Fetch the data (including the new additionalChapters array)
   const query = `*[_type == "familyVoice" && slug.current == $slug][0]{
     name,
     category,
@@ -19,14 +19,93 @@ export default async function FamilyVoicePage({ params }: Props) {
     "introduction": introduction[$locale],
     "testimony": testimony[$locale],
     "additionalChapters": additionalChapters[]{
+      _type,
+      ...,
+      // For chapter type
       "title": chapterTitle[$locale],
-      "content": chapterContent[$locale]
+      "content": chapterContent[$locale],
+      style,
+      // For quote type
+      "quote": quoteText[$locale],
+      attribution,
+      // For image type
+      image,
+      "caption": caption[$locale],
     }
   }`;
 
   const data = await client.fetch(query, { slug, locale });
 
   if (!data) notFound();
+
+  // Helper to render each chapter based on its type
+  const renderChapter = (chapter: any, index: number) => {
+    const type = chapter._type;
+    
+    if (type === 'chapter') {
+      // Custom Text Chapter
+      const styleClasses = {
+        standard: 'text-xl md:text-2xl leading-relaxed text-stone-700',
+        highlight: 'text-xl md:text-2xl leading-relaxed text-stone-700 border-l-4 border-stone-800 pl-8 bg-stone-50 py-6 pr-6',
+        reflection: 'text-xl md:text-2xl leading-relaxed text-stone-600 font-light italic pl-8 border-l-2 border-stone-300',
+      };
+      
+      return (
+        <section key={index} className="mb-32">
+          <span className="text-stone-400 font-mono text-[9px] uppercase tracking-[0.5em] font-bold block mb-8">
+            0{index + 3} // {chapter.title || 'Custom Section'}
+          </span>
+          <div className={styleClasses[chapter.style as keyof typeof styleClasses] || styleClasses.standard}>
+            {chapter.content}
+          </div>
+        </section>
+      );
+    }
+    
+    if (type === 'quoteBox') {
+      // Quote Box
+      return (
+        <section key={index} className="mb-32 max-w-3xl mx-auto">
+          <div className="bg-stone-50 p-12 border-l-4 border-stone-800">
+            <span className="text-5xl text-stone-300 block mb-4 font-serif">“</span>
+            <p className="text-2xl md:text-3xl font-light italic leading-relaxed text-stone-700">
+              {chapter.quote}
+            </p>
+            {chapter.attribution && (
+              <p className="mt-4 text-stone-500 font-mono text-xs uppercase tracking-widest">
+                — {chapter.attribution}
+              </p>
+            )}
+          </div>
+        </section>
+      );
+    }
+    
+    if (type === 'imageBox') {
+      // Image with Caption
+      return (
+        <section key={index} className="mb-32 max-w-4xl mx-auto">
+          <div className="relative">
+            {chapter.image && (
+              <img 
+                src={urlFor(chapter.image).url()} 
+                alt={chapter.caption || 'Supporting image'} 
+                className="w-full h-auto grayscale-[0.2] shadow-xl"
+              />
+            )}
+            {chapter.caption && (
+              <p className="mt-4 text-stone-500 font-mono text-xs uppercase tracking-widest text-center">
+                {chapter.caption}
+              </p>
+            )}
+          </div>
+        </section>
+      );
+    }
+    
+    // Fallback
+    return null;
+  };
 
   return (
     <main className="min-h-screen bg-[#fcfaf7] text-black selection:bg-black selection:text-white relative overflow-x-hidden font-serif">
@@ -93,17 +172,8 @@ export default async function FamilyVoicePage({ params }: Props) {
           </div>
         </section>
 
-        {/* Dynamic Chapters (The "Boxes" Halima creates) */}
-        {data.additionalChapters?.map((chapter: any, index: number) => (
-          <section key={index} className="mb-32">
-            <span className="text-stone-400 font-mono text-[9px] uppercase tracking-[0.5em] font-bold block mb-8">
-              0{index + 3} // {chapter.title}
-            </span>
-            <div className="text-xl md:text-2xl leading-relaxed text-stone-700 whitespace-pre-wrap">
-               {chapter.content}
-            </div>
-          </section>
-        ))}
+        {/* Dynamic Chapters - Each rendered by type */}
+        {data.additionalChapters?.map((chapter: any, index: number) => renderChapter(chapter, index))}
       </div>
 
       {/* 4. FOOTER */}
