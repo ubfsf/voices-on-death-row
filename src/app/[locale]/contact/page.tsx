@@ -1,3 +1,5 @@
+//src/app/[locale]/contact/page.tsx
+
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import * as motion from "framer-motion/client";
