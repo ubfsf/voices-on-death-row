@@ -61,7 +61,7 @@ const DEFAULT_MENU_ITEMS: MenuItem[] = [
     title: "About the Founder",
     subtitle: 'Learn more about Halima Kilgore and her vision for Voices on Death Row.',
     slug: 'about',
-    image: '/images/halimaKilgore.jpg',
+    image: '/images/about.jpg',
     align: 'left',
     isActive: true
   }
