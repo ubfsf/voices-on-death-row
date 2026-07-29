@@ -1,15 +1,29 @@
 "use client";
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import LocalSwitcher from "./LocalSwitcher";
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Header() {
-  const t = useTranslations('Menu');
+  const params = useParams();
+  const locale = params.locale || 'en';
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
 
-  // Engineering logic: Hide on scroll down, show on scroll up
+  const sourceTexts = {
+    home: "Home",
+    voices: "Voices",
+    letters: "Letters",
+    art: "Art",
+    podcast: "Podcast",
+    about: "About",
+    contact: "Contact",
+    siteTitle: "Voices On Death Row"
+  };
+
+  const { t } = useTranslation(sourceTexts);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
@@ -18,6 +32,16 @@ export default function Header() {
       setHidden(false);
     }
   });
+
+  const navItems = [
+    { key: 'home', href: `/${locale}` },
+    { key: 'voices', href: `/${locale}/voices` },
+    { key: 'letters', href: `/${locale}/letters` },
+    { key: 'art', href: `/${locale}/art` },
+    { key: 'podcast', href: `/${locale}/podcast` },
+    { key: 'about', href: `/${locale}/about` },
+    { key: 'contact', href: `/${locale}/contact` },
+  ];
 
   return (
     <motion.header 
@@ -31,19 +55,19 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
-        <a href="/" className="flex items-center gap-4 group">
+        <a href={`/${locale}`} className="flex items-center gap-4 group">
           <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden p-1">
              <img src="/images/logo_transparent.ico" alt="Voices on Death Row Logo" className="w-full h-full object-contain" />
           </div>
           <span className="text-[10px] font-sans tracking-[0.2em] uppercase font-bold text-stone-800 hidden sm:block">
-            Voices On Death Row
+            {t.siteTitle}
           </span>
         </a>
         
         <nav className="hidden lg:flex gap-4">
-          {['home', 'voices', 'letters', 'art', 'podcast', 'about', 'contact'].map((item) => (
-            <a key={item} href={`/${item === 'home' ? '' : item}`} className="nav-link">
-              {t(item)}
+          {navItems.map((item) => (
+            <a key={item.key} href={item.href} className="nav-link">
+              {t[item.key as keyof typeof t]}
             </a>
           ))}
         </nav>

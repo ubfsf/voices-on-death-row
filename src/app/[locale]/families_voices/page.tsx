@@ -1,8 +1,30 @@
+// src/app/[locale]/families_voices/page.tsx
+"use client";
+import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from '@/hooks/useTranslation';
 
-export default async function FamiliesVoicesPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default function FamiliesVoicesPage() {
+  const params = useParams();
+  const locale = params.locale || 'en';
+
+  const sourceTexts = {
+    title: "Families' Voices",
+    subtitle: "The profound impacts on loved ones and communities.",
+    intro: "Behind every death penalty case are families forever changed. Here, loved ones share their stories of loss, love, separation, resilience, and the search for healing and hope.",
+    victims_title: "Families of Murder Victims",
+    victims_desc: "Stories of profound loss, remembrance, and the search for justice, healing, and peace.",
+    condemned_title: "Families of the Condemned",
+    condemned_desc: "Stories of love, separation, uncertainty, and families living in the shadow of a death sentence.",
+    footer_quote: "Our stories are different, but our pain is real. Sharing is how we heal. Listening is how we change.",
+    footer_attribution: "A Family Member",
+    share: "Share Your Story",
+    explore: "Explore"
+  };
+
+  const { t } = useTranslation(sourceTexts);
 
   return (
     <main className="bg-black min-h-screen text-white font-serif relative overflow-x-hidden selection:bg-white selection:text-black">
@@ -18,25 +40,22 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
       {/* 2. HERO SECTION */}
       <section className="relative w-full h-screen flex flex-col justify-center px-8 md:px-20">
         <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-12">
-          {/* Left Text Column */}
           <div className="w-full md:w-1/2">
             <h1 className="text-6xl md:text-[8vw] font-serif uppercase tracking-tighter leading-[0.9] mb-8">
-              Families&apos; <br />
-              <span className="italic font-normal">Voices</span>
+              {t.title}
             </h1>
             <div className="w-24 h-[1px] bg-white/30 mb-8" />
             <p className="text-lg md:text-xl font-light font-serif text-stone-400 max-w-sm mb-8">
-              The profound impacts on loved ones and communities.
+              {t.subtitle}
             </p>
             <Link 
               href="#gallery"
               className="inline-block border border-white/30 px-8 py-3 uppercase text-[10px] tracking-widest font-mono hover:bg-white hover:text-black transition-all duration-500"
             >
-              Explore Their Stories →
+              {t.explore} Their Stories →
             </Link>
           </div>
 
-          {/* Right Image Column */}
           <div className="w-full md:w-1/2 relative h-[50vh] md:h-[60vh]">
             <Image
               src="/images/middleChair.png"
@@ -52,9 +71,7 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
       {/* 3. CENTERED INTRO QUOTE */}
       <section className="max-w-3xl mx-auto text-center py-24 px-6">
         <p className="text-xl md:text-2xl font-serif font-light leading-relaxed text-stone-300">
-          Behind every death penalty case are families forever changed. <br />
-          Here, loved ones share their stories of loss, love, separation, resilience, <br />
-          and the search for healing and hope.
+          {t.intro}
         </p>
       </section>
 
@@ -62,7 +79,6 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
       <section id="gallery" className="max-w-7xl mx-auto px-6 md:px-20 pb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           
-          {/* Category 1: Families of Murder Victims */}
           <Link 
             href={`/${locale}/families_voices/victims`}
             className="group block cursor-pointer"
@@ -76,17 +92,16 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
               />
             </div>
             <h3 className="text-2xl font-serif mb-4 text-white group-hover:text-stone-300 transition-colors">
-              Families of Murder Victims
+              {t.victims_title}
             </h3>
             <p className="text-stone-400 font-serif font-light text-base mb-6 max-w-sm">
-              Stories of profound loss, remembrance, and the search for justice, healing, and peace.
+              {t.victims_desc}
             </p>
             <span className="uppercase text-[10px] tracking-widest font-mono flex items-center gap-2 group-hover:gap-4 transition-all text-white">
-              Explore →
+              {t.explore} →
             </span>
           </Link>
 
-          {/* Category 2: Families of the Condemned */}
           <Link 
             href={`/${locale}/families_voices/condemned`}
             className="group block cursor-pointer"
@@ -100,13 +115,13 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
               />
             </div>
             <h3 className="text-2xl font-serif mb-4 text-white group-hover:text-stone-300 transition-colors">
-              Families of the Condemned
+              {t.condemned_title}
             </h3>
             <p className="text-stone-400 font-serif font-light text-base mb-6 max-w-sm">
-              Stories of love, separation, uncertainty, and families living in the shadow of a death sentence.
+              {t.condemned_desc}
             </p>
             <span className="uppercase text-[10px] tracking-widest font-mono flex items-center gap-2 group-hover:gap-4 transition-all text-white">
-              Explore →
+              {t.explore} →
             </span>
           </Link>
 
@@ -119,18 +134,17 @@ export default async function FamiliesVoicesPage({ params }: { params: Promise<{
           <div className="max-w-2xl">
             <span className="text-5xl text-stone-800 block mb-4 font-serif">“</span>
             <p className="text-xl md:text-2xl italic font-serif font-light text-stone-300 leading-snug">
-              Our stories are different, but our pain is real. <br />
-              Sharing is how we heal. Listening is how we change.
+              {t.footer_quote}
             </p>
             <p className="mt-6 uppercase text-[10px] tracking-[0.2em] font-mono text-stone-600">
-              — A Family Member
+              — {t.footer_attribution}
             </p>
           </div>
           <Link 
             href={`/${locale}/contact`}
             className="border border-white/20 px-8 py-3 uppercase text-[10px] tracking-widest font-mono hover:bg-white hover:text-black transition-all duration-500"
           >
-            Share Your Story →
+            {t.share} →
           </Link>
         </div>
       </section>

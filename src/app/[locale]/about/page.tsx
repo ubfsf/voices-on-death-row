@@ -1,174 +1,95 @@
-import { client } from '@/lib/sanity';
+// src/app/[locale]/about/page.tsx
+"use client";
+import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
-import * as motion from "framer-motion/client";
-import Typewriter from '@/components/Typewriter';
+import { motion } from 'framer-motion';
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default async function AboutPage({ params }: Props) {
-  const { locale } = await params;
-
-  const data = await client.fetch(`*[_type == "about"][0]{
-    name,
-    role,
-    "imageUrl": bioImage.asset->url,
-    "about": about[$locale],
-    "personalLife": personalLife[$locale],
-    "voiceExpression": voiceExpression[$locale],
-    "supportAdvocacy": supportAdvocacy[$locale],
-    "beliefQuote": beliefQuote[$locale]
-  }`, { locale });
-
-  if (!data) return <div className="bg-black min-h-screen" />;
-
-  const narrativeSections = [
-    { label: locale === 'fr' ? "01 // VIE PERSONNELLE" : "01 // PERSONAL LIFE", content: data.personalLife },
-    { label: locale === 'fr' ? "02 // VOIX & EXPRESSION" : "02 // VOICE & EXPRESSION", content: data.voiceExpression },
-    { label: locale === 'fr' ? "03 // SOUTIEN & PLAIDOYER" : "03 // SUPPORT & ADVOCACY", content: data.supportAdvocacy },
-  ];
+export default function AboutPage() {
+  const params = useParams();
+  const locale = params.locale || 'en';
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white pt-12 pb-60 px-6 md:px-16 font-serif relative overflow-x-hidden selection:bg-white selection:text-black">
-      
-      {/* 1. FIXED NAVIGATION */}
-      <Link 
-        href={`/${locale}`} 
-        className="fixed top-12 left-8 z-50 text-white/30 hover:text-white transition-colors uppercase text-[10px] tracking-[0.5em] font-sans mix-blend-difference"
-      >
-        ← {locale === 'fr' ? 'RETOUR' : 'BACK'}
-      </Link>
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] w-full overflow-hidden">
+        <Image
+          src="/images/about.jpg" 
+          alt="About the Founder"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative h-full flex items-center justify-center">
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white tracking-wide">
+            About the Founder
+          </h1>
+        </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start relative z-10">
-        
-        {/* 2. LEFT COLUMN: THE IDENTITY (Sticky Graphic Novel Element) */}
-        <div className="lg:col-span-5 lg:sticky lg:top-24 flex flex-col items-center lg:items-end pt-24">
+      {/* Biography Section */}
+      <section className="py-20 px-6 md:px-24 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
           
-          {/* VERTICAL BACKGROUND TEXT */}
+          {/* Left: Polaroid Portrait */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 0.1 }}
-            transition={{ duration: 2 }}
-            className="hidden lg:block absolute -left-20 top-0 h-full"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="md:col-span-5"
           >
-            <h2 
-              className="text-stone-500 text-[12vw] font-black uppercase tracking-tighter vertical-text select-none pointer-events-none italic" 
-              style={{ writingMode: 'vertical-rl' }}
-            >
-              {data.name.split(' ').pop()}
-            </h2>
+            <div className="bg-white p-4 pb-16 shadow-2xl rotate-[-2deg]">
+              <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/halimaKilgore.jpg"
+                  alt="Halima Kilgore"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                />
+              </div>
+              <p className="mt-6 text-center font-serif text-xl">Halima Kilgore</p>
+            </div>
           </motion.div>
 
-          {/* THE "POLAROID" DOCUMENT */}
+          {/* Right: Biography Text */}
           <motion.div 
-            initial={{ opacity: 0, rotate: -5, scale: 0.9 }}
-            animate={{ opacity: 1, rotate: -2, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="bg-transparent p-2 shadow-[0_50px_100px_rgba(0,0,0,0.9)] w-full max-w-md relative group"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="md:col-span-7 space-y-8"
           >
-            <div className="overflow-hidden border border-white/5 aspect-[4/5] relative">
-              <motion.img 
-                src={data.imageUrl} 
-                alt={data.name} 
-                className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s]"
-                whileHover={{ scale: 1.05 }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+            <div>
+              <h2 className="text-4xl font-serif font-bold">Halima Kilgore</h2>
+              <p className="text-[#A0A0A0] italic text-lg mt-1 font-serif">Founder of Voices on Death Row</p>
+              <div className="w-16 h-px bg-black mt-4" />
             </div>
             
-            <div className="mt-10 text-center lg:text-right">
-               <h2 className="text-white text-5xl font-black italic tracking-tighter uppercase leading-none">
-                 {data.name}
-               </h2>
-               <p className="text-stone-500 text-[10px] uppercase tracking-[0.5em] font-sans mt-4 font-bold">
-                 {data.role}
-               </p>
+            <div className="text-gray-800 leading-relaxed space-y-6 font-light text-lg">
+              <p>Halima Kilgore is the founder of Voices on Death Row. She is an ordinary French-Algerian woman driven by a deep curiosity about people, their life stories, and the experiences that shape them. She believes that every person deserves to be listened to with dignity, empathy, and respect.</p>
+              <p>Her compassion extends beyond a single cause. Whether advocating for human rights, animal welfare, environmental protection, or giving a voice to those affected by the criminal legal system, Halima is guided by the same belief: every life has value, and every story deserves to be heard.</p>
+            </div>
+
+            <blockquote className="border-l-2 border-black pl-6 py-2 italic text-xl font-serif">
+              "Giving voice to every side of the story, because humanity has no borders."
+            </blockquote>
+
+            {/* Core Values */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200">
+              {['I LISTEN', 'I DOCUMENT', 'I SHARE', 'I BELIEVE'].map((val) => (
+                <div key={val} className="text-center">
+                  <p className="font-bold text-sm tracking-widest">{val}</p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
+      </section>
 
-        {/* 3. RIGHT COLUMN: THE NARRATIVE (Scroll Revealed) */}
-        <div className="lg:col-span-7 space-y-40 pt-12">
-          
-          {/* INTRO SECTION */}
-          <motion.section 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="space-y-12"
-          >
-            <header className="relative">
-               <span className="text-stone-600 font-sans text-[10px] uppercase tracking-[0.8em] block mb-4 font-bold">The Story Behind</span>
-               <h1 className="text-7xl md:text-[9vw] font-black italic tracking-tighter uppercase leading-[0.75] mb-12">
-                {locale === 'fr' ? 'À Propos' : 'About'}
-              </h1>
-              <div className="h-px w-full bg-white/5" />
-            </header>
-
-            <div className="text-2xl md:text-3xl leading-[1.4] text-stone-300 font-light italic tracking-tight whitespace-pre-wrap">
-              {data.about && <Typewriter text={data.about} speed={0.008} />}
-            </div>
-          </motion.section>
-
-          {/* BELIEF QUOTE - Cinematic Break */}
-          {data.beliefQuote && (
-            <motion.section 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2 }}
-              className="py-32 border-y border-white/5 relative"
-            >
-              <div className="absolute top-0 left-0 w-12 h-px bg-white/40" />
-              <blockquote className="text-4xl md:text-6xl text-white font-black italic leading-[1.1] text-center max-w-2xl mx-auto tracking-tighter uppercase">
-                "{data.beliefQuote}"
-              </blockquote>
-              <div className="absolute bottom-0 right-0 w-12 h-px bg-white/40" />
-            </motion.section>
-          )}
-
-          {/* DYNAMIC NARRATIVE CHAPTERS */}
-          <div className="space-y-40">
-            {narrativeSections.map((section, index) => section.content && (
-              <motion.section 
-                key={section.label} 
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="space-y-10 group"
-              >
-                <div className="flex items-center gap-6">
-                  <div className="h-px w-12 bg-stone-900 group-hover:w-24 group-hover:bg-white transition-all duration-700" />
-                  <h3 className="text-[10px] uppercase tracking-[0.6em] text-stone-600 font-bold font-sans">
-                    {section.label}
-                  </h3>
-                </div>
-                <div className="text-xl md:text-2xl leading-relaxed text-stone-400 font-light border-l border-stone-900 pl-10 group-hover:border-stone-500 transition-colors duration-700">
-                  <Typewriter text={section.content} speed={0.005} />
-                </div>
-              </motion.section>
-            ))}
-          </div>
-
-          {/* FOOTER TRANSITION */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="pt-40 flex flex-col items-center gap-8"
-          >
-            <div className="w-px h-32 bg-gradient-to-b from-stone-800 to-transparent" />
-            <Link 
-              href={`/${locale}/voices`}
-              className="font-sans text-[10px] uppercase tracking-[0.8em] text-stone-600 hover:text-white transition-colors"
-            >
-              {locale === 'fr' ? 'Entrer dans les voix' : 'Enter the Voices'}
-            </Link>
-          </motion.div>
-        </div>
-
+      <div className="text-center pb-20">
+        <Link href={`/${locale}`} className="text-gray-400 hover:text-black transition-colors uppercase tracking-widest text-sm">
+          ← Back to Voices
+        </Link>
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-import { about } from './about'
+import { aboutPage } from './aboutPage'
 import { voice } from './voice' 
 import { letters } from './letters'
 import { art } from './art'
@@ -7,10 +7,12 @@ import { contactInfo } from './contactInfo'
 import { localeString, localeText } from './localeString'
 import { familyVoice } from './familyVoice' // 1. Import the new schema
 import { resource } from './resource'
+import { visualMenu } from './visualMenu'; // ← Add this
+
 
 // Export as an array directly
 export const schemaTypes = [
-  about, 
+  aboutPage, 
   voice, 
   letters, 
   art, 
@@ -19,6 +21,6 @@ export const schemaTypes = [
   localeString, 
   localeText,
   familyVoice, // 2. Add it to the array
-  resource
-  
+  resource,
+  visualMenu, // ← Add this
 ]
