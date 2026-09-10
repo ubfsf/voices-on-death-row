@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, TargetAndTransition, Transition } from "framer-motion";
-import { useTranslation } from '@/hooks/useTranslation';
+import { useTranslations } from "next-intl";
 
 /**
  * BRUSHSTROKE CONTROLS
@@ -54,15 +54,15 @@ export default function HeroTitle({
     ease: [0.16, 1, 0.3, 1],
   },
 }: HeroTitleProps): React.ReactElement {
-  // Source texts for translation - with proper defaults
-  const sourceTexts = {
-    subtitle: subtitleText,
-    mainTitle: mainTitleText,
-    prefix: prefixText,
-    deathRow: deathRowText
-  };
+  const t = useTranslations("HomePage");
 
-  const { t } = useTranslation(sourceTexts);
+  const resolvedSubtitle = subtitleText || t("hero_subtitle");
+  const resolvedMainTitle = mainTitleText || t("hero_title");
+  const resolvedPrefix = prefixText || t("prefix");
+  const resolvedDeathRow = deathRowText || t("deathRowText");
+
+  const firstChar = resolvedPrefix?.charAt(0) ?? "";
+  const restPrefix = resolvedPrefix?.slice(1) ?? "";
 
   return (
     <motion.div
@@ -71,47 +71,32 @@ export default function HeroTitle({
       viewport={{ once: true }}
       transition={transitionConfig}
     >
-      {/* Subtitle - This will translate to "Une Introduction" in French */}
-      {subtitleText && <p className={subtitleStyles}>{t.subtitle}</p>}
+      {subtitleText && <p className={subtitleStyles}>{resolvedSubtitle}</p>}
 
-      {/* Main Title Header */}
       <h1 className="flex flex-col items-start uppercase">
-        <span className={mainTitleStyles}>{t.mainTitle}</span>
+        <span className={mainTitleStyles}>{resolvedMainTitle}</span>
 
-        {/* Subtitle Row (ON + Brushstroke + DEATH ROW) */}
         <div className={containerStyles}>
-          {/* Prefix "ON" - This will translate to "SUR" in French */}
-          {prefixText && (
-            <span
-              className={`text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${prefixStyles}`}
-            >
-              {t.prefix}
+          {firstChar && (
+            <span className={`text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${prefixStyles}`}>
+              {firstChar}
             </span>
           )}
 
-          {/* Anchor Container for Brushstroke + DEATH ROW */}
-          <span className="relative inline-flex items-center justify-center">
-            {/* Brushstroke PNG - Scaled up and shifted independently */}
+          <span className="relative inline-flex items-center">
             {brushstrokeSrc && (
               <img
                 src={brushstrokeSrc}
                 alt={brushstrokeAlt}
                 aria-hidden={!brushstrokeAlt}
-                className={`absolute inset-0 w-full h-full object-fill pointer-events-none select-none z-10 origin-center ${BRUSHSTROKE_CONFIG.imageScaleX} ${BRUSHSTROKE_CONFIG.imageScaleY} ${BRUSHSTROKE_CONFIG.rotate}`}
-                style={{
-                  transform: `translate(${BRUSHSTROKE_CONFIG.strokeOffsetX}, ${BRUSHSTROKE_CONFIG.strokeOffsetY})`,
-                }}
+                className={`absolute inset-0 w-full h-full object-fill pointer-events-none select-none z-0 origin-center ${BRUSHSTROKE_CONFIG.imageScaleX} ${BRUSHSTROKE_CONFIG.imageScaleY} ${BRUSHSTROKE_CONFIG.rotate}`}
+                style={{ transform: `translate(${BRUSHSTROKE_CONFIG.strokeOffsetX}, ${BRUSHSTROKE_CONFIG.strokeOffsetY})` }}
               />
             )}
-
-            {/* "DEATH ROW" Text - This will translate to "COULOIR DE LA MORT" in French */}
-            <span
-              className={`text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${deathRowStyles}`}
-              style={{
-                transform: `translate(${BRUSHSTROKE_CONFIG.textOffsetX}, ${BRUSHSTROKE_CONFIG.textOffsetY})`,
-              }}
-            >
-              {t.deathRow}
+            <span className={`relative z-10 text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${deathRowStyles}`} style={{ transform: `translate(${BRUSHSTROKE_CONFIG.textOffsetX}, ${BRUSHSTROKE_CONFIG.textOffsetY})` }}>
+              {restPrefix && <span>{restPrefix}</span>}
+              {restPrefix && <span className="mx-2"> </span>}
+              <span>{resolvedDeathRow}</span>
             </span>
           </span>
         </div>
