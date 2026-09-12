@@ -3,7 +3,8 @@ import { client } from '@/lib/sanity';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { urlFor } from '@/lib/sanity';
-import Typewriter from '@/components/Typewriter';
+import Typewriter from '@/components/ui/Typewriter';
+import ScrollUpToHome from '@/components/ScrollUpToHome';
 
 type Props = {
   params: Promise<{ slug: string; locale: string }>;
@@ -108,10 +109,11 @@ export default async function FamilyVoicePage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-[#fcfaf7] text-black selection:bg-black selection:text-white relative overflow-x-hidden font-serif">
+    <main className="page-paper">
+      <ScrollUpToHome />
       
       {/* Cinematic Grain Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       
       {/* 1. NAVIGATION */}
       <Link 
