@@ -1,6 +1,6 @@
 "use client";
-import { useRef, useEffect } from "react";
-import { useScroll, useTransform, motion, useSpring, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { useScroll, useTransform, motion, useSpring } from "framer-motion";
 import { useTranslations } from "next-intl";
 import ContactForm from "./ContactForm";
 
@@ -33,14 +33,6 @@ export default function StoryArchive() {
   const opacityQuote = useTransform(smoothProgress, [0.4, 0.5, 0.65, 0.75], [0, 1, 1, 0]);
 
   const footerOpacity = useTransform(smoothProgress, [0.8, 0.95], [0, 1]);
-
-  // Audio for atmosphere during scroll
-  const atmosphereSound = useRef<Howl | null>(null);
-
-  useEffect(() => {
-    // Optionally we can play a lower-volume atmospheric drone here
-    // For now we rely on the visual silence or adding a drone later.
-  }, []);
 
   return (
     <div ref={containerRef} className="relative min-h-[400vh] bg-[#0a0a09] text-stone-200 selection:bg-stone-700 selection:text-white pb-24">

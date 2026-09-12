@@ -20,18 +20,18 @@ export default async function VoicesPage({ params }: Props) {
   const voices = await client.fetch(query);
 
   return (
-    <main className="bg-black min-h-screen relative overflow-x-hidden selection:bg-white selection:text-black">
+    <main className="page-paper">
       
       {/* Cinematic Overlays */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(20,20,20,1)_0%,_rgba(0,0,0,1)_100%)]" />
-        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(252,250,247,1)_0%,_rgba(240,238,235,1)_100%)]" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       </div>
 
       {/* Navigation */}
       <Link 
         href={`/${locale}`} 
-        className="fixed top-12 left-12 z-50 text-white/20 hover:text-white transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference"
+        className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference"
       >
         ← MENU
       </Link>
@@ -46,7 +46,7 @@ export default async function VoicesPage({ params }: Props) {
           <VoicesGallery voices={voices} locale={locale} />
         ) : (
           <div className="h-screen flex items-center justify-center">
-            <p className="text-stone-600 uppercase tracking-[1em] text-[10px] animate-pulse">
+            <p className="text-stone-400 uppercase tracking-[1em] text-[10px] animate-pulse">
               Retrieving Archive...
             </p>
           </div>

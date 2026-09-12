@@ -47,7 +47,7 @@ export default function VoicesGallery({
   };
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center py-10 overflow-hidden bg-[#050505]">
+    <div className="relative w-full min-h-screen flex items-center justify-center py-10 overflow-hidden bg-[#fcfaf7]">
       
       {/* 1. THE TITLE: Centered and High Contrast */}
       <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none select-none text-center px-4">
@@ -55,9 +55,9 @@ export default function VoicesGallery({
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5 }}
-          className="text-5xl sm:text-7xl md:text-[10vw] font-black italic uppercase leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_80px_rgba(0,0,0,1)]"
+          className="text-5xl sm:text-7xl md:text-[10vw] font-black italic uppercase leading-[0.8] tracking-tighter text-stone-300 drop-shadow-[0_0_80px_rgba(252,250,247,1)]"
         >
-          THE <span className="text-stone-200">VOICES</span>
+          THE <span className="text-black">VOICES</span>
         </motion.h1>
       </div>
 
@@ -85,15 +85,11 @@ export default function VoicesGallery({
             >
               <Link
                 href={`/${locale}/voices/${voice.slug}`}
-                className="block relative group"
+                aria-label={`Read ${voice.author}'s story`}
+                className="block relative group focus-visible:outline-none"
               >
-                {/* 
-                   THE PIN REMOVED: Mrs. Kilgore wants a "taped on the wall" effect. 
-                   Since the tape is already in the photo, we rely on shadows for depth. 
-                */}
-
                 {/* THE IMAGE CONTAINER */}
-                <div className="relative w-40 sm:w-56 md:w-72 transition-all duration-700 group-hover:scale-110 group-hover:rotate-0 group-hover:z-[60] shadow-[40px_40px_80px_rgba(0,0,0,0.9)]">
+                <div className="relative w-40 sm:w-56 md:w-72 transition-all duration-700 group-hover:scale-110 group-hover:rotate-0 group-hover:z-[60] shadow-[20px_20px_60px_rgba(0,0,0,0.15)]">
                   <img
                     src={urlFor(voice.photo).url()}
                     alt={voice.author}
@@ -102,12 +98,12 @@ export default function VoicesGallery({
                   />
                   
                   {/* Subtle Paper Sheen */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none opacity-30 group-hover:opacity-10 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none opacity-30 group-hover:opacity-10 transition-opacity" />
                 </div>
 
-                {/* NAME REVEAL */}
-                <div className="absolute -bottom-8 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="font-black italic text-[10px] md:text-xs text-white tracking-[0.4em] uppercase bg-black/90 px-3 py-1.5 backdrop-blur-md border border-white/10">
+                {/* NAME REVEAL (hover + keyboard focus) */}
+                <div className="absolute -bottom-8 left-0 w-full text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500">
+                  <span className="font-black italic text-[10px] md:text-xs text-black tracking-[0.4em] uppercase bg-white/90 px-3 py-1.5 backdrop-blur-md border border-stone-200 shadow-sm">
                     {voice.author}
                   </span>
                 </div>
@@ -118,7 +114,7 @@ export default function VoicesGallery({
       </div>
 
       {/* Wall Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[url('/textures/noise.svg')]" />
     </div>
   );
 }

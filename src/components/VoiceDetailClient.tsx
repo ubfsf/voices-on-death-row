@@ -3,7 +3,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity";
-import Typewriter from "@/components/Typewriter";
+import Typewriter from "@/components/ui/Typewriter";
+import ScrollUpToHome from "@/components/ScrollUpToHome";
 
 interface VoiceProps {
   voice: {
@@ -48,15 +49,17 @@ export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
   ].filter(s => s.content);
 
   return (
-    <main ref={containerRef} className="bg-[#fcfaf7] min-h-screen text-black selection:bg-black selection:text-white relative overflow-x-hidden">
+    <main ref={containerRef} className="page-paper">
+      <ScrollUpToHome />
       
       {/* Cinematic Grain Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       
       {/* 1. NAVIGATION - Minimalist Archive Link */}
-      <Link 
-        href={`/${locale}/voices`} 
-        className="fixed top-8 left-8 md:top-12 md:left-12 z-[100] flex items-center gap-3 group mix-blend-difference"
+      <Link
+        href={`/${locale}/voices`}
+        aria-label="Back to the Voices archive"
+        className="fixed top-8 left-8 md:top-12 md:left-12 z-[100] flex items-center gap-3 group mix-blend-difference focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/60 rounded-full"
       >
         <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center bg-white/20 backdrop-blur-md group-hover:bg-black group-hover:text-white transition-all duration-500">
           <span className="text-lg">←</span>
@@ -148,10 +151,11 @@ export default function VoiceDetailClient({ voice, locale, slug }: VoiceProps) {
             </Link>
 
             {voice.caseLink && (
-              <a 
-                href={voice.caseLink} 
-                target="_blank" 
-                className="block font-mono text-[8px] uppercase tracking-[0.4em] text-stone-300 hover:text-stone-500"
+              <a
+                href={voice.caseLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-mono text-[8px] uppercase tracking-[0.4em] text-stone-300 hover:text-stone-500 focus-visible:outline-none focus-visible:text-stone-600"
               >
                 View Legal Records
               </a>

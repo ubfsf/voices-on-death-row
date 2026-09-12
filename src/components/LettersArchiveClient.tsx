@@ -14,7 +14,7 @@ export default function LettersArchiveClient({ letters, locale }: LettersArchive
       {/* Cinematic Background Overlays */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(15,15,15,1)_0%,_rgba(0,0,0,1)_100%)]" />
-        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       </div>
 
       {/* Navigation */}
