@@ -6,56 +6,187 @@
 /* Typography plugin */
 @plugin "@tailwindcss/typography";
 
-/* Theme tokens */
+/* Fonts */
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/la-belle-aurore/400.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/cormorant-garamond/700.css";
+@import "@fontsource/cormorant-garamond/500-italic.css";
+
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — Single source of truth
+   Change a token here once and the whole site updates.
+   ═══════════════════════════════════════════════════════════ */
 @theme {
-  --font-artistic: "Cormorant Garamond", serif;
-  --font-sans: "Inter", sans-serif;
-  --color-paper: #fcfaf7;
-  --color-ink: #1c1917;
+  /* ─── Typography ──────────────────────────────────────────
+     font-serif & font-artistic both map to Cormorant Garamond
+     so headings/editorial text render identically site-wide.
+     Families are declared as CSS variables (next/font-ready):
+     swap in var(--font-geist-sans) etc. if Geist is ever loaded. */
+  --font-artistic: "Cormorant Garamond", Georgia, serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-script: "La Belle Aurore", cursive;
+  --font-mono: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+
+  /* ─── Type scale — size paired with line-height & tracking ─
+     Every text-* utility now carries its matching leading and
+     letter-spacing so typography stays consistent site-wide. */
+  --text-xs: 0.75rem;                                            /* 12px */
+  --text-xs--line-height: 1rem;
+  --text-xs--letter-spacing: 0.01em;
+
+  --text-sm: 0.875rem;                                           /* 14px */
+  --text-sm--line-height: 1.25rem;
+  --text-sm--letter-spacing: 0em;
+
+  --text-base: 1rem;                                             /* 16px */
+  --text-base--line-height: 1.5rem;
+  --text-base--letter-spacing: -0.01em;
+
+  --text-lg: 1.125rem;                                           /* 18px */
+  --text-lg--line-height: 1.75rem;
+  --text-lg--letter-spacing: -0.01em;
+
+  --text-xl: 1.25rem;                                            /* 20px */
+  --text-xl--line-height: 1.875rem;
+  --text-xl--letter-spacing: -0.02em;
+
+  --text-2xl: 1.5rem;                                            /* 24px */
+  --text-2xl--line-height: 2rem;
+  --text-2xl--letter-spacing: -0.02em;
+
+  --text-3xl: 1.875rem;                                          /* 30px */
+  --text-3xl--line-height: 2.25rem;
+  --text-3xl--letter-spacing: -0.025em;
+
+  --text-4xl: 2.25rem;                                           /* 36px */
+  --text-4xl--line-height: 2.5rem;
+  --text-4xl--letter-spacing: -0.03em;
+
+  /* ─── Light theme — interior pages ─────────────────────── */
+  --color-paper: #fcfaf7;        /* page background (warm cream) */
+  --color-paper-alt: #f7f4ef;    /* secondary surface */
+  --color-ink: #1c1917;          /* primary text (near-black) */
+  --color-ink-muted: #57534e;    /* secondary text (stone-600) */
+  --color-ink-faint: #a8a29e;    /* tertiary text  (stone-400) */
+  --color-border-light: #e7e5e4; /* hairline borders (stone-200) */
+  --color-border-strong: #d6d3d1;/* stronger borders (stone-300) */
+
+  /* ─── Brand accent ─────────────────────────────────────── */
+  --color-accent: #ffb81c;
+
+  /* ─── Dark theme — homepage, intro, footer band ────────── */
+  --color-night: #050505;
+  --color-night-alt: #0a0a0a;
+
+    /* ─── Dark Footer — stays dark everywhere ──────────────── */
+  --color-footer-bg: #0a0a0a;
+  --color-footer-text: #a8a29e;      /* stone-400 */
+  --color-footer-text-muted: #78716c; /* stone-500 */
+  --color-footer-text-faint: #57534e; /* stone-600 */
+  --color-footer-border: rgba(255, 255, 255, 0.05);
+  --color-footer-divider: #44403c;    /* stone-700 */
 }
 
-/* Components */
+/* ═══════════════════════════════════════════════════════════
+   BASE — consistent typography & color defaults
+   Every page inherits these unless a component overrides.
+   ═══════════════════════════════════════════════════════════ */
+@layer base {
+  body {
+    @apply antialiased bg-paper text-ink font-sans;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* Visible focus ring for keyboard users (accessibility baseline) */
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+/* Respect reduced-motion: kill animations/transitions for sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT CLASSES — reusable, consistent building blocks
+   ═══════════════════════════════════════════════════════════ */
 @layer components {
+  /* Shared light interior page shell */
+  .page-paper {
+    @apply min-h-screen bg-paper text-ink font-serif selection:bg-ink selection:text-paper relative overflow-x-hidden;
+  }
+
+  /* Shared dark page shell (homepage / intro) */
+  .page-night {
+    @apply min-h-screen bg-night text-paper font-serif overflow-x-hidden selection:bg-paper selection:text-ink;
+  }
+  /* Footer - dark and consistent everywhere */
+  .footer-dark {
+    @apply bg-footer-bg border-t border-footer-border;
+  }
+
+  .footer-text {
+    @apply text-footer-text;
+  }
+
+  .footer-text-muted {
+    @apply text-footer-text-muted;
+  }
+
+  .footer-text-faint {
+    @apply text-footer-text-faint;
+  }
+
+  .footer-divider {
+    @apply bg-footer-divider;
+  }
+
+
+  /* Editorial eyebrow label */
+  .eyebrow {
+    @apply font-mono text-[9px] uppercase tracking-[0.5em] font-bold text-ink-faint;
+  }
+
+  /* Editorial hairline divider */
+  .hairline {
+    @apply h-px w-full bg-border-light;
+  }
+
+  /* Navigation link */
+  .nav-link {
+    @apply text-[10px] uppercase tracking-widest font-sans font-bold opacity-60 hover:opacity-100 transition-opacity px-4 py-2;
+  }
+
+  /* Paper texture surface */
   .paper-texture {
     background-color: var(--color-paper);
-    /* background-image: url("https://www.transparenttextures.com/patterns/felt.png"); */
     background-attachment: fixed;
   }
 
-  .hero-title-clean {
-    @apply text-2xl md:text-3xl font-sans font-medium uppercase tracking-[0.7em] text-white;
-  }
-  
-  .story-text-main {
-    @apply mt-60 mb-40 text-4xl md:text-5xl lg:text-6xl font-artistic italic text-stone-800 leading-[1.2] max-w-4xl mx-auto px-6 text-center;
-  }
-
-  .ink-text {
-    @apply font-artistic italic leading-relaxed text-stone-800;
-  }
-
-  .hero-title {
-    @apply text-6xl md:text-4xl font-artistic italic mb-12 leading-tight text-stone-900 tracking-tighter;
-  }
-
+  /* Long-form editorial prose */
   .prose-archive {
     @apply prose prose-stone lg:prose-xl font-serif italic opacity-80 leading-relaxed;
   }
 
-  .nav-link {
-    @apply text-[10px] uppercase tracking-widest font-sans font-bold opacity-60 hover:opacity-100 transition-opacity px-4 py-2;
-  }
-}
-
-/* Base */
-@layer base {
-  body {
-    @apply antialiased selection:bg-stone-200 bg-[var(--color-paper)];
-  }
-}
-
-@layer utilities {
-  .bg-gradient-radial {
-    background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
+  /* Handwritten / italic ink text */
+  .ink-text {
+    @apply font-serif italic leading-relaxed text-ink-muted;
   }
 }

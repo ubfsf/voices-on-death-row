@@ -1,0 +1,16 @@
+:root{
+  --story-bg: var(--black, #06060a);
+  --story-text: var(--white, #f0ece4);
+  --story-muted: var(--gray, #7a7570);
+  --story-accent: var(--white);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
