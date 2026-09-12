@@ -7,7 +7,7 @@ export default async function ResourcesPage({ params }: { params: Promise<{ loca
   const resources = await client.fetch(`*[_type == "resource"] | order(category asc)`);
 
   return (
-    <main className="bg-[#fcfaf7] min-h-screen pt-48 pb-32 px-6 md:px-20 font-serif selection:bg-black selection:text-white">
+    <main className="page-paper pt-48 pb-32 px-6 md:px-20">
       {/* Navigation */}
       <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-colors uppercase text-[10px] tracking-[1em] font-black">
         ← MENU

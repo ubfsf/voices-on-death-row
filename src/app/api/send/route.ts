@@ -1,7 +1,11 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import { getClientIp, rateLimit, tooManyRequests } from '@/lib/utils';
 
 export async function POST(request: Request) {
+  const limit = rateLimit(`send:${getClientIp(request)}`, { windowMs: 10 * 60_000, max: 3 });
+  if (!limit.allowed) return tooManyRequests(limit);
+
   // Moving this inside the function prevents the build-time crash
   const resend = new Resend(process.env.RESEND_API_KEY);
 
