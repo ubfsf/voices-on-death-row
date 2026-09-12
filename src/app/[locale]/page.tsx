@@ -1,40 +1,21 @@
 // src/app/[locale]/page.tsx
-"use client";
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import IntroSequence from '@/components/IntroSequence';
-import VisualMenu from '@/components/VisualMenu';
+//
+// Homepage — "curtain unveil" experience with server-rendered VisualMenu initial data.
+import { getVisualMenu } from '@/lib/sanityQueries';
+import HomeCurtain from '@/components/HomeCurtain';
 
-export default function HomePage() {
-  const [showIntro, setShowIntro] = useState(true);
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
 
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
+  let initialMenuData = null;
+  try {
+    const data = await getVisualMenu(locale);
+    if (data?.menuItems?.length) {
+      initialMenuData = { menuItems: data.menuItems };
+    }
+  } catch {
+    // Fallback to defaults in client
+  }
 
-  return (
-    <>
-      <AnimatePresence mode="wait">
-        {showIntro ? (
-          <motion.div
-            key="intro"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <IntroSequence onComplete={handleIntroComplete} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <VisualMenu />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+  return <HomeCurtain initialMenuData={initialMenuData} />;
 }
