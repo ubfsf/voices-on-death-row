@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/la-belle-aurore": "^5.3.0",
     "@fontsource/montserrat": "^5.3.0",
     "@sanity/cli": "^7.2.3",
     "@sanity/client": "^7.25.0",
