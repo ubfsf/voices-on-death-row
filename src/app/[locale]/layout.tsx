@@ -1,12 +1,9 @@
 // src/app/[locale]/layout.tsx
-import "@/app/globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Analytics } from "@vercel/analytics/next";
-import Footer from "@/components/Footer";
-
-// ✅ NO Header import
-// ✅ NO duplicate VisualMenu imports
+import Footer from "@/components/layout/Footer";
+import LocaleLangSetter from "@/components/LocaleLangSetter";
+import ScrollUpToHome from "@/components/ScrollUpToHome";
 
 type Props = {
   children: React.ReactNode;
@@ -16,7 +13,7 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
   return {
-    title: locale === 'fr' 
+    title: locale === 'fr'
       ? 'Voices On Death Row - Plateforme Franco-Américaine'
       : 'Voices On Death Row - Franco-American Storytelling Platform',
     description: locale === 'fr'
@@ -28,21 +25,22 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
+// ❗ This layout intentionally does NOT render <html>/<body>.
+// The root layout (src/app/layout.tsx) owns those tags with
+// suppressHydrationWarning. Nested <html>/<body> tags here were the
+// root cause of the SSR/client hydration mismatch on <body> classList.
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col antialiased bg-black" suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <main className="grow">
-            {children}
-          </main>
-          <Footer />
-          <Analytics />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <LocaleLangSetter locale={locale} />
+      <main className="grow">
+        {children}
+        <ScrollUpToHome />
+      </main>
+      <Footer />
+    </NextIntlClientProvider>
   );
 }
