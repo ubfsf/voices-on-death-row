@@ -1,0 +1,55 @@
+# ─── Secrets — NEVER ship these into an image ───────────────
+**/.env
+**/.env.*
+**/!.env.example
+
+# ─── VCS & editor ────────────────────────────────────────────
+.git
+.gitignore
+.gitattributes
+.gitmodules
+.vscode
+.idea
+*.swp
+
+# ─── Dependencies & build output (rebuilt in-container) ─────
+node_modules
+.next
+out
+dist
+build
+.turbo
+experimental.turbopack.root
+
+# ─── Logs, debug, OS ─────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.DS_Store
+Thumbs.db
+*.pem
+*.tsbuildinfo
+
+# ─── Coverage / tests / misc docs ───────────────────────────
+coverage
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+eslint.config.mjs
+Dockerfile
+docker-compose.yml
+.dockerignore
+</content>
+<task_progress>
+- [x] Read next.config.js + .gitignore (env* already ignored globally)
+- [x] Audit all process.env usage (5 vars)
+- [x] Enable standalone output in next.config.js
+- [x] Create Dockerfile (multi-stage, non-root, HEALTHCHECK)
+- [x] Create docker-compose.yml (security-hardened: read_only, env-only, no secrets baked)
+- [x] Create .dockerignore (keep secrets/junk out of image)
+- [ ] Create .env.example (documented, no secrets)
+- [ ] Update handover docs (README / DEPLOY_GUIDE) with Docker run steps
+- [ ] Verify standalone build + validate compose (docker availability)
+</task_progress>

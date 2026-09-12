@@ -1,0 +1,43 @@
+# ─────────────────────────────────────────────────────────────────────
+# Voices On Death Row — production compose
+# Security posture:
+#   • read_only: true   — container filesystem is read-only
+#   • tmpfs /tmp        — scratch space survives restarts
+#   • env_file: .env    — secrets are supplied at RUNTIME only, never baked
+#                         into the image (see .dockerignore)
+#   • restart: unless-stopped
+# No host ports are published on 0.0.0.0 by default; reverse-proxy through
+# the host nginx/Caddy for TLS. Expose only if you intend direct HTTP.
+# ─────────────────────────────────────────────────────────────────────
+services:
+  web:
+    build:
+      context: .
+      args:
+        # PUBLIC build-time values (NOT secrets — they identify the public Sanity CMS)
+        NEXT_PUBLIC_SANITY_PROJECT_ID: ${NEXT_PUBLIC_SANITY_PROJECT_ID:-}
+        NEXT_PUBLIC_SANITY_DATASET: ${NEXT_PUBLIC_SANITY_DATASET:-}
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:-http://localhost:3000}
+    image: voices-on-death-row:latest
+    container_name: voices-on-death-row
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp
+    env_file:
+      - .env
+    environment:
+      # Runtime values that must exist inside the container
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      # Server secrets — ONLY available at runtime, never in the image
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    ports:
+      # Use 127.0.0.1 if you proxy externally; 0.0.0.0 only for direct exposure
+      - "127.0.0.1:3000:3000"
+    # If the host needs DNS to reach the container web UI
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
