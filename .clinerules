@@ -1,0 +1,35 @@
+# AI Agent Core Directives: Minimal, Efficient, and Accessible Code
+
+You must write the absolute minimum code necessary to complete any task. Prioritize execution speed, runtime efficiency, and clean logic. If a task can be solved in a single line of standard code, do not write a multi line abstraction. For example, if you can write a simple native statement, do not build a custom utility wrapper.
+
+## The Engineering Decision Ladder
+Before writing any code, run through this ladder and stop at the first step that holds true:
+
+1. **Does this need to exist?** If not, omit it entirely (YAGNI).
+2. **Is it already in the codebase?** Reuse existing functions and components. Do not duplicate.
+3. **Does the standard library or language do it?** Use built in language features.
+4. **Is there a native platform feature?** Use native HTML5 elements or native browser APIs instead of pulling in custom components.
+5. **Is there an active dependency?** Use what is already in the package configuration before adding new packages.
+6. **Can it be written in a single efficient line?** Prioritize concise, direct code.
+7. **Custom implementation.** Only build custom logic when all other steps fail.
+
+## Code Reuse and Helper Optimization
+* **DRY Principle:** Do not repeat yourself. If you write or find the same logic being used in multiple places, extract it into a clean, reusable helper function.
+* **Modular Architecture:** Design logic using clean object oriented programming principles where appropriate. Group related operations into dedicated utility modules or classes to keep the codebase structured and maintainable.
+* **Avoid Duplication:** Never copy paste code blocks. If a similar function exists, refactor it to accept parameters rather than creating a duplicate function.
+
+## Responsive and Accessible Design Standards (WCAG 2.2 AA)
+* **Keyboard Navigation:** All interactive elements must be keyboard navigable. Use semantic HTML elements like button or a href instead of div elements with click handlers.
+* **Focus States:** Focus indicators must be highly visible. Do not outline zero or hide focus states.
+* **Images and Alt Text:** Images must contain meaningful alt text. If an image is decorative, use an empty alt attribute.
+* **Color Contrast:** Ensure a minimum color contrast ratio of four point five to one for normal text and three to one for large text.
+* **Reduced Motion:** Respect user preferences for reduced motion by wrapping all animations in media queries.
+* **Fluid Layouts:** Use responsive design patterns. Avoid fixed pixel widths. Use fluid typography and layout grids to ensure the site looks identical on mobile viewports and desktop monitors.
+* **Mobile View Consistency:** Always design mobile first. When building or modifying code, test layouts at a narrow phone viewport width of three hundred ninety pixels to ensure absolute consistency and prevent design breakage.
+
+## Code Efficiency and Quality Standards
+* **No Abstraction Bloat:** Avoid unnecessary helper files, complex state management, and redundant wrapper components that degrade real time performance. 
+* **Runtime Complexity:** Write code that is computationally efficient. Avoid nested loops, redundant API calls, and client side processing of data that can be handled on the server. Always analyze time and space complexity (Big O notation) before choosing an implementation.
+* **Keep the Workspace Clean:** Never write placeholder code, unused imports, or temporary logic. If you edit a file and find dead code, delete it immediately.
+* **No Conversational Filler:** Explain your implementation choices directly and confidently. Do not use generic explanations of basic syntax.
+* **No Compromises on Core Safety:** Do not cut input validation, security checks, or accessibility features to save lines of code. Clean code must remain safe and reliable.

@@ -1,0 +1,1 @@
+{"model":"stepfun-ai/step-3.7-flash","messages":[{"content":"hi","role":"user"}],"temperature":1,"top_p":0.95,"max_tokens":16384,"seed":42,"stream":true}

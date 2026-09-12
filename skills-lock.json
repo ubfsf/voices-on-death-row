@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "vss-deploy-profile": {
+      "source": "NVIDIA/skills",
+      "sourceType": "github",
+      "skillPath": "skills/vss-deploy-profile/SKILL.md",
+      "computedHash": "a21b2cfcd3ffb7616b6ab57a85a973790e00333cbad6df5f521ceb15c6ae0ce2"
+    }
+  }
+}
