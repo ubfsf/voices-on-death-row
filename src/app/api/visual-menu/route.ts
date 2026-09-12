@@ -1,8 +1,12 @@
 // src/app/api/visual-menu/route.ts
 import { NextResponse } from 'next/server';
 import { getVisualMenu } from '@/lib/sanityQueries';
+import { getClientIp, rateLimit, tooManyRequests } from '@/lib/utils';
 
 export async function GET(req: Request) {
+  const limit = rateLimit(`visual-menu:${getClientIp(req)}`, { windowMs: 60_000, max: 120 });
+  if (!limit.allowed) return tooManyRequests(limit);
+
   try {
     const { searchParams } = new URL(req.url);
     const locale = searchParams.get('locale') || 'en';
