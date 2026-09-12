@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Docker-friendly output: produces .next/standalone for a minimal, self-contained image
-  output: 'standalone',
+  // Use standalone output only for Docker builds (not Vercel)
+  ...(process.env.DOCKER_BUILD === 'true' ? { output: 'standalone' } : {}),
   images: {
     remotePatterns: [
       {
