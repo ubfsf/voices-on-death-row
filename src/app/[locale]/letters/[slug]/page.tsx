@@ -1,7 +1,7 @@
 import { client } from '@/lib/sanity';
 import Link from 'next/link';
 import * as motion from "framer-motion/client";
-import Typewriter from '@/components/Typewriter';
+import Typewriter from '@/components/ui/Typewriter';
 
 export default async function LetterDetail({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = await params;
@@ -16,13 +16,13 @@ export default async function LetterDetail({ params }: { params: Promise<{ slug:
 
   const letter = await client.fetch(query, { slug, locale });
 
-  if (!letter) return <div className="bg-black min-h-screen" />;
+  if (!letter) return <div className="bg-[#fcfaf7] min-h-screen" />;
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white font-serif selection:bg-white selection:text-black overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+    <main className="page-paper">
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.04] bg-[url('/textures/noise.svg')]" />
       
-      <Link href={`/${locale}/letters`} className="fixed top-12 left-12 z-50 text-white/20 hover:text-white transition-all duration-500 uppercase text-[10px] tracking-[0.8em] font-bold mix-blend-difference">
+      <Link href={`/${locale}/letters`} className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-500 uppercase text-[10px] tracking-[0.8em] font-bold mix-blend-difference">
         ← BACK
       </Link>
 
@@ -48,7 +48,7 @@ export default async function LetterDetail({ params }: { params: Promise<{ slug:
               {letter.writtenDate}
             </motion.p>
           )}
-          <div className="h-px w-24 bg-stone-800" />
+          <div className="h-px w-24 bg-stone-300" />
         </header>
 
         {/* 3. OPTIONAL IMAGE */}
@@ -56,14 +56,14 @@ export default async function LetterDetail({ params }: { params: Promise<{ slug:
           <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mb-24 shadow-2xl border border-white/5"
+            className="mb-24 shadow-2xl border border-stone-200"
           >
-            <img src={letter.imageUrl} className="w-full h-auto grayscale brightness-75" alt="Archive Scan" />
+            <img src={letter.imageUrl} className="w-full h-auto grayscale brightness-90" alt="Archive Scan" />
           </motion.div>
         )}
 
         {/* 4. POEM CONTENT */}
-        <div className="text-xl md:text-3xl leading-[1.6] text-stone-300 font-light italic tracking-tight mb-24">
+        <div className="text-xl md:text-3xl leading-[1.6] text-stone-700 font-light italic tracking-tight mb-24">
           {letter.content && (
             <Typewriter 
               text={letter.content} 
@@ -77,9 +77,9 @@ export default async function LetterDetail({ params }: { params: Promise<{ slug:
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="pt-12 border-t border-stone-900 flex flex-col items-end"
+          className="pt-12 border-t border-stone-200 flex flex-col items-end"
         >
-          <h2 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white">
+          <h2 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-black">
             — {letter.author || 'Anonymous'}
           </h2>
         </motion.footer>
