@@ -42,6 +42,19 @@ export const visualMenu = defineType({
               title: 'Background Image',
               type: 'image',
               options: { hotspot: true },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alternative Text',
+                  type: 'string',
+                  description: 'Describe the image for screen readers.',
+                }),
+                defineField({
+                  name: 'caption',
+                  title: 'Image Caption',
+                  type: 'localeText',
+                }),
+              ],
               validation: (Rule) => Rule.required()
             }),
             defineField({
