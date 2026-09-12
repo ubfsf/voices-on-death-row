@@ -73,7 +73,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
 
             <div className="text-[17px] leading-[1.8] text-[#1E1E1E] space-y-6">
-              {biography.split('\n\n').map((p, i) => (
+              {biography.split('\n\n').map((p: string, i: number) => (
                 <p key={i}>{p.trim()}</p>
               ))}
             </div>
