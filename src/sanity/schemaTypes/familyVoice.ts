@@ -22,6 +22,7 @@ export const familyVoice = defineType({
         list: [
           { title: '🕯️ Families of Murder Victims', value: 'victims' },
           { title: '⚖️ Families of the Condemned', value: 'condemned' },
+          { title: '🌅 Victims & Survivors Against the Death Penalty', value: 'survivors' },
         ],
         layout: 'radio',
       },
@@ -204,6 +205,7 @@ export const familyVoice = defineType({
       const categoryMap: Record<string, string> = {
         victims: '🕯️ Families of Murder Victims',
         condemned: '⚖️ Families of the Condemned',
+        survivors: '🌅 Victims & Survivors Against the Death Penalty',
       };
       return {
         title,

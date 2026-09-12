@@ -1,21 +1,16 @@
 // src/lib/sanityQueries.ts
 import { client } from './sanity';
+import type { PodcastEpisode } from '@/types/episode';
 
 // Get Visual Menu data (FIXED)
 export async function getVisualMenu(locale: string) {
   const query = `*[_type == "visualMenu"][0]{
-    "heroTitle": heroTitle{
-      "subtitle": subtitle[$locale],
-      "mainTitle": mainTitle[$locale],
-      "prefix": prefix[$locale],
-      "deathRowText": deathRowText[$locale],
-      "brushstrokeImage": brushstrokeImage.asset->url
-    },
     "menuItems": menuItems[]{
       "title": title[$locale],
       "subtitle": subtitle[$locale],
       slug,
       "image": image.asset->url,
+      "hotspot": image.hotspot,
       align,
       isActive
     }
@@ -28,7 +23,14 @@ export async function getVisualMenu(locale: string) {
 export async function getAboutPage(locale: string) {
   const query = `*[_type == "aboutPage"][0]{
     "title": title[$locale],
-    "heroImage": heroImage.asset->url,
+    "heroImage": heroImage{
+      "url": heroImage.asset->url,
+      "hotspot": heroImage.hotspot
+    },
+    "portraitImage": portraitImage{
+      "url": portraitImage.asset->url,
+      "hotspot": portraitImage.hotspot
+    },
     "founderName": founderName[$locale],
     "founderTitle": founderTitle[$locale],
     "biography": biography[$locale],
@@ -102,15 +104,21 @@ export async function getLetter(slug: string, locale: string) {
   return await client.fetch(query, { slug, locale });
 }
 
-// Get Podcasts
-export async function getPodcasts(locale: string) {
-  const query = `*[_type == "podcast"]{
-    title,
-    slug,
+// Get Podcast Episodes
+// NOTE: projection is the single source of truth for PodcastEpisode shape
+// (see src/types/episode.ts). Locale fields are resolved server-side via $locale.
+export async function getPodcastEpisodes(locale: string): Promise<PodcastEpisode[]> {
+  const query = `*[_type == "podcast"] | order(episodeNumber desc){
+    _id,
+    episodeNumber,
+    mediaType,
+    videoUrl,
+    "videoFileUrl": videoFile.asset->url,
+    "audioUrl": audioFile.asset->url,
+    "title": title[$locale],
     "description": description[$locale],
-    audioUrl,
-    image,
-    date
+    "transcript": transcript[$locale],
+    "imageUrl": coverImage.asset->url
   }`;
 
   return await client.fetch(query, { locale });

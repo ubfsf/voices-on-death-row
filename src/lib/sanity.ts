@@ -10,7 +10,11 @@ export const client = createClient({
   projectId: projectId,
   dataset: dataset,
   apiVersion: '2024-03-03',
-  useCdn: false, // Set to false to see changes immediately
+  // Use Sanity's CDN with ISR revalidation on fetches (see per-page
+  // `export const revalidate`). Content changes propagate within the
+  // revalidate window; wire a Sanity webhook → revalidateTag/on-demand
+  // purge for instant updates when the ingest pipeline lands.
+  useCdn: true,
 });
 
 // Image URL builder
