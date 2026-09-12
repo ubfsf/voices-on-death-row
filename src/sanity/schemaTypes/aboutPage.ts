@@ -23,6 +23,13 @@ export const aboutPage = defineType({
       description: 'Main image for the about page (museum photo)'
     }),
     defineField({
+      name: 'portraitImage',
+      title: 'Portrait Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Polaroid portrait of the founder used in the biography section'
+    }),
+    defineField({
       name: 'founderName',
       title: 'Founder Name',
       type: 'localeString',
