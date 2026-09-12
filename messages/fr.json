@@ -86,9 +86,14 @@
     "about_title": "À Propos du Projet",
     "about_desc": "Voices On Death Row est une plateforme franco-américaine d'advocacy fondée par Halima Kilgore et inspirée par 17 années de correspondance avec Borgela, un homme haïtien condamné à mort en Pennsylvanie. Nous sommes dédiés à donner de la visibilité et de la dignité aux personnes condamnées à mort. À travers des lettres, des interviews, de l'art et des témoignages, nous documentons des histoires réelles qui sont souvent effacées ou mal comprises, visant à humaniser, éduquer et susciter des conversations significatives sur le système judiciaire.",
     "navigate_title": "Navigation",
+    "nav_voices": "Voix",
+    "nav_letters": "Lettres",
+    "nav_podcast": "Podcast",
+    "nav_families": "Voix des Familles",
     "contact_title": "Contact",
     "founder_title": "Fondatrice",
+    "founder_role": "Co-Fondatrice & Directrice Exécutive",
     "copyright": "© 2026 Voices On Death Row",
-    "tagline": "Plateforme Franco-Américaine"
+    "tagline": "Donner une voix à chaque côté de l'histoire"
   }
 }
