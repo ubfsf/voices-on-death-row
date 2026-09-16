@@ -36,11 +36,16 @@ export function useCurtainTrigger({ transitionDuration = 800 }: UseCurtainTrigge
     if (unveiled) return;
 
     const started = { value: false };
-    const startAudio = () => {
+    const startAudio = async () => {
       if (unveiled || started.value) return;
-      started.value = true;
-      unlockAudio();
-      playWritingSound();
+      try {
+        // Unlock then attempt to play within the same user gesture
+        await unlockAudio();
+        await playWritingSound();
+        started.value = true;
+      } catch {
+        // If play is still blocked, let the next gesture retry
+      }
     };
 
     // First user activation – pointer/touch down is a reliable gesture

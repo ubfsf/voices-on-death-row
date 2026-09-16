@@ -14,9 +14,9 @@ function getAudio() {
 
 export function unlockAudio() {
   const audio = getAudio();
-  if (!audio) return;
+  if (!audio) return Promise.resolve();
   // Attempt to unlock audio context on first user gesture
-  audio.play().then(() => {
+  return audio.play().then(() => {
     audio.pause();
     audio.currentTime = 0;
   }).catch(() => {});
@@ -24,8 +24,8 @@ export function unlockAudio() {
 
 export function playWritingSound() {
   const audio = getAudio();
-  if (!audio) return;
-  audio.play().catch(() => {
+  if (!audio) return Promise.resolve();
+  return audio.play().catch(() => {
     // If autoplay is blocked, try again on next gesture
   });
 }

@@ -15,7 +15,7 @@ export const BRUSHSTROKE_CONFIG = {
   strokeOffsetX: "10px",
   strokeOffsetY: "-1px",
   textOffsetX: "0px",
-  textOffsetY: "0px",
+  textOffsetY: "4px",
 };
 
 export interface HeroTitleProps {
@@ -61,9 +61,6 @@ export default function HeroTitle({
   const resolvedPrefix = prefixText || t("prefix");
   const resolvedDeathRow = deathRowText || t("deathRowText");
 
-  const firstChar = resolvedPrefix?.charAt(0) ?? "";
-  const restPrefix = resolvedPrefix?.slice(1) ?? "";
-
   return (
     <motion.div
       initial={animationInitial}
@@ -77,13 +74,11 @@ export default function HeroTitle({
         <span className={mainTitleStyles}>{resolvedMainTitle}</span>
 
         <div className={containerStyles}>
-          {firstChar && (
-            <span className={`text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${prefixStyles}`}>
-              {firstChar}
-            </span>
-          )}
+          <span className={`text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${prefixStyles}`}>
+            {resolvedPrefix}
+          </span>
 
-          <span className="relative inline-flex items-center">
+          <span className="relative inline-flex items-center ml-2">
             {brushstrokeSrc && (
               <img
                 src={brushstrokeSrc}
@@ -94,9 +89,7 @@ export default function HeroTitle({
               />
             )}
             <span className={`relative z-10 text-[2rem] sm:text-[2.8rem] md:text-[3.8rem] lg:text-[4.6rem] ${deathRowStyles}`} style={{ transform: `translate(${BRUSHSTROKE_CONFIG.textOffsetX}, ${BRUSHSTROKE_CONFIG.textOffsetY})` }}>
-              {restPrefix && <span>{restPrefix}</span>}
-              {restPrefix && <span className="mx-2"> </span>}
-              <span>{resolvedDeathRow}</span>
+              {resolvedDeathRow}
             </span>
           </span>
         </div>
