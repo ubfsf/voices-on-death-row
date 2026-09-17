@@ -129,16 +129,16 @@ export default async function PodcastPage({ params }: Props) {
 
       <Link
         href={`/${locale}`}
-        className="fixed top-12 left-8 z-50 text-stone-400 hover:text-black transition-colors uppercase text-[10px] tracking-[0.5em] mix-blend-difference"
+        className="fixed top-12 left-8 z-50 text-black hover:text-black transition-colors uppercase text-[10px] tracking-[0.5em]"
       >
         ← {locale === 'fr' ? 'ACCUEIL' : 'HOME'}
       </Link>
 
       <header className="max-w-4xl mx-auto mb-32 text-center pt-24">
-        <h1 className="text-6xl md:text-9xl font-bold tracking-tighter italic mb-8">
+        <h1 className="text-6xl md:text-[8vw] font-black italic uppercase tracking-tighter leading-none text-black mb-8">
           {locale === 'fr' ? 'Le Podcast' : 'The Podcast'}
         </h1>
-        <div className="h-px w-32 bg-stone-300 mx-auto" />
+        <div className="h-px w-32 bg-black mx-auto" />
       </header>
 
       <div className="max-w-5xl mx-auto">
