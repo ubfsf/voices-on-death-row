@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { urlFor } from "@/lib/sanity";
+import PolaroidCard from "@/components/PolaroidCard";
 
 export default function VoicesGallery({
   voices,
@@ -83,31 +83,17 @@ export default function VoicesGallery({
               }}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
             >
-              <Link
+              <PolaroidCard
                 href={`/${locale}/voices/${voice.slug}`}
-                aria-label={`Read ${voice.author}'s story`}
-                className="block relative group focus-visible:outline-none"
-              >
-                {/* THE IMAGE CONTAINER */}
-                <div className="relative w-40 sm:w-56 md:w-72 transition-all duration-700 group-hover:scale-110 group-hover:rotate-0 group-hover:z-[60] shadow-[20px_20px_60px_rgba(0,0,0,0.15)]">
-                  <img
-                    src={urlFor(voice.photo).url()}
-                    alt={voice.author}
-                    className="w-full h-auto object-contain grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
-                    draggable={false}
-                  />
-                  
-                  {/* Subtle Paper Sheen */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none opacity-30 group-hover:opacity-10 transition-opacity" />
-                </div>
-
-                {/* NAME REVEAL (hover + keyboard focus) */}
-                <div className="absolute -bottom-8 left-0 w-full text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500">
-                  <span className="font-black italic text-[10px] md:text-xs text-black tracking-[0.4em] uppercase bg-white/90 px-3 py-1.5 backdrop-blur-md border border-stone-200 shadow-sm">
-                    {voice.author}
-                  </span>
-                </div>
-              </Link>
+                src={urlFor(voice.photo).url()}
+                alt={voice.author}
+                name={voice.author}
+                caseId={voice.caseId}
+                date={voice.recordedDate}
+                location={voice.archiveLocation}
+                rotate={pos.rotate}
+                className="w-40 sm:w-56 md:w-72"
+              />
             </motion.div>
           );
         })}
