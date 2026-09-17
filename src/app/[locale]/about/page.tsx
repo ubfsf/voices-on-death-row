@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Mic, Camera, BookOpen, Globe } from 'lucide-react';
 import AboutHero from './AboutHero';
 import type { Metadata } from 'next';
+import { motion } from 'framer-motion';
 
 export const revalidate = 60;
 
@@ -48,11 +49,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const iconMap = [Mic, Camera, BookOpen, Globe];
 
   return (
-    <div className="page-paper bg-paper-alt">
+    <div className="page-paper bg-paper-alt relative">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-multiply" style={{backgroundImage:"url('/textures/noise.svg')"}} />
       <AboutHero src={heroImage} title={pageTitle} />
       <section className="py-20 px-6 md:px-24 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[420px_1fr] gap-20 items-start">
-          <div className="relative">
+          <motion.div initial={{opacity:0, x:-40}} whileInView={{opacity:1, x:0}} viewport={{once:true}} transition={{duration:0.7, ease:'easeOut'}} className="relative">
             <div className="absolute -top-6 left-4 w-28 h-10 bg-[#DCC89D]/80 rotate-[-8deg] z-20 shadow-sm" style={{backgroundImage:"url('/textures/noise.svg')", backgroundBlendMode:'multiply'}} />
             <div className="absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg] text-[#1E1E1E] font-[var(--font-script)] text-[28px] whitespace-nowrap hidden md:block">Voices on Death Row ♡</div>
             <div className="bg-white p-4 pb-20 shadow-2xl rotate-[-3deg]">
@@ -61,9 +63,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </div>
               <p className="mt-10 text-center font-[var(--font-script)] text-[40px] text-[#1E1E1E] rotate-[-4deg]">{founderName} ♡</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="space-y-8">
+          <motion.div initial={{opacity:0, x:40}} whileInView={{opacity:1, x:0}} viewport={{once:true}} transition={{duration:0.7, delay:0.1, ease:'easeOut'}} className="space-y-8">
             <div>
               <p className="font-sans font-bold uppercase tracking-[0.15em] text-[11px]">About the Founder</p>
               <div className="w-32 h-px bg-black my-3" />
@@ -103,7 +105,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 })}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
