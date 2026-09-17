@@ -53,7 +53,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="py-20 px-6 md:px-24 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[420px_1fr] gap-20 items-start">
           <div className="relative">
-            <div className="absolute -top-6 left-4 w-28 h-10 bg-[#DCC89D]/80 rotate-[-8deg] z-20 shadow-sm" />
+            <div className="absolute -top-6 left-4 w-28 h-10 bg-[#DCC89D]/80 rotate-[-8deg] z-20 shadow-sm" style={{backgroundImage:"url('/textures/noise.svg')", backgroundBlendMode:'multiply'}} />
             <div className="absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg] text-[#1E1E1E] font-[var(--font-script)] text-[28px] whitespace-nowrap hidden md:block">Voices on Death Row ♡</div>
             <div className="bg-white p-4 pb-20 shadow-2xl rotate-[-3deg]">
               <div className="relative aspect-[3/4] overflow-hidden">
@@ -65,14 +65,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
           <div className="space-y-8">
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase">About the Founder</p>
+              <p className="font-sans font-bold uppercase tracking-[0.15em] text-[11px]">About the Founder</p>
               <div className="w-32 h-px bg-black my-3" />
-              <h2 className="text-5xl md:text-6xl font-serif leading-tight">{founderName}</h2>
-              <p className="font-[var(--font-script)] text-[32px] italic mt-2">{founderTitle}</p>
-              <div className="w-48 h-px bg-gradient-to-r from-black to-transparent mt-2" />
+              <h2 className="font-serif font-bold text-[48px] md:text-[56px] leading-[1.05]">{founderName}</h2>
+              <div className="relative inline-block mt-2">
+                <p className="font-[var(--font-script)] text-[32px] md:text-[36px] leading-none">{founderTitle}</p>
+                <div className="absolute -bottom-3 left-0 w-[105%] h-[14px] opacity-90" style={{backgroundImage:"url('/images/stroke_dark_background.png')", backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'left center'}} />
+              </div>
             </div>
 
-            <div className="text-[17px] leading-[1.8] text-[#1E1E1E] space-y-6">
+            <div className="font-sans leading-[1.6] text-[16px] md:text-[17px] text-[#1E1E1E] space-y-6">
               {biography.split('\n\n').map((p: string, i: number) => (
                 <p key={i}>{p.trim()}</p>
               ))}
@@ -82,7 +84,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               {quote}
             </blockquote>
 
-            <div className="mt-12 bg-[#f5f2ee] py-8">
+            <div className="mt-12 relative py-12 overflow-hidden">
+              <div className="absolute inset-0 -z-10 opacity-[0.9] mix-blend-multiply" style={{backgroundImage:"url('/images/stroke_light_background.png')", backgroundSize:'cover', backgroundPosition:'center'}} />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-200">
                 {values.map((v: any, i: number) => {
                   const Icon = iconMap[i];
@@ -90,11 +93,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     <div key={i} className="text-center px-6 py-6">
                       <div className="flex justify-center mb-3">
                         <div className="rounded-full border border-black/10 p-3">
-                          {Icon && <Icon size={36} strokeWidth={1.5} />}
+                          {Icon && <Icon size={36} strokeWidth={2.5} />}
                         </div>
                       </div>
-                      <p className="font-semibold tracking-wide">{v.label || v?.label?.en || v?.label}</p>
-                      <p className="text-sm mt-1 opacity-80">{v.description || v?.description?.en || v?.description}</p>
+                      <p className="font-sans font-bold uppercase tracking-wide whitespace-nowrap">{v.label || v?.label?.en || v?.label}</p>
+                      <p className="text-sm mt-1 opacity-80 font-sans">{v.description || v?.description?.en || v?.description}</p>
                     </div>
                   );
                 })}
