@@ -25,7 +25,14 @@ export const customPage = defineType({
       of: [
         { type: 'localeText' },
         { type: 'image', options: { hotspot: true } },
-        { type: 'string', name: 'videoUrl', title: 'Video URL' },
+        {
+          type: 'object',
+          name: 'videoBlock',
+          title: 'Video',
+          fields: [
+            { name: 'url', title: 'Video URL', type: 'url' },
+          ],
+        },
       ],
     }),
   ],
