@@ -24,8 +24,6 @@ export default function Footer() {
     { labelKey: 'nav_letters', path: '/letters' },
     { labelKey: 'nav_podcast', path: '/podcast' },
     { labelKey: 'nav_families', path: '/families_voices' },
-    { labelKey: 'nav_art', path: '/art' },
-    { labelKey: 'nav_resources', path: '/resources' },
     { labelKey: 'nav_survivors', path: '/survivors' },
   ] as const;
 
