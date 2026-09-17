@@ -1,10 +1,9 @@
 'use client'
 
-import { NextStudio } from 'next-sanity/studio'
 import dynamic from 'next/dynamic'
-import config from '../../../../sanity.config' 
+import config from '../../../../sanity.config'
 
-// THE FIX: Use dynamic import with ssr: false
+// Dynamic import with SSR disabled for Sanity Studio
 const StudioPage = dynamic(
   () => import('next-sanity/studio').then((mod) => mod.NextStudio),
   { ssr: false }

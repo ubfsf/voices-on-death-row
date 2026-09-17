@@ -4,7 +4,7 @@ import * as motion from "framer-motion/client";
 import ArchiveHeader from '@/components/ui/ArchiveHeader';
 
 export default async function LettersArchive({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+  const { locale = 'en' } = await params;
 
   // Querying letters - fetching content preview, author, and writtenDate
   const query = `*[_type == "letters"] | order(_createdAt desc){
@@ -64,7 +64,7 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
                 {/* TEXT OVERLAY: Author and Date (Minutes Before Six Style) */}
                 <div className="absolute inset-0 flex flex-col justify-end p-8 z-30 text-center">
                    {/* Gradient for readability - stronger when an image is present */}
-                   <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent ${letter.imageUrl ? 'opacity-80' : 'opacity-40'}`} />
+                   <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none ${letter.imageUrl ? 'opacity-80' : 'opacity-40'}`} />
                    
                    <div className="relative z-10">
                       <p className="text-white text-lg md:text-xl font-medium italic mb-1">
