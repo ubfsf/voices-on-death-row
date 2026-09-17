@@ -2,6 +2,7 @@ import { getFamilyVoices } from '@/lib/sanityQueries';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/lib/sanity';
+import { buildObjectPositionClasses } from '@/lib/imageBreakpoints';
 
 export const revalidate = 60;
 
@@ -30,7 +31,7 @@ export default async function SurvivorsPage({ params }: { params: Promise<{ loca
           src="/images/silhouettes_toward_light.jpg"
           alt="Two silhouettes walking toward the light"
           fill
-          className="object-cover object-[50%_30%]"
+          className={`object-cover ${buildObjectPositionClasses({ mobile: '50% 40%', tablet: '50% 35%', desktop: '50% 30%' })}`}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />

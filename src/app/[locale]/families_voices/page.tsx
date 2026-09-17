@@ -1,6 +1,7 @@
 // src/app/[locale]/families_voices/page.tsx
 import Link from "next/link";
 import Image from "next/image";
+import { buildObjectPositionClasses } from '@/lib/imageBreakpoints';
 
 type FamiliesVoicesPageProps = {
   params: Promise<{ locale: string }>;
@@ -44,7 +45,7 @@ export default async function FamiliesVoicesPage({ params }: FamiliesVoicesPageP
               src="/images/middleChair.png"
               alt="Empty Chair at Table"
               fill
-              className="object-cover grayscale opacity-90"
+              className={`object-cover grayscale opacity-90 ${buildObjectPositionClasses({ mobile: '50% 50%', tablet: '50% 45%', desktop: '50% 40%' })}`}
               priority
             />
           </div>
