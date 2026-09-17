@@ -23,7 +23,7 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
     <main className="min-h-screen bg-white text-black">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       
-      <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black">
+      <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-black hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black">
         ← MENU
       </Link>
 
@@ -43,10 +43,10 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
             <Link href={`/${locale}/letters/${letter.slug || letter._id}`} className="group block">
               
               {/* THE COVER CONTAINER */}
-              <div className="relative aspect-[4/5] overflow-hidden shadow-2xl border border-stone-200 bg-white mb-8 transition-all duration-700 group-hover:scale-[1.02]">
+              <div className="relative aspect-[4/5] overflow-hidden shadow-2xl border border-black bg-white mb-8 transition-all duration-700 group-hover:scale-[1.02]">
                 
                 {/* Tape Effect */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-stone-200/60 backdrop-blur-md rotate-1 z-20 border-x border-stone-300" />
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-black/10 backdrop-blur-md rotate-1 z-20 border-x border-black" />
                 
                 {letter.imageUrl ? (
                   <img 
@@ -56,8 +56,8 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
                   />
                 ) : (
                   /* BLANK COVER STATE: Light background for the overlay to sit on */
-                  <div className="w-full h-full bg-stone-100 flex items-center justify-center p-12">
-                     <div className="w-full h-full border border-stone-200 opacity-10" />
+                  <div className="w-full h-full bg-white flex items-center justify-center p-12">
+                     <div className="w-full h-full border border-black opacity-10" />
                   </div>
                 )}
 
@@ -71,7 +71,7 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
                         Poetry by {letter.author || 'Anonymous'}
                       </p>
                       {letter.writtenDate && (
-                        <p className="text-stone-300 uppercase tracking-[0.3em] text-[9px] font-mono">
+                        <p className="text-white uppercase tracking-[0.3em] text-[9px] font-sans">
                           {new Date(letter.writtenDate).toLocaleDateString(locale, { 
                             month: 'long', 
                             day: 'numeric', 
@@ -85,7 +85,7 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
               
               {/* EXTERNAL TITLE */}
               <div className="space-y-2 px-2">
-                <h2 className="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-none text-black group-hover:text-stone-500 transition-colors">
+                <h2 className="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-none text-black group-hover:text-black transition-colors">
                   {letter.title}
                 </h2>
               </div>

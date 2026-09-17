@@ -22,7 +22,7 @@ export default async function ArtArchive({ params }: { params: Promise<{ locale:
     <main className="page-paper">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       
-      <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference">
+      <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-black hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference">
         ← MENU
       </Link>
 
@@ -40,9 +40,9 @@ export default async function ArtArchive({ params }: { params: Promise<{ locale:
             transition={{ delay: index * 0.1 }}
           >
             <Link href={`/${locale}/art/${piece.slug || piece._id}`} className="group block">
-              <div className="relative aspect-square overflow-hidden shadow-2xl border border-stone-200 bg-white mb-8 transition-all duration-700 group-hover:scale-[1.02]">
+              <div className="relative aspect-square overflow-hidden shadow-2xl border border-black bg-white mb-8 transition-all duration-700 group-hover:scale-[1.02]">
                 
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-stone-200/60 backdrop-blur-md rotate-1 z-20 border-x border-stone-300" />
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-black/10 backdrop-blur-md rotate-1 z-20 border-x border-stone-300" />
                 
                 {piece.imageUrl ? (
                   <img 
@@ -52,25 +52,25 @@ export default async function ArtArchive({ params }: { params: Promise<{ locale:
                   />
                 ) : (
                   <div className="w-full h-full p-10 flex flex-col justify-start relative">
-                    <span className="text-stone-400 font-mono text-[8px] uppercase tracking-[0.4em] mb-8 italic">Poetic_Expression</span>
-                    <p className="text-stone-500 font-serif italic text-lg leading-relaxed line-clamp-6">
+                    <span className="text-black font-mono text-[8px] uppercase tracking-[0.4em] mb-8 italic">Poetic_Expression</span>
+                    <p className="text-black font-serif italic text-lg leading-relaxed line-clamp-6">
                       {piece.description}
                     </p>
                   </div>
                 )}
 
-                <div className="absolute top-8 right-8 z-20 bg-white/80 backdrop-blur-sm px-3 py-1 border border-stone-200">
-                  <span className="text-[8px] font-mono text-stone-500 tracking-[0.4em] uppercase">
+                <div className="absolute top-8 right-8 z-20 bg-white/80 backdrop-blur-sm px-3 py-1 border border-black">
+                  <span className="text-[8px] font-mono text-black tracking-[0.4em] uppercase">
                     {piece.medium || 'Exhibit'}
                   </span>
                 </div>
               </div>
               
               <div className="space-y-2">
-                <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-none text-black group-hover:text-stone-500 transition-colors">
+                <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-none text-black group-hover:text-black transition-colors">
                   {piece.title}
                 </h2>
-                <p className="text-stone-400 font-mono text-[9px] uppercase tracking-widest">
+                <p className="text-black font-mono text-[9px] uppercase tracking-widest">
                   By: {piece.artist || 'Anonymous'}
                 </p>
               </div>

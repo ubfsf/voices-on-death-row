@@ -31,7 +31,7 @@ export default async function VoicesPage({ params }: Props) {
       {/* Navigation */}
       <Link 
         href={`/${locale}`} 
-        className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference"
+        className="fixed top-12 left-12 z-50 text-black hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference"
       >
         ← MENU
       </Link>
@@ -46,7 +46,7 @@ export default async function VoicesPage({ params }: Props) {
           <VoicesGallery voices={voices} locale={locale} />
         ) : (
           <div className="h-screen flex items-center justify-center">
-            <p className="text-stone-400 uppercase tracking-[1em] text-[10px] animate-pulse">
+            <p className="text-black uppercase tracking-[1em] text-[10px] animate-pulse">
               Retrieving Archive...
             </p>
           </div>
