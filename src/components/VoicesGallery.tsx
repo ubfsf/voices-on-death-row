@@ -55,7 +55,7 @@ export default function VoicesGallery({
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5 }}
-          className="text-5xl sm:text-7xl md:text-[10vw] font-black italic uppercase leading-[0.8] tracking-tighter text-stone-300 drop-shadow-[0_0_80px_rgba(252,250,247,1)]"
+          className="text-5xl sm:text-7xl md:text-[10vw] font-black italic uppercase leading-[0.8] tracking-tighter text-black drop-shadow-[0_0_80px_rgba(252,250,247,1)]"
         >
           THE <span className="text-black">VOICES</span>
         </motion.h1>

@@ -20,10 +20,10 @@ export default async function LettersArchive({ params }: { params: Promise<{ loc
   const letters = await client.fetch(query, { locale });
 
   return (
-    <main className="page-paper">
+    <main className="min-h-screen bg-white text-black">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] bg-[url('/textures/noise.svg')]" />
       
-      <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black mix-blend-difference">
+      <Link href={`/${locale}`} className="fixed top-12 left-12 z-50 text-stone-400 hover:text-black transition-all duration-700 uppercase text-[10px] tracking-[1em] font-black">
         ← MENU
       </Link>
 
