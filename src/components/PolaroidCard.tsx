@@ -37,7 +37,11 @@ export default function PolaroidCard({
       <div className="polaroid-card">
         <div className="masking-tape" />
         <div className="photo-wrapper">
-          <Image src={src} alt={alt} fill className="object-cover grayscale" sizes="(max-width: 768px) 80vw, 320px" priority={false} />
+          {src ? (
+            <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 80vw, 320px" priority={false} unoptimized />
+          ) : (
+            <div className="w-full h-full bg-[#f5f5f5]" />
+          )}
         </div>
         <div className="polaroid-chin">
           <h3 className="inmate-name">{name}</h3>
