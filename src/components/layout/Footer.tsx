@@ -7,7 +7,7 @@
 "use client";
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 /**
  * Footer - Dark theme using design tokens
@@ -16,6 +16,7 @@ import { useTranslations } from 'next-intl';
  */
 export default function Footer() {
   const t = useTranslations('Footer');
+  const locale = useLocale();
 
   // Nav labels are translation keys resolved through the Footer namespace.
   const navItems = [
@@ -46,7 +47,7 @@ export default function Footer() {
             <h3 className="footer-text-faint text-xs font-light uppercase tracking-[0.3em]">
               {t('about_title')}
             </h3>
-            <p className="footer-text-muted text-sm leading-relaxed max-w-2xl font-light">
+            <p className="text-white/90 font-sans text-[15px] leading-relaxed max-w-2xl font-normal">
               {t('about_desc')}
             </p>
             <div className="w-16 h-px footer-divider" />
@@ -63,12 +64,12 @@ export default function Footer() {
             <h3 className="footer-text-faint text-xs font-light uppercase tracking-[0.3em]">
               {t('navigate_title')}
             </h3>
-            <ul className="space-y-4 text-sm">
+            <ul className="space-y-4">
               {navItems.map((item) => (
                 <li key={item.path}>
                   <Link
-                    href={`/${item.path}`}
-                    className="footer-text-muted hover:text-white focus-visible:text-white transition-all duration-300 text-sm font-light tracking-wider hover:tracking-widest"
+                    href={`/${locale}${item.path}`}
+                    className="text-white font-sans text-[15px] font-medium tracking-wide hover:tracking-wider transition-all duration-300"
                   >
                     {t(item.labelKey)}
                   </Link>
@@ -85,18 +86,18 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="border-t border-footer-border pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
         >
-          <p className="footer-text-faint text-xs font-light tracking-[0.2em]">
+          <p className="text-white/80 font-sans text-[13px] tracking-[0.18em]">
             {t('founder_role')}:{' '}
-            <span className="text-stone-300 hover:text-white transition-colors duration-300">
+            <span className="text-white font-medium">
               Halima Kilgore
             </span>
           </p>
 
           <div className="text-right space-y-1">
-            <p className="footer-text-faint text-xs tracking-[0.2em]">
+            <p className="text-white/90 font-sans text-[13px] tracking-[0.18em]">
               © {new Date().getFullYear()} VOICES ON DEATH ROW
             </p>
-            <p className="footer-text-faint text-[10px] tracking-[0.3em] font-light opacity-60">
+            <p className="text-white/70 font-sans text-[11px] tracking-[0.24em]">
               {t('tagline')}
             </p>
           </div>
